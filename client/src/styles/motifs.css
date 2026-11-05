@@ -1,0 +1,177 @@
+/* Reusable pieces of the marked-up-contract look (SPEC section 10, design.md section 4). */
+
+/* --- Severity stamp: a word on a bordered, rotated label, never colour alone --- */
+.cc-stamp {
+  display: inline-block;
+  padding: 1px 8px;
+  border: var(--rule-strong) solid currentColor;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: var(--tracking-stamp);
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--white);
+}
+
+.cc-stamp--high {
+  color: var(--red-text);
+  transform: rotate(var(--tilt-high));
+}
+
+.cc-stamp--medium {
+  color: var(--orange-text);
+  transform: rotate(var(--tilt-medium));
+}
+
+.cc-stamp--missing {
+  color: var(--pen-blue);
+  transform: rotate(var(--tilt-missing));
+}
+
+/* --- Marker highlight: the only gradient in the product (SPEC section 10) --- */
+.cc-marker {
+  color: var(--ink);
+  background: linear-gradient(
+    104deg,
+    transparent 0.9%,
+    var(--highlighter) 2.4%,
+    var(--highlighter) 96%,
+    transparent 99%
+  );
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: 0.18em;
+}
+
+/* --- Red-pen circle: an imperfect SVG loop drawn over its content --- */
+.cc-redpen {
+  position: relative;
+  display: inline-block;
+}
+
+.cc-redpen__svg {
+  position: absolute;
+  inset: -16% -9% -20%;
+  width: 118%;
+  height: 136%;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cc-redpen__svg path {
+  fill: none;
+  stroke: var(--red-pen);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* --- Ruled paper: notebook (white) and legal pad (yellow) ---
+   Rules are an SVG pattern, not a gradient, so the marker stays the only
+   gradient. The two colours repeat --ruled-line and --legal-pad-rule because
+   CSS variables cannot reach inside a data URI. Every line is 42 px tall so
+   wrapped Hindi stays on the rules (design.md section 6). */
+.cc-ruled {
+  position: relative;
+  padding: 21px 22px 21px 64px;
+  border: var(--rule-thin) solid var(--rule);
+  background-color: var(--white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='42'%3E%3Crect y='41' width='8' height='1' fill='%23B9C6EC'/%3E%3C/svg%3E");
+  background-position: 0 21px;
+  font-family: var(--font-hand);
+  font-size: 21px;
+  line-height: 42px;
+  color: var(--note-ink);
+  transform: rotate(var(--tilt-notebook));
+}
+
+.cc-ruled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 46px;
+  width: 1.5px;
+  background: var(--margin-line);
+}
+
+.cc-ruled--legal {
+  border-color: var(--legal-pad-border);
+  background-color: var(--legal-pad);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='42'%3E%3Crect y='41' width='8' height='1' fill='%23D8CB63'/%3E%3C/svg%3E");
+  transform: rotate(var(--tilt-legal-pad));
+}
+
+/* --- Sticky note: the glossary tooltip's paper --- */
+.cc-sticky {
+  width: min(290px, 100%);
+  padding: 12px 14px 14px;
+  border: var(--rule-section) solid var(--ink);
+  background: var(--highlighter);
+  box-shadow: var(--shadow-sticky);
+  color: var(--ink);
+  font-family: var(--font-reading);
+  font-size: 15px;
+  line-height: 1.5;
+  transform: rotate(var(--tilt-sticky));
+}
+
+.cc-sticky__title {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* --- Dotted-leader row: label ..... value (key facts) --- */
+.cc-leader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cc-leader__label {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-leader__dots {
+  flex: 1 1 24px;
+  min-width: 24px;
+  border-bottom: var(--rule-section) dotted var(--leader);
+  transform: translateY(-4px);
+}
+
+.cc-leader__value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--ink);
+  text-align: right;
+}
+
+/* --- Section mark: "§1  What you can feed it" --- */
+.cc-section-mark {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.cc-section-mark__number {
+  margin-right: 0.8em;
+}

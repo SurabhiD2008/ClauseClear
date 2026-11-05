@@ -1,0 +1,27 @@
+{
+  "name": "@clauseclear/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --conditions=development src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/start.js",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.build.json --noEmit"
+  },
+  "dependencies": {
+    "@clauseclear/shared": "*",
+    "express": "5.3.0",
+    "express-rate-limit": "8.7.1",
+    "helmet": "8.3.0",
+    "multer": "2.5.0",
+    "pdfjs-dist": "6.4.299",
+    "pino": "10.4.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.6",
+    "@types/supertest": "7.2.1",
+    "supertest": "7.3.1"
+  }
+}

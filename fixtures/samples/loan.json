@@ -1,0 +1,698 @@
+{
+  "id": "loan",
+  "title": "Personal Loan Agreement",
+  "docType": "loan",
+  "hiReviewed": false,
+  "en": {
+    "version": 1,
+    "docType": "loan",
+    "docTypeLabel": "Loan or credit agreement",
+    "docTypeConfidence": "high",
+    "title": "Personal Loan Agreement",
+    "stats": { "pages": 3, "chars": 5102, "segments": 26 },
+    "segments": [
+      {
+        "id": "s1",
+        "page": 1,
+        "text": "PERSONAL LOAN AGREEMENT\n\nThis Personal Loan Agreement is made at Hyderabad on 20 September 2026 between\nSwiftcred Finance Limited, a non-banking finance company with its office at 5 Banjara Hills\nRoad, Hyderabad (the Lender), and Ms. Lakshmi Reddy, residing at 23 Gandhi Nagar,\nSecunderabad (the Borrower), and Mr. Venkat Rao, residing at 8 Temple Street, Warangal (the\nGuarantor)."
+      },
+      {
+        "id": "s2",
+        "page": 1,
+        "text": "1. THE LOAN\n\n1.1 The Lender agrees to lend the Borrower Rs. 4,00,000 (the Loan) for personal purposes, to\nbe repaid in thirty-six monthly instalments."
+      },
+      {
+        "id": "s3",
+        "page": 1,
+        "text": "1.2 The Loan will be disbursed to the Borrower's bank account after deduction of the fees and\ncharges set out in clause 4."
+      },
+      {
+        "id": "s4",
+        "page": 1,
+        "text": "2. INTEREST\n\n2.1 Interest shall be charged at the rate of 1.5 percent per month on the Loan, calculated on\nsuch basis as the Lender may adopt."
+      },
+      {
+        "id": "s5",
+        "page": 1,
+        "text": "2.2 The Lender may change the rate of interest at any time at its sole discretion, with or\nwithout notice to the Borrower, and the revised rate shall apply from the date the Lender\ndecides."
+      },
+      {
+        "id": "s6",
+        "page": 1,
+        "text": "3. REPAYMENT\n\n3.1 The Borrower shall repay the Loan with interest in equated monthly instalments of the\namount the Lender communicates, due on the 3rd day of each month."
+      },
+      {
+        "id": "s7",
+        "page": 1,
+        "text": "3.2 The Borrower may prepay the whole of the Loan only after twelve instalments have been\npaid, on payment of a foreclosure charge of 6 percent of the principal outstanding together\nwith interest for the following three months. Part prepayment is not allowed."
+      },
+      {
+        "id": "s8",
+        "page": 1,
+        "text": "4. FEES AND CHARGES\n\n4.1 The Borrower shall pay a processing fee of 3 percent of the Loan, documentation charges,\na convenience fee, and such other charges as the Lender may levy from time to time, all of\nwhich are non-refundable."
+      },
+      {
+        "id": "s9",
+        "page": 1,
+        "text": "4.2 A cheque or mandate bounce charge of Rs. 750 shall apply to each dishonoured\ninstalment, in addition to any other charges."
+      },
+      {
+        "id": "s10",
+        "page": 1,
+        "text": "5. LATE PAYMENT AND DEFAULT\n\n5.1 If any instalment is not paid on its due date, the Borrower shall pay penal interest of 3\npercent per month on the overdue amount, compounded monthly, in addition to the regular"
+      },
+      {
+        "id": "s11",
+        "page": 2,
+        "text": "interest, together with a collection charge of Rs. 500 for every visit or call made to recover\nthe dues."
+      },
+      {
+        "id": "s12",
+        "page": 2,
+        "text": "5.2 Each of the following is an event of default:\n\n(a) the Borrower fails to pay any amount on its due date;"
+      },
+      {
+        "id": "s13",
+        "page": 2,
+        "text": "(b) the Borrower changes her job, address or mobile number without informing the\nLender;"
+      },
+      {
+        "id": "s14",
+        "page": 2,
+        "text": "(c) any other loan of the Borrower or the Guarantor with any lender is in default or is\nclosed early;"
+      },
+      {
+        "id": "s15",
+        "page": 2,
+        "text": "(d) in the opinion of the Lender, any event has occurred which may affect the Borrower's\nability to repay."
+      },
+      {
+        "id": "s16",
+        "page": 2,
+        "text": "6. ACCELERATION\n\n6.1 On the occurrence of any event of default, or at any other time if the Lender so decides,\nthe Lender may declare the entire Loan with interest and all charges immediately due and\npayable, and the Borrower shall pay it within seven days of demand."
+      },
+      {
+        "id": "s17",
+        "page": 2,
+        "text": "7. SECURITY AND GUARANTEE\n\n7.1 The Guarantor unconditionally guarantees the repayment of the Loan and of all other\namounts that the Borrower owes or may come to owe the Lender under any agreement, now\nor in the future, and agrees that the Lender may proceed against the Guarantor without first\nproceeding against the Borrower."
+      },
+      {
+        "id": "s18",
+        "page": 2,
+        "text": "7.2 The Borrower agrees that the Lender may set off any amount due against any deposit,\nsalary credit or other money of the Borrower held with the Lender or its group companies."
+      },
+      {
+        "id": "s19",
+        "page": 2,
+        "text": "8. INSURANCE\n\n8.1 The Borrower shall take a credit life insurance policy and a personal accident cover\narranged by the Lender, and the premium for both shall be deducted from the Loan amount at\ndisbursement. The Loan will not be disbursed without these policies."
+      },
+      {
+        "id": "s20",
+        "page": 2,
+        "text": "9. AUTO-DEBIT MANDATE\n\n9.1 The Borrower authorises the Lender to debit her bank account, by NACH mandate or\notherwise, for any amount the Lender determines to be payable under this agreement, at any\ntime and as many times as the Lender considers necessary, including amounts above the\ninstalment."
+      },
+      {
+        "id": "s21",
+        "page": 3,
+        "text": "10. CREDIT INFORMATION\n\n10.1 The Borrower consents to the Lender sharing any information about the Borrower, the\nLoan and her repayment record with credit information companies, collection agencies,\nmarketing partners, group companies and any other third party the Lender thinks fit."
+      },
+      {
+        "id": "s22",
+        "page": 3,
+        "text": "11. COLLECTION\n\n11.1 The Lender may appoint recovery agents to collect overdue amounts, and the Borrower\nshall bear all collection costs, including legal fees, on such scale as the Lender decides."
+      },
+      {
+        "id": "s23",
+        "page": 3,
+        "text": "12. DISPUTE RESOLUTION\n\n12.1 Any dispute arising under this agreement shall be referred to arbitration by a sole\narbitrator nominated by the Lender. The arbitration shall be held at Mumbai and conducted in\nEnglish, and the award shall be binding on all parties."
+      },
+      {
+        "id": "s24",
+        "page": 3,
+        "text": "13. GENERAL\n\n13.1 The Lender may assign or transfer this Loan to any person without notice to the\nBorrower. The Borrower may not assign her rights or obligations."
+      },
+      {
+        "id": "s25",
+        "page": 3,
+        "text": "13.2 The Borrower confirms that she has read and understood this agreement, that it has been\nexplained to her in a language she understands, and that she signs it of her own free will."
+      },
+      {
+        "id": "s26",
+        "page": 3,
+        "text": "Signed for Swiftcred Finance Limited by its authorised signatory, Anil Varma. Signed by the\nBorrower, Lakshmi Reddy. Signed by the Guarantor, Venkat Rao."
+      }
+    ],
+    "summary": "This personal loan agreement is between Swiftcred Finance Limited, Ms. Lakshmi Reddy as the borrower, and Mr. Venkat Rao as the guarantor for a loan of Rs. 4,00,000. It contains terms about variable interest rates, steep penalties, and wide powers for the lender that you should review carefully before signing.",
+    "score": { "value": 100, "band": "high", "counts": { "high": 5, "medium": 5, "missing": 0 } },
+    "keyFacts": [
+      { "id": "k1", "label": "Loan Amount", "value": "Rs. 4,00,000", "segmentId": "s2" },
+      {
+        "id": "k2",
+        "label": "Number of Instalments",
+        "value": "thirty-six monthly instalments",
+        "segmentId": "s2"
+      },
+      { "id": "k3", "label": "Interest Rate", "value": "1.5 percent per month", "segmentId": "s4" },
+      {
+        "id": "k4",
+        "label": "Instalment Due Date",
+        "value": "3rd day of each month",
+        "segmentId": "s6"
+      },
+      {
+        "id": "k5",
+        "label": "Processing Fee",
+        "value": "3 percent of the Loan",
+        "segmentId": "s8"
+      },
+      { "id": "k6", "label": "Bounce Charge", "value": "Rs. 750", "segmentId": "s9" },
+      { "id": "k7", "label": "Penal Interest", "value": "3 percent per month", "segmentId": "s10" },
+      { "id": "k8", "label": "Collection Visit Charge", "value": "Rs. 500", "segmentId": "s11" }
+    ],
+    "flags": [
+      {
+        "id": "f1",
+        "kind": "present",
+        "severity": "high",
+        "category": "Interest rate",
+        "title": "Lender can change interest rate",
+        "plain": "The lender can increase your interest rate at any time without telling you beforehand.",
+        "why": "This can make your monthly payments unpredictable and much harder to afford.",
+        "segmentId": "s5",
+        "quote": "The Lender may change the rate of interest at any time at its sole discretion, with or\nwithout notice to the Borrower, and the revised rate shall apply from the date the Lender\ndecides.",
+        "termIds": []
+      },
+      {
+        "id": "f2",
+        "kind": "present",
+        "severity": "high",
+        "category": "Prepayment and foreclosure",
+        "title": "Restrictions and fees for paying early",
+        "plain": "You cannot pay off the loan early in parts, and if you pay it off completely after one year, you must pay a 6 percent fee plus extra interest.",
+        "why": "It costs you extra money if you want to close your debt early to save on interest.",
+        "segmentId": "s7",
+        "quote": "The Borrower may prepay the whole of the Loan only after twelve instalments have been\npaid, on payment of a foreclosure charge of 6 percent of the principal outstanding together\nwith interest for the following three months. Part prepayment is not allowed.",
+        "termIds": ["g1", "g2", "g3"]
+      },
+      {
+        "id": "f3",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Fees",
+        "title": "Broad and non-refundable fees",
+        "plain": "You must pay several fees that are not fully itemised, and you will not get them back even if the loan does not go through.",
+        "why": "Open-ended fee clauses mean the lender can add extra costs without your clear agreement.",
+        "segmentId": "s8",
+        "quote": "The Borrower shall pay a processing fee of 3 percent of the Loan, documentation charges,\na convenience fee, and such other charges as the Lender may levy from time to time, all of\nwhich are non-refundable.",
+        "termIds": []
+      },
+      {
+        "id": "f4",
+        "kind": "present",
+        "severity": "high",
+        "category": "Late payment and default",
+        "title": "High late payment penalties",
+        "plain": "If you miss a payment date, you must pay an extra 3 percent per month in penalty interest, which adds up quickly.",
+        "why": "Penalties that stack up can quickly trap you in a cycle of growing debt.",
+        "segmentId": "s10",
+        "quote": "If any instalment is not paid on its due date, the Borrower shall pay penal interest of 3\npercent per month on the overdue amount, compounded monthly, in addition to the regular",
+        "termIds": ["g1", "g4"]
+      },
+      {
+        "id": "f5",
+        "kind": "present",
+        "severity": "high",
+        "category": "Acceleration",
+        "title": "Demand for full repayment on short notice",
+        "plain": "If you break any rule, the lender can demand that you pay back the entire remaining loan amount within seven days.",
+        "why": "Finding a large sum of money in just a week is extremely difficult and can lead to severe financial distress.",
+        "segmentId": "s16",
+        "quote": "On the occurrence of any event of default, or at any other time if the Lender so decides,\nthe Lender may declare the entire Loan with interest and all charges immediately due and\npayable, and the Borrower shall pay it within seven days of demand.",
+        "termIds": []
+      },
+      {
+        "id": "f6",
+        "kind": "present",
+        "severity": "high",
+        "category": "Collateral and guarantor",
+        "title": "Wide guarantor liability",
+        "plain": "The guarantor is responsible not only for this loan but for any other debts you might owe the lender now or later, and the lender can sue the guarantor right away.",
+        "why": "This places a heavy financial risk on the guarantor beyond just this single loan.",
+        "segmentId": "s17",
+        "quote": "The Guarantor unconditionally guarantees the repayment of the Loan and of all other\namounts that the Borrower owes or may come to owe the Lender under any agreement, now\nor in the future, and agrees that the Lender may proceed against the Guarantor without first\nproceeding against the Borrower.",
+        "termIds": ["g5"]
+      },
+      {
+        "id": "f7",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Insurance bundling",
+        "title": "Mandatory insurance bundling",
+        "plain": "You are forced to buy specific insurance policies chosen by the lender, and the cost is cut directly from your loan money.",
+        "why": "This reduces the actual cash you receive in hand and ties extra products to your loan.",
+        "segmentId": "s19",
+        "quote": "The Borrower shall take a credit life insurance policy and a personal accident cover\narranged by the Lender, and the premium for both shall be deducted from the Loan amount at\ndisbursement. The Loan will not be disbursed without these policies.",
+        "termIds": []
+      },
+      {
+        "id": "f8",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Auto-debit and consent",
+        "title": "Wide auto-debit permissions",
+        "plain": "You give the lender permission to take money from your bank account whenever they want and in whatever amounts they decide.",
+        "why": "This can lead to unexpected withdrawals from your account that might leave you short on funds for living expenses.",
+        "segmentId": "s20",
+        "quote": "The Borrower authorises the Lender to debit her bank account, by NACH mandate or\notherwise, for any amount the Lender determines to be payable under this agreement, at any\ntime and as many times as the Lender considers necessary, including amounts above the\ninstalment.",
+        "termIds": ["g1", "g7"]
+      },
+      {
+        "id": "f9",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Credit reporting",
+        "title": "Broad data sharing",
+        "plain": "The lender can share your personal and financial details with marketing partners and various third parties.",
+        "why": "Your private data can be passed on to outside companies, which may lead to unwanted marketing calls.",
+        "segmentId": "s21",
+        "quote": "The Borrower consents to the Lender sharing any information about the Borrower, the\nLoan and her repayment record with credit information companies, collection agencies,\nmarketing partners, group companies and any other third party the Lender thinks fit.",
+        "termIds": []
+      },
+      {
+        "id": "f10",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Dispute resolution",
+        "title": "Lender chooses the arbitrator in another city",
+        "plain": "If there is a disagreement, the lender gets to pick the arbitrator, and the hearings will take place in Mumbai.",
+        "why": "Having to deal with legal matters in a distant city with an arbitrator chosen by the lender puts you at a disadvantage.",
+        "segmentId": "s23",
+        "quote": "Any dispute arising under this agreement shall be referred to arbitration by a sole\narbitrator nominated by the Lender. The arbitration shall be held at Mumbai and conducted in\nEnglish, and the award shall be binding on all parties.",
+        "termIds": ["g8"]
+      }
+    ],
+    "clauses": [
+      {
+        "id": "c1",
+        "segmentId": "s1",
+        "heading": "Parties to the Agreement",
+        "plain": "This agreement is between Swiftcred Finance Limited, Lakshmi Reddy, and Venkat Rao."
+      },
+      {
+        "id": "c2",
+        "segmentId": "s2",
+        "heading": "The Loan Amount",
+        "plain": "The lender agrees to lend Rs. 4,00,000 for personal use, to be repaid in 36 monthly instalments."
+      },
+      {
+        "id": "c3",
+        "segmentId": "s3",
+        "heading": "Disbursement",
+        "plain": "The loan money will be sent to your bank account after deducting fees."
+      },
+      {
+        "id": "c4",
+        "segmentId": "s4",
+        "heading": "Interest Rate",
+        "plain": "Interest is charged at 1.5 percent per month on the loan."
+      },
+      {
+        "id": "c5",
+        "segmentId": "s5",
+        "heading": "Changes to Interest",
+        "plain": "The lender can change your interest rate at any time without telling you.",
+        "flagId": "f1"
+      },
+      {
+        "id": "c6",
+        "segmentId": "s6",
+        "heading": "Repayment Schedule",
+        "plain": "You must pay equated monthly instalments on the 3rd day of each month."
+      },
+      {
+        "id": "c7",
+        "segmentId": "s7",
+        "heading": "Prepayment Rules",
+        "plain": "You can only pay off the loan early after 12 months by paying extra fees, and partial prepayments are not allowed.",
+        "flagId": "f2"
+      },
+      {
+        "id": "c8",
+        "segmentId": "s8",
+        "heading": "Fees and Charges",
+        "plain": "You must pay processing, documentation, and convenience fees that are non-refundable.",
+        "flagId": "f3"
+      },
+      {
+        "id": "c9",
+        "segmentId": "s9",
+        "heading": "Bounce Charges",
+        "plain": "A fee of Rs. 750 applies if a payment bounces."
+      },
+      {
+        "id": "c10",
+        "segmentId": "s10",
+        "heading": "Late Payment Penalties",
+        "plain": "Missed payments attract an extra 3 percent monthly penal interest and collection visit fees.",
+        "flagId": "f4"
+      },
+      {
+        "id": "c11",
+        "segmentId": "s11",
+        "heading": "Collection Charges",
+        "plain": "You must pay Rs. 500 for every visit or call made to recover overdue amounts."
+      },
+      {
+        "id": "c12",
+        "segmentId": "s12",
+        "heading": "Events of Default",
+        "plain": "Missing a payment is considered an event of default."
+      },
+      {
+        "id": "c13",
+        "segmentId": "s13",
+        "heading": "Default on Personal Changes",
+        "plain": "Changing your job, address, or mobile number without telling the lender counts as a default."
+      },
+      {
+        "id": "c14",
+        "segmentId": "s14",
+        "heading": "Default on Other Loans",
+        "plain": "If you or your guarantor default on any other loan, it counts as a default here too."
+      },
+      {
+        "id": "c15",
+        "segmentId": "s15",
+        "heading": "Lender's Opinion of Default",
+        "plain": "If the lender thinks your ability to repay is affected, it counts as a default."
+      },
+      {
+        "id": "c16",
+        "segmentId": "s16",
+        "heading": "Loan Acceleration",
+        "plain": "The lender can demand full repayment of the loan within seven days if you default.",
+        "flagId": "f5"
+      },
+      {
+        "id": "c17",
+        "segmentId": "s17",
+        "heading": "Guarantee Terms",
+        "plain": "The guarantor promises to pay all your present and future debts to this lender if you fail to pay.",
+        "flagId": "f6"
+      },
+      {
+        "id": "c18",
+        "segmentId": "s18",
+        "heading": "Right of Set-Off",
+        "plain": "The lender can use any other money or deposits you have with them to cover what you owe."
+      },
+      {
+        "id": "c19",
+        "segmentId": "s19",
+        "heading": "Insurance Requirement",
+        "plain": "You must buy credit life and personal accident insurance arranged by the lender, paid out of your loan.",
+        "flagId": "f7"
+      },
+      {
+        "id": "c20",
+        "segmentId": "s20",
+        "heading": "Auto-Debit Permission",
+        "plain": "You allow the lender to automatically take money from your bank account whenever they choose.",
+        "flagId": "f8"
+      },
+      {
+        "id": "c21",
+        "segmentId": "s21",
+        "heading": "Credit Information Sharing",
+        "plain": "The lender can share your details and repayment history with credit bureaus and third-party partners.",
+        "flagId": "f9"
+      },
+      {
+        "id": "c22",
+        "segmentId": "s22",
+        "heading": "Recovery Agents",
+        "plain": "The lender can hire recovery agents and make you pay all related collection and legal costs."
+      },
+      {
+        "id": "c23",
+        "segmentId": "s23",
+        "heading": "Dispute Resolution",
+        "plain": "Any disputes will be decided by an arbitrator chosen by the lender in Mumbai.",
+        "flagId": "f10"
+      },
+      {
+        "id": "c24",
+        "segmentId": "s24",
+        "heading": "Assignment of Loan",
+        "plain": "The lender can transfer your loan to anyone else without telling you, but you cannot transfer your duties."
+      },
+      {
+        "id": "c25",
+        "segmentId": "s25",
+        "heading": "Confirmation of Reading",
+        "plain": "You confirm that you have read, understood, and agreed to these terms freely."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "text": "Can you fix the interest rate so it does not change without my knowledge?",
+        "flagIds": ["f1"]
+      },
+      {
+        "id": "q2",
+        "text": "Why is part prepayment not allowed, and can we remove the foreclosure penalty?",
+        "flagIds": ["f2"]
+      },
+      {
+        "id": "q3",
+        "text": "Can the late payment penalty and collection charges be reduced to more reasonable amounts?",
+        "flagIds": ["f4", "f3"]
+      },
+      {
+        "id": "q4",
+        "text": "Can we limit the guarantor's liability strictly to this loan instead of future agreements?",
+        "flagIds": ["f6"]
+      },
+      {
+        "id": "q5",
+        "text": "Can we extend the seven-day notice period for full repayment after a default?",
+        "flagIds": ["f5"]
+      },
+      {
+        "id": "q6",
+        "text": "Can we make the insurance policies optional rather than mandatory?",
+        "flagIds": ["f7"]
+      },
+      {
+        "id": "q7",
+        "text": "Can we restrict the auto-debit mandate to only the exact monthly instalment amount?",
+        "flagIds": ["f8"]
+      },
+      {
+        "id": "q8",
+        "text": "Can we opt out of sharing my personal data with third-party marketing partners?",
+        "flagIds": ["f9"]
+      }
+    ],
+    "checklist": {
+      "before": [
+        {
+          "id": "b1",
+          "text": "Ask the lender to provide a complete repayment schedule and total cost calculation in writing.",
+          "flagIds": []
+        },
+        {
+          "id": "b2",
+          "text": "Negotiate to remove the clause allowing the lender to change your interest rate at any time.",
+          "flagIds": ["f1"]
+        }
+      ],
+      "after": [
+        {
+          "id": "a1",
+          "text": "Keep a signed copy of this agreement and all payment receipts in a safe place.",
+          "flagIds": ["f4"]
+        },
+        {
+          "id": "a2",
+          "text": "Monitor your bank statements every month to ensure the auto-debit amounts match your correct instalment.",
+          "flagIds": ["f8"]
+        }
+      ]
+    },
+    "glossary": [
+      {
+        "id": "g1",
+        "term": "Instalment",
+        "definition": "A regular fixed payment that you make every month to pay off your loan."
+      },
+      {
+        "id": "g2",
+        "term": "Prepay",
+        "definition": "To pay off all or part of your loan before the scheduled end date."
+      },
+      {
+        "id": "g3",
+        "term": "Foreclosure",
+        "definition": "Paying off your entire loan balance early, often triggering an extra fee."
+      },
+      {
+        "id": "g4",
+        "term": "Compounded",
+        "definition": "When interest is added to your unpaid balance so that you start paying interest on the interest itself."
+      },
+      {
+        "id": "g5",
+        "term": "Guarantor",
+        "definition": "A person who agrees to pay back the loan if the main borrower fails to do so."
+      },
+      {
+        "id": "g7",
+        "term": "NACH mandate",
+        "definition": "An instruction you give to your bank to allow automatic regular payments to a lender."
+      },
+      {
+        "id": "g8",
+        "term": "Arbitration",
+        "definition": "A way of settling disputes outside of a traditional court using a private person chosen to decide the case."
+      },
+      {
+        "id": "g9",
+        "term": "Assign",
+        "definition": "To transfer rights or responsibilities under an agreement to another person or company."
+      }
+    ],
+    "warnings": []
+  },
+  "hi": {
+    "docTypeLabel": "लोन या क्रेडिट समझौता",
+    "summary": "यह पर्सनल लोन समझौता स्विफ्टक्रेड फाइनेंस लिमिटेड, उधारकर्ता सुश्री लक्ष्मी रेड्डी, और 4,00,000 रुपये के लोन के लिए गारंटर श्री वेंकट राव के बीच है। इसमें बदलती ब्याज दरों, भारी पेनल्टी और ऋणदाता के लिए व्यापक अधिकारों से जुड़ी शर्तें हैं जिन्हें साइन करने से पहले आपको ध्यान से देखना चाहिए।",
+    "keyFacts.k1.label": "लोन की राशि",
+    "keyFacts.k1.value": "Rs. 4,00,000",
+    "keyFacts.k2.label": "किस्तों की संख्या",
+    "keyFacts.k2.value": "छत्तीस मासिक किस्तें",
+    "keyFacts.k3.label": "ब्याज दर",
+    "keyFacts.k3.value": "1.5 प्रतिशत प्रति माह",
+    "keyFacts.k4.label": "किस्त की देय तिथि",
+    "keyFacts.k4.value": "हर महीने की 3rd तारीख",
+    "keyFacts.k5.label": "प्रोसेसिंग फीस",
+    "keyFacts.k5.value": "लोन का 3 प्रतिशत",
+    "keyFacts.k6.label": "बाउंस चार्ज",
+    "keyFacts.k6.value": "Rs. 750",
+    "keyFacts.k7.label": "पेनल ब्याज",
+    "keyFacts.k7.value": "3 प्रतिशत प्रति माह",
+    "keyFacts.k8.label": "कलेक्शन विजिट चार्ज",
+    "keyFacts.k8.value": "Rs. 500",
+    "flags.f1.category": "ब्याज दर",
+    "flags.f1.title": "ऋणदाता ब्याज दर बदल सकता है",
+    "flags.f1.plain": "ऋणदाता आपको बिना बताए किसी भी समय आपकी ब्याज दर बढ़ा सकता है।",
+    "flags.f1.why": "इससे आपके मासिक भुगतान का अनुमान लगाना मुश्किल हो जाता है और उन्हें चुकाना बहुत कठिन हो सकता है।",
+    "flags.f2.category": "प्रीपेमेंट और फोरक्लोज़र",
+    "flags.f2.title": "जल्दी भुगतान करने पर पाबंदियां और फीस",
+    "flags.f2.plain": "आप लोन का भुगतान टुकड़ों में जल्दी नहीं चुका सकते, और अगर आप एक साल बाद इसे पूरा चुका देते हैं, तो आपको 6 प्रतिशत फीस और अतिरिक्त ब्याज देना होगा।",
+    "flags.f2.why": "अगर आप ब्याज बचाने के लिए अपना कर्ज जल्दी खत्म करना चाहते हैं तो इससे आपको अतिरिक्त पैसे चुकाने पड़ेंगे।",
+    "flags.f3.category": "फीस",
+    "flags.f3.title": "व्यापक और गैर-वापसीयोग्य फीस",
+    "flags.f3.plain": "आपको कई ऐसी फीस चुकानी होगी जिनकी पूरी सूची नहीं दी गई है, और लोन पूरा न होने पर भी ये पैसे आपको वापस नहीं मिलेंगे।",
+    "flags.f3.why": "खुले क्लॉज़ का मतलब है कि ऋणदाता आपकी साफ सहमति के बिना अतिरिक्त लागत जोड़ सकता है।",
+    "flags.f4.category": "देरी से भुगतान और डिफ़ॉल्ट",
+    "flags.f4.title": "देरी से भुगतान पर भारी पेनल्टी",
+    "flags.f4.plain": "अगर आप भुगतान की तारीख चूक जाते हैं, तो आपको पेनल्टी ब्याज के रूप में प्रति माह अतिरिक्त 3 प्रतिशत देना होगा, जो तेजी से बढ़ता है।",
+    "flags.f4.why": "जुड़ने वाली पेनल्टी आपको जल्दी ही बढ़ते कर्ज के जाल में फंसा सकती है।",
+    "flags.f5.category": "त्वरित भुगतान (एक्सप्रेशन)",
+    "flags.f5.title": "कम नोटिस पर पूरा लोन चुकाने की मांग",
+    "flags.f5.plain": "अगर आप कोई नियम तोड़ते हैं, तो ऋणदाता मांग कर सकता है कि आप सात दिन के भीतर बाकी बचा पूरा लोन चुकाएं।",
+    "flags.f5.why": "सिर्फ एक हफ्ते में बड़ी रकम जुटाना बेहद मुश्किल है और इससे गंभीर आर्थिक संकट पैदा हो सकता है।",
+    "flags.f6.category": "कॉलेटरल और गारंटर",
+    "flags.f6.title": "व्यापक गारंटर जिम्मेदारी",
+    "flags.f6.plain": " गारंटर सिर्फ इस लोन के लिए ही नहीं बल्कि किसी भी दूसरे कर्ज के लिए भी जिम्मेदार है जो आप ऋणदाता को अभी या बाद में चुकाते हैं, और ऋणदाता तुरंत गारंटर पर मुकदमा कर सकता है।",
+    "flags.f6.why": "इससे इस अकेले लोन के अलावा गारंटर पर भारी वित्तीय जोखिम आ जाता है।",
+    "flags.f7.category": "बीमा बंडलिंग",
+    "flags.f7.title": "अनिवार्य बीमा बंडलिंग",
+    "flags.f7.plain": "आपको ऋणदाता द्वारा चुने गए खास बीमा पॉलिसी खरीदने के लिए मजबूर किया जाता है, और इसकी लागत सीधे आपके लोन के पैसों से काट ली जाती है।",
+    "flags.f7.why": "इससे आपके हाथ में मिलने वाला असली कैश कम हो जाता है और आपके लोन के साथ अतिरिक्त उत्पाद जुड़ जाते हैं।",
+    "flags.f8.category": "ऑटो-डेबिट और सहमति",
+    "flags.f8.title": "व्यापक ऑटो-डेबिट अनुमतियां",
+    "flags.f8.plain": "आप ऋणदाता को जब चाहें और जितनी चाहें उतनी रकम आपके बैंक खाते से निकालने की अनुमति देते हैं।",
+    "flags.f8.why": "इससे आपके खाते से अचानक पैसे कट सकते हैं जिससे रोजमर्रा के खर्चों के लिए आपके पास पैसे कम पड़ सकते हैं।",
+    "flags.f9.category": "क्रेडिट रिपोर्टिंग",
+    "flags.f9.title": "व्यापक डेटा शेयरिंग",
+    "flags.f9.plain": "ऋणदाता आपकी व्यक्तिगत और वित्तीय जानकारियां मार्केटिंग पार्टनर और अन्य तीसरे पक्षों के साथ शेयर कर सकता है।",
+    "flags.f9.why": "आपका निजी डेटा बाहरी कंपनियों को दिया जा सकता है, जिससे आपको अवांछित मार्केटिंग कॉल आ सकती हैं।",
+    "flags.f10.category": "विवाद समाधान",
+    "flags.f10.title": "ऋणदाता दूसरे शहर में आर्बिट्रेटर चुनता है",
+    "flags.f10.plain": "अगर कोई असहमति होती है, तो ऋणदाता आर्बिट्रेटर चुनता है, और सुनवाई मुंबई में होगी।",
+    "flags.f10.why": "ऋणदाता द्वारा चुने गए आर्बिट्रेटर के साथ किसी दूर के शहर में कानूनी मामलों को संभालना आपको मुश्किल में डाल देता है।",
+    "clauses.c1.heading": "समझौते के पक्षकार",
+    "clauses.c1.plain": "यह समझौता स्विफ्टक्रेड फाइनेंस लिमिटेड, लक्ष्मी रेड्डी और वेंकट राव के बीच है।",
+    "clauses.c2.heading": "लोन की राशि",
+    "clauses.c2.plain": "ऋणदाता व्यक्तिगत उपयोग के लिए Rs. 4,00,000 लोन देने के लिए सहमत है, जिसे 36 मासिक किस्तों में चुकाया जाना है।",
+    "clauses.c3.heading": "वितरण (डिस्बर्मेंट)",
+    "clauses.c3.plain": "फीस काटने के बाद लोन के पैसे आपके बैंक खाते में भेज दिए जाएंगे।",
+    "clauses.c4.heading": "ब्याज दर",
+    "clauses.c4.plain": "लोन पर प्रति माह 1.5 percent ब्याज लिया जाता है।",
+    "clauses.c5.heading": "ब्याज में बदलाव",
+    "clauses.c5.plain": "ऋणदाता आपको बिना बताए किसी भी समय आपकी ब्याज दर बदल सकता है।",
+    "clauses.c6.heading": "चुकौती अनुसूची (रिपेमेंट शेड्यूल)",
+    "clauses.c6.plain": "आपको हर महीने की 3rd तारीख को समान मासिक किस्तें (EMI) चुकानी होंगी।",
+    "clauses.c7.heading": "प्रीपेमेंट के नियम",
+    "clauses.c7.plain": "आप अतिरिक्त फीस चुकाकर केवल 12 महीनों के बाद ही लोन जल्दी चुका सकते हैं, और आंशिक प्रीपेमेंट की अनुमति नहीं है।",
+    "clauses.c8.heading": "फीस और चार्ज",
+    "clauses.c8.plain": "आपको प्रोसेसिंग, डॉक्यूमेंटेशन और सुविधा शुल्क चुकाने होंगे जो वापस नहीं होंगे।",
+    "clauses.c9.heading": "बाउंस चार्ज",
+    "clauses.c9.plain": "भुगतान बाउंस होने पर Rs. 750 की फीस लगती है।",
+    "clauses.c10.heading": "देरी से भुगतान पर पेनल्टी",
+    "clauses.c10.plain": "भुगतान छूटने पर अतिरिक्त 3 percent मासिक पेनल ब्याज और कलेक्शन विजिट फीस लगती है।",
+    "clauses.c11.heading": "कलेक्शन चार्ज",
+    "clauses.c11.plain": "बकाया राशि वसूलने के लिए की गई हर विजिट या कॉल के लिए आपको Rs. 500 चुकाने होंगे।",
+    "clauses.c12.heading": "डिफ़ॉल्ट की घटनाएं",
+    "clauses.c12.plain": "भुगतान न करना डिफ़ॉल्ट की घटना माना जाता है।",
+    "clauses.c13.heading": "व्यक्तिगत बदलावों पर डिफ़ॉल्ट",
+    "clauses.c13.plain": "ऋणदाता को बताए बिना अपनी नौकरी, पता या मोबाइल नंबर बदलना डिफ़ॉल्ट माना जाता है।",
+    "clauses.c14.heading": "अन्य लोन पर डिफ़ॉल्ट",
+    "clauses.c14.plain": "यदि आप या आपका गारंटर किसी अन्य लोन पर डिफ़ॉल्ट करते हैं, तो इसे यहाँ भी डिफ़ॉल्ट माना जाता है।",
+    "clauses.c15.heading": "डिफ़ॉल्ट पर ऋणदाता की राय",
+    "clauses.c15.plain": "यदि ऋणदाता को लगता है कि आपकी चुकाने की क्षमता प्रभावित हुई है, तो इसे डिफ़ॉल्ट माना जाता है।",
+    "clauses.c16.heading": "लोन एक्सप्रेशन",
+    "clauses.c16.plain": "डिफ़ॉल्ट होने पर ऋणदाता सात दिन के भीतर पूरे लोन को चुकाने की मांग कर सकता है।",
+    "clauses.c17.heading": "गारंटी की शर्तें",
+    "clauses.c17.plain": "यदि आप भुगतान करने में विफल रहते हैं, तो गारंटर इस ऋणदाता को आपके सभी वर्तमान और भविष्य के कर्ज चुकाने का वादा करता है।",
+    "clauses.c18.heading": "सेट-ऑफ का अधिकार",
+    "clauses.c18.plain": "ऋणदाता आपके पास मौजूद किसी अन्य पैसे या डिपॉजिट का उपयोग आपके बकाया को चुकाने के लिए कर सकता है।",
+    "clauses.c19.heading": "बीमा आवश्यकता",
+    "clauses.c19.plain": "आपको ऋणदाता द्वारा प्रबंधित क्रेडिट लाइफ और पर्सनल एक्सीडेंट बीमा खरीदना होगा, जिसका भुगतान आपके लोन से किया जाएगा।",
+    "clauses.c20.heading": "ऑटो-डेबिट अनुमति",
+    "clauses.c20.plain": "आप ऋणदाता को जब चाहें तब आपके बैंक खाते से अपने आप पैसे लेने की अनुमति देते हैं।",
+    "clauses.c21.heading": "क्रेडिट जानकारी साझा करना",
+    "clauses.c21.plain": "ऋणदाता आपकी जानकारी और रीपेमेंट हिस्ट्री क्रेडिट ब्यूरो और तीसरे पक्ष के भागीदारों के साथ शेयर कर सकता है।",
+    "clauses.c22.heading": "रिकवरी एजेंट",
+    "clauses.c22.plain": "ऋणदाता रिकवरी एजेंट रख सकता है और आपसे सभी संबंधित कलेक्शन और कानूनी लागत चुकाने के लिए कह सकता है।",
+    "clauses.c23.heading": "विवाद समाधान",
+    "clauses.c23.plain": "किसी भी विवाद का फैसला मुंबई में ऋणदाता द्वारा चुने गए आर्बिट्रेटर द्वारा किया जाएगा।",
+    "clauses.c24.heading": "लोन का ट्रांसफर",
+    "clauses.c24.plain": "ऋणदाता आपको बताए बिना आपका लोन किसी और को ट्रांसफर कर सकता है, लेकिन आप अपने कर्तव्य ट्रांसफर नहीं कर सकते।",
+    "clauses.c25.heading": "पढ़ने की पुष्टि",
+    "clauses.c25.plain": "आप पुष्टि करते हैं कि आपने इन शर्तों को स्वतंत्र रूप से पढ़ लिया है, समझ लिया है और इनसे सहमत हैं।",
+    "questions.q1.text": "क्या आप ब्याज दर को फिक्स कर सकते हैं ताकि यह मेरी जानकारी के बिना न बदले?",
+    "questions.q2.text": "आंशिक प्रीपेमेंट की अनुमति क्यों नहीं है, और क्या हम फोरक्लोज़र पेनल्टी हटा सकते हैं?",
+    "questions.q3.text": "क्या देरी से भुगतान की पेनल्टी और कलेक्शन चार्ज को अधिक उचित राशि तक कम किया जा सकता है?",
+    "questions.q4.text": "क्या हम भविष्य के समझौतों के बजाय गारंटर की जिम्मेदारी को सख्ती से केवल इस लोन तक सीमित कर सकते हैं?",
+    "questions.q5.text": "क्या हम डिफ़ॉल्ट के बाद पूरे भुगतान के लिए सात दिन के नोटिस पीरियड को बढ़ा सकते हैं?",
+    "questions.q6.text": "क्या हम बीमा पॉलिसियों को अनिवार्य के बजाय वैकल्पिक बना सकते हैं?",
+    "questions.q7.text": "क्या हम ऑटो-डेबिट मैंडेट को केवल सटीक मासिक किस्त राशि तक सीमित कर सकते हैं?",
+    "questions.q8.text": "क्या हम तीसरे पक्ष के मार्केटिंग पार्टनर के साथ मेरा व्यक्तिगत डेटा शेयर करने से मना कर सकते हैं?",
+    "checklist.before.b1.text": "ऋणदाता से लिखित में एक पूरा रीपेमेंट शेड्यूल और कुल लागत की गणना प्रदान करने के लिए कहें।",
+    "checklist.before.b2.text": "उस क्लॉज़ को हटाने के लिए बातचीत करें जो ऋणदाता को किसी भी समय आपकी ब्याज दर बदलने की अनुमति देता है।",
+    "checklist.after.a1.text": "इस समझौते की एक साइन की गई कॉपी और सभी भुगतान रसीदें सुरक्षित जगह पर रखें।",
+    "checklist.after.a2.text": "यह सुनिश्चित करने के लिए हर महीने अपने बैंक स्टेटमेंट की जांच करें कि ऑटो-डेबिट राशि आपकी सही किस्त से मेल खाती है।",
+    "glossary.g1.definition": "एक नियमित निश्चित भुगतान जो आप अपना लोन चुकाने के लिए हर महीने करते हैं।",
+    "glossary.g2.definition": "निर्धारित अंतिम तिथि से पहले अपने लोन का पूरा या कुछ हिस्सा चुकाना।",
+    "glossary.g3.definition": "अपने पूरे लोन के बकाया को समय से पहले चुकाना, जिसके कारण अक्सर अतिरिक्त फीस लगती है।",
+    "glossary.g4.definition": "जब आपके बकाया बैलेंस पर ब्याज जोड़ा जाता है ताकि आप ब्याज पर भी ब्याज चुकाने लगें।",
+    "glossary.g5.definition": "वह व्यक्ति जो मुख्य उधारकर्ता के विफल होने पर लोन चुकाने के लिए सहमत होता है।",
+    "glossary.g7.definition": "वह निर्देश जो आप अपने बैंक को ऋणदाता को स्वचालित नियमित भुगतान की अनुमति देने के लिए देते हैं।",
+    "glossary.g8.definition": "पारंपरिक अदालत के बाहर विवादों को सुलझाने का एक तरीका जिसमें मामले का फैसला करने के लिए किसी निजी व्यक्ति को चुना जाता है।",
+    "glossary.g9.definition": "किसी समझौते के तहत अधिकारों या जिम्मेदारियों को किसी अन्य व्यक्ति या कंपनी को ट्रांसफर करना।"
+  }
+}

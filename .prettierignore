@@ -1,0 +1,11 @@
+# Provided files are never reformatted.
+SPEC.md
+Builds_skills.md
+package-lock.json
+dist/
+test-results/
+playwright-report/
+blob-report/
+audit/
+# Design handoff files are provided as-is.
+design/

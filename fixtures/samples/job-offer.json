@@ -1,0 +1,645 @@
+{
+  "id": "job-offer",
+  "title": "Employment Offer - Associate Data Engineer",
+  "docType": "employment",
+  "hiReviewed": false,
+  "en": {
+    "version": 1,
+    "docType": "employment",
+    "docTypeLabel": "Employment offer or contract",
+    "docTypeConfidence": "high",
+    "title": "Employment Offer - Associate Data Engineer",
+    "stats": { "pages": 3, "chars": 5513, "segments": 32 },
+    "segments": [
+      { "id": "s1", "page": 1, "text": "OFFER OF EMPLOYMENT\n\nDate: 12 October 2026" },
+      {
+        "id": "s2",
+        "page": 1,
+        "text": "To: Mr. Rohan Iyer, 44 Lake View Apartments, Indiranagar, Bengaluru"
+      },
+      {
+        "id": "s3",
+        "page": 1,
+        "text": "Dear Rohan, Brightwave Analytics Private Limited (the Company) is pleased to offer you the\nposition of Associate Data Engineer on the terms below. This letter, together with its\nannexure, forms your contract of employment."
+      },
+      {
+        "id": "s4",
+        "page": 1,
+        "text": "1. APPOINTMENT AND PLACE OF WORK\n\n1.1 You will join on or before 1 December 2026 and will initially be based at our Bengaluru\noffice."
+      },
+      {
+        "id": "s5",
+        "page": 1,
+        "text": "1.2 The Company may transfer you to any office, client site, group company or location in\nIndia or abroad at any time and with immediate effect, and you shall report at the new\nlocation on the date stated by the Company. No relocation allowance is payable unless the\nCompany decides otherwise."
+      },
+      {
+        "id": "s6",
+        "page": 1,
+        "text": "2. PROBATION\n\n2.1 You will be on probation for an initial period, which the Company may extend from time\nto time at its sole discretion. Your employment will be confirmed only by a written letter of\nconfirmation."
+      },
+      {
+        "id": "s7",
+        "page": 1,
+        "text": "2.2 During probation your employment may be ended by either party with seven days notice."
+      },
+      {
+        "id": "s8",
+        "page": 1,
+        "text": "3. COMPENSATION\n\n3.1 Your fixed annual compensation will be Rs. 9,60,000, paid monthly in arrears after\nstatutory deductions. The break-up is given in Annexure A."
+      },
+      {
+        "id": "s9",
+        "page": 1,
+        "text": "3.2 You will also be eligible for an annual performance bonus of up to 15 percent of fixed\npay. The amount of any bonus, and whether it is paid at all, is at the sole discretion of the\nCompany, and the Company may recover any bonus already paid if you resign within twelve\nmonths of receiving it."
+      },
+      {
+        "id": "s10",
+        "page": 1,
+        "text": "3.3 A joining bonus of Rs. 75,000 will be paid with your first salary. If you leave the\nCompany for any reason within eighteen months of joining, you shall repay the full joining\nbonus."
+      },
+      {
+        "id": "s11",
+        "page": 1,
+        "text": "4. TRAINING BOND\n\n4.1 The Company will invest in your training during the first six months. In consideration of\nthis, you agree to serve the Company for a minimum period of two years from your date of\njoining."
+      },
+      {
+        "id": "s12",
+        "page": 2,
+        "text": "4.2 If you resign or are terminated for cause before the end of this two-year period, you shall\npay the Company Rs. 3,00,000 as liquidated damages towards training costs, which the\nCompany may recover from any amount due to you."
+      },
+      {
+        "id": "s13",
+        "page": 2,
+        "text": "5. WORKING HOURS\n\n5.1 Your normal working hours will be as required by the business. You may be required to\nwork late evenings, weekends and public holidays to meet project needs, and no overtime or\nadditional compensation will be payable for such work."
+      },
+      {
+        "id": "s14",
+        "page": 2,
+        "text": "6. NOTICE PERIOD AND RECOVERY\n\n6.1 After confirmation, either party may end this employment by giving ninety days notice in\nwriting. The Company may at its option accept pay in lieu of notice from you, calculated on\nyour gross monthly compensation, and may relieve you earlier or later than the notice date as\nbusiness needs require."
+      },
+      {
+        "id": "s15",
+        "page": 2,
+        "text": "6.2 The Company may deduct from your final settlement any amounts it believes you owe,\nincluding notice pay, training costs, joining bonus, equipment, and any loss caused to the\nCompany, as determined by the Company."
+      },
+      {
+        "id": "s16",
+        "page": 2,
+        "text": "7. TERMINATION\n\n7.1 The Company may terminate your employment immediately and without notice or pay in\nlieu for cause. Cause includes, without limitation, any conduct which in the opinion of the\nCompany is not in its interest."
+      },
+      {
+        "id": "s17",
+        "page": 2,
+        "text": "8. CONFIDENTIALITY\n\n8.1 You shall keep confidential all information you receive about the Company, its clients,\nemployees and business, whether or not it is marked confidential. This obligation continues\nduring your employment and at all times after it ends, without any time limit."
+      },
+      {
+        "id": "s18",
+        "page": 2,
+        "text": "9. INTELLECTUAL PROPERTY\n\n9.1 All inventions, software, writings, designs and other works created by you during the\nperiod of your employment, whether or not during working hours, whether or not using\nCompany equipment, and whether or not related to the business of the Company, shall belong\nto the Company absolutely. You hereby assign all rights in them to the Company."
+      },
+      {
+        "id": "s19",
+        "page": 2,
+        "text": "10. NON-COMPETE AND NON-SOLICITATION\n\n10.1 For a period of twenty-four months after your employment ends for any reason, you\nshall not, anywhere in India, join, advise or start any business that competes with the\nCompany or with any of its clients."
+      },
+      {
+        "id": "s20",
+        "page": 2,
+        "text": "10.2 For the same period you shall not approach, hire or try to hire any employee of the"
+      },
+      {
+        "id": "s21",
+        "page": 3,
+        "text": "Company, or deal with any person who was a client of the Company during your\nemployment."
+      },
+      {
+        "id": "s22",
+        "page": 3,
+        "text": "11. CODE OF CONDUCT\n\n11.1 You shall follow the Company's policies as amended from time to time, including the\ncode of conduct, the information security policy and the anti-harassment policy."
+      },
+      {
+        "id": "s23",
+        "page": 3,
+        "text": "11.2 You shall not take up any other employment, paid or unpaid, while employed by the\nCompany."
+      },
+      {
+        "id": "s24",
+        "page": 3,
+        "text": "12. GOVERNING LAW AND DISPUTES\n\n12.1 This contract is governed by the laws of India. Any dispute shall be referred to a sole\narbitrator appointed by the Company, and the seat of arbitration shall be Gurugram. The\ndecision of the arbitrator shall be final and binding."
+      },
+      {
+        "id": "s25",
+        "page": 3,
+        "text": "13. ACCEPTANCE\n\n13.1 Please sign and return a copy of this letter within three days as a token of your\nacceptance. This offer will lapse if it is not accepted within that time."
+      },
+      {
+        "id": "s26",
+        "page": 3,
+        "text": "Yours sincerely, Priya Nair, Head of People, Brightwave Analytics Private Limited."
+      },
+      {
+        "id": "s27",
+        "page": 3,
+        "text": "ANNEXURE A: COMPENSATION BREAK-UP\n\n(a) Basic salary: Rs. 4,80,000 per year."
+      },
+      { "id": "s28", "page": 3, "text": "(b) House rent allowance: Rs. 1,92,000 per year." },
+      { "id": "s29", "page": 3, "text": "(c) Special allowance: Rs. 2,30,400 per year." },
+      {
+        "id": "s30",
+        "page": 3,
+        "text": "(d) Employer contribution to provident fund: Rs. 57,600 per year."
+      },
+      {
+        "id": "s31",
+        "page": 3,
+        "text": "(e) Annual performance bonus: variable, as described in clause 3.2."
+      },
+      {
+        "id": "s32",
+        "page": 3,
+        "text": "I have read and understood the terms above and accept them. Signed: Rohan Iyer. Date:\n____________"
+      }
+    ],
+    "summary": "This document is an employment offer for the position of Associate Data Engineer at Brightwave Analytics Private Limited, detailing your compensation, working hours, and various restrictive covenants. Before signing, you should carefully review the strict non-compete clause, training bond, and broad termination conditions.",
+    "score": { "value": 100, "band": "high", "counts": { "high": 4, "medium": 7, "missing": 0 } },
+    "keyFacts": [
+      {
+        "id": "k1",
+        "label": "Fixed Annual Compensation",
+        "value": "Rs. 9,60,000",
+        "segmentId": "s8"
+      },
+      { "id": "k2", "label": "Joining Bonus", "value": "Rs. 75,000", "segmentId": "s10" },
+      { "id": "k3", "label": "Training Bond Amount", "value": "Rs. 3,00,000", "segmentId": "s12" },
+      { "id": "k6", "label": "Basic Salary", "value": "Rs. 4,80,000 per year", "segmentId": "s27" }
+    ],
+    "flags": [
+      {
+        "id": "f1",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Relocation and transfer",
+        "title": "Instant transfer with no relocation support",
+        "plain": "The company can move you anywhere in India or abroad immediately without paying for your move.",
+        "why": "You could face sudden relocation costs and lifestyle disruption without financial help.",
+        "segmentId": "s5",
+        "quote": "The Company may transfer you to any office, client site, group company or location in\nIndia or abroad at any time and with immediate effect, and you shall report at the new\nlocation on the date stated by the Company. No relocation allowance is payable unless the\nCompany decides otherwise.",
+        "termIds": []
+      },
+      {
+        "id": "f2",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Probation",
+        "title": "Unclear probation period",
+        "plain": "Your probation period has no fixed end date and can be extended freely by the company.",
+        "why": "Without a clear end date, you may remain on probation indefinitely without job security.",
+        "segmentId": "s6",
+        "quote": "You will be on probation for an initial period, which the Company may extend from time\nto time at its sole discretion.",
+        "termIds": ["g3"]
+      },
+      {
+        "id": "f3",
+        "kind": "present",
+        "severity": "high",
+        "category": "Variable pay and clawback",
+        "title": "Discretionary bonus and clawback",
+        "plain": "Your bonus is optional and can be taken back if you resign within a year of getting it.",
+        "why": "You might lose money you already spent if you decide to leave the company.",
+        "segmentId": "s9",
+        "quote": "The amount of any bonus, and whether it is paid at all, is at the sole discretion of the\nCompany, and the Company may recover any bonus already paid if you resign within twelve\nmonths of receiving it.",
+        "termIds": []
+      },
+      {
+        "id": "f4",
+        "kind": "present",
+        "severity": "high",
+        "category": "Bond and training cost recovery",
+        "title": "Training cost recovery bond",
+        "plain": "You must pay Rs. 3,00,000 if you leave or are fired for cause within two years.",
+        "why": "This amount is quite high and may trap you in the job even if you face poor working conditions.",
+        "segmentId": "s12",
+        "quote": "If you resign or are terminated for cause before the end of this two-year period, you shall\npay the Company Rs. 3,00,000 as liquidated damages towards training costs",
+        "termIds": ["g1"]
+      },
+      {
+        "id": "f5",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Hours, overtime and leave",
+        "title": "Unpaid overtime and long hours",
+        "plain": "You may have to work weekends and holidays without any extra pay.",
+        "why": "You could end up working very long hours without getting fairly compensated for your extra time.",
+        "segmentId": "s13",
+        "quote": "You may be required to\nwork late evenings, weekends and public holidays to meet project needs, and no overtime or\nadditional compensation will be payable for such work.",
+        "termIds": []
+      },
+      {
+        "id": "f6",
+        "kind": "present",
+        "severity": "high",
+        "category": "Notice and recovery",
+        "title": "Long notice period",
+        "plain": "You must give 90 days notice to resign after you pass probation.",
+        "why": "A three-month notice period is quite long and might make it difficult to join a new employer quickly.",
+        "segmentId": "s14",
+        "quote": "After confirmation, either party may end this employment by giving ninety days notice in\nwriting.",
+        "termIds": ["g3"]
+      },
+      {
+        "id": "f7",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Termination",
+        "title": "Vague termination for cause",
+        "plain": "The company can fire you instantly without notice for almost any reason it decides is not in its interest.",
+        "why": "This lack of clear rules gives the company total power to end your job at any moment.",
+        "segmentId": "s16",
+        "quote": "The Company may terminate your employment immediately and without notice or pay in\nlieu for cause. Cause includes, without limitation, any conduct which in the opinion of the\nCompany is not in its interest.",
+        "termIds": []
+      },
+      {
+        "id": "f8",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Confidentiality",
+        "title": "Permanent confidentiality obligation",
+        "plain": "You must keep company information secret forever, with no time limit.",
+        "why": "A lifelong secrecy rule can be difficult to follow and may create legal risks long after you leave.",
+        "segmentId": "s17",
+        "quote": "This obligation continues\nduring your employment and at all times after it ends, without any time limit.",
+        "termIds": []
+      },
+      {
+        "id": "f9",
+        "kind": "present",
+        "severity": "medium",
+        "category": "IP assignment",
+        "title": "Broad intellectual property claim",
+        "plain": "The company claims ownership of everything you create, even outside of work hours and on your own time.",
+        "why": "This may prevent you from working on personal projects or hobbies outside of your job.",
+        "segmentId": "s18",
+        "quote": "All inventions, software, writings, designs and other works created by you during the\nperiod of your employment, whether or not during working hours, whether or not using\nCompany equipment, and whether or not related to the business of the Company, shall belong\nto the Company absolutely.",
+        "termIds": []
+      },
+      {
+        "id": "f10",
+        "kind": "present",
+        "severity": "high",
+        "category": "Non-compete and non-solicit",
+        "title": "Two-year pan-India non-compete restriction",
+        "plain": "You cannot work for a competing business or clients anywhere in India for two years after leaving.",
+        "why": "This restriction may make it very hard for you to find a new job in your field after you leave.",
+        "segmentId": "s19",
+        "quote": "For a period of twenty-four months after your employment ends for any reason, you\nshall not, anywhere in India, join, advise or start any business that competes with the\nCompany or with any of its clients.",
+        "termIds": []
+      },
+      {
+        "id": "f11",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Dispute resolution",
+        "title": "Company-appointed arbitrator",
+        "plain": "Any legal disputes will be decided by an arbitrator chosen entirely by the company.",
+        "why": "An arbitrator chosen by only one side may not feel neutral or fair to you.",
+        "segmentId": "s24",
+        "quote": "Any dispute shall be referred to a sole\narbitrator appointed by the Company, and the seat of arbitration shall be Gurugram. The\ndecision of the arbitrator shall be final and binding.",
+        "termIds": ["g4"]
+      }
+    ],
+    "clauses": [
+      {
+        "id": "c1",
+        "segmentId": "s3",
+        "heading": "Offer and Role",
+        "plain": "You are offered the role of Associate Data Engineer at Brightwave Analytics."
+      },
+      {
+        "id": "c2",
+        "segmentId": "s4",
+        "heading": "Place of Work",
+        "plain": "You will join by 1 December 2026 in Bengaluru."
+      },
+      {
+        "id": "c3",
+        "segmentId": "s5",
+        "heading": "Relocation",
+        "plain": "The company can transfer you anywhere without notice and without paying relocation costs.",
+        "flagId": "f1"
+      },
+      {
+        "id": "c4",
+        "segmentId": "s6",
+        "heading": "Probation",
+        "plain": "You start on probation which the company can extend freely.",
+        "flagId": "f2"
+      },
+      {
+        "id": "c5",
+        "segmentId": "s7",
+        "heading": "Probation Notice",
+        "plain": "Either party can end probation with seven days notice."
+      },
+      {
+        "id": "c6",
+        "segmentId": "s8",
+        "heading": "Compensation",
+        "plain": "Your fixed annual pay is Rs. 9,60,000 paid monthly."
+      },
+      {
+        "id": "c7",
+        "segmentId": "s9",
+        "heading": "Bonus and Clawback",
+        "plain": "Performance bonus is discretionary and must be returned if you leave within a year.",
+        "flagId": "f3"
+      },
+      {
+        "id": "c8",
+        "segmentId": "s10",
+        "heading": "Joining Bonus",
+        "plain": "You get a Rs. 75,000 joining bonus which you must repay if you leave within 18 months."
+      },
+      {
+        "id": "c9",
+        "segmentId": "s11",
+        "heading": "Training Commitment",
+        "plain": "You agree to stay for two years in exchange for training."
+      },
+      {
+        "id": "c10",
+        "segmentId": "s12",
+        "heading": "Training Bond Recovery",
+        "plain": "Leaving early requires you to pay Rs. 3,00,000 for training costs.",
+        "flagId": "f4"
+      },
+      {
+        "id": "c11",
+        "segmentId": "s13",
+        "heading": "Working Hours",
+        "plain": "You may work extra hours and weekends without any overtime pay.",
+        "flagId": "f5"
+      },
+      {
+        "id": "c12",
+        "segmentId": "s14",
+        "heading": "Notice Period",
+        "plain": "After confirmation, you or the company must give 90 days notice to resign.",
+        "flagId": "f6"
+      },
+      {
+        "id": "c13",
+        "segmentId": "s15",
+        "heading": "Final Settlement Deductions",
+        "plain": "The company can deduct various costs and alleged losses from your final pay."
+      },
+      {
+        "id": "c14",
+        "segmentId": "s16",
+        "heading": "Termination for Cause",
+        "plain": "The company can fire you instantly without notice for broad reasons of cause.",
+        "flagId": "f7"
+      },
+      {
+        "id": "c15",
+        "segmentId": "s17",
+        "heading": "Confidentiality",
+        "plain": "You must keep company information secret forever.",
+        "flagId": "f8"
+      },
+      {
+        "id": "c16",
+        "segmentId": "s18",
+        "heading": "Intellectual Property",
+        "plain": "All works and inventions you create belong entirely to the company.",
+        "flagId": "f9"
+      },
+      {
+        "id": "c17",
+        "segmentId": "s19",
+        "heading": "Non-Compete",
+        "plain": "You cannot work for competitors anywhere in India for two years after leaving.",
+        "flagId": "f10"
+      },
+      {
+        "id": "c18",
+        "segmentId": "s20",
+        "heading": "Non-Solicitation",
+        "plain": "You cannot hire company employees or deal with its clients for two years."
+      },
+      {
+        "id": "c19",
+        "segmentId": "s22",
+        "heading": "Code of Conduct",
+        "plain": "You must follow all company policies and rules."
+      },
+      {
+        "id": "c20",
+        "segmentId": "s23",
+        "heading": "Exclusive Employment",
+        "plain": "You cannot take up any other paid or unpaid work while employed."
+      },
+      {
+        "id": "c21",
+        "segmentId": "s24",
+        "heading": "Governing Law and Dispute",
+        "plain": "Disputes are handled by a company-appointed arbitrator in Gurugram.",
+        "flagId": "f11"
+      },
+      {
+        "id": "c22",
+        "segmentId": "s25",
+        "heading": "Acceptance",
+        "plain": "You must sign and return this offer letter within three days."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "text": "Can the non-compete scope be limited to direct competitors rather than all clients and a pan-India region?",
+        "flagIds": ["f10"]
+      },
+      {
+        "id": "q2",
+        "text": "Can the training bond amount and repayment conditions be reduced or removed?",
+        "flagIds": ["f4"]
+      },
+      {
+        "id": "q3",
+        "text": "Is it possible to reduce the 90-day notice period to 30 days?",
+        "flagIds": ["f6"]
+      },
+      {
+        "id": "q4",
+        "text": "Can the probation period have a definite maximum length, such as six months?",
+        "flagIds": ["f2"]
+      },
+      {
+        "id": "q5",
+        "text": "Can the intellectual property clause exclude personal projects created entirely on your own time without company assets?",
+        "flagIds": ["f9"]
+      },
+      {
+        "id": "q6",
+        "text": "How many days of paid annual leave and sick leave will I receive?",
+        "flagIds": []
+      }
+    ],
+    "checklist": {
+      "before": [
+        {
+          "id": "b1",
+          "text": "Ask HR to clarify or soften the training bond and non-compete clauses.",
+          "flagIds": ["f10", "f4"]
+        },
+        {
+          "id": "b2",
+          "text": "Confirm details about your paid leave entitlements before signing.",
+          "flagIds": []
+        }
+      ],
+      "after": [
+        {
+          "id": "a1",
+          "text": "Keep a signed copy of this offer letter and annexure for your personal records.",
+          "flagIds": ["f10"]
+        }
+      ]
+    },
+    "glossary": [
+      {
+        "id": "g1",
+        "term": "Liquidated damages",
+        "definition": "A pre-agreed sum of money you must pay if you break a term of the contract."
+      },
+      {
+        "id": "g3",
+        "term": "Probation",
+        "definition": "An initial testing period at the start of employment to check your performance."
+      },
+      {
+        "id": "g4",
+        "term": "Arbitration",
+        "definition": "A way of settling disputes outside of traditional courts using a private person."
+      },
+      {
+        "id": "g5",
+        "term": "Non-solicitation",
+        "definition": "A rule stopping you from hiring former colleagues or contacting old clients."
+      }
+    ],
+    "warnings": []
+  },
+  "hi": {
+    "docTypeLabel": "नौकरी का ऑफर या कॉन्ट्रैक्ट",
+    "summary": "यह दस्तावेज़ ब्राइटवे एनालिटिक्स प्राइवेट लिमिटेड में एसोसिएट डेटा इंजीनियर के पद के लिए नौकरी का ऑफर है, जिसमें आपके वेतन, काम के घंटों और कई पाबंदियों के बारे में बताया गया है। साइन करने से पहले, आपको सख्त नॉन-कम्पलीट क्लॉज़, ट्रेनिंग बॉन्ड और नौकरी छोड़ने की व्यापक शर्तों को ध्यान से देख लेना चाहिए।",
+    "keyFacts.k1.label": "सालाना पक्का वेतन",
+    "keyFacts.k1.value": "Rs. 9,60,000",
+    "keyFacts.k2.label": "ज्वाइनिंग बोनस",
+    "keyFacts.k2.value": "Rs. 75,000",
+    "keyFacts.k3.label": "ट्रेनिंग बॉन्ड की रकम",
+    "keyFacts.k3.value": "Rs. 3,00,000",
+    "keyFacts.k6.label": "बेसिक सैलरी",
+    "keyFacts.k6.value": "Rs. 4,80,000 प्रति वर्ष",
+    "flags.f1.category": "जगह बदलना और ट्रांसफर",
+    "flags.f1.title": "बिना किसी रीलोकेशन मदद के तुरंत ट्रांसफर",
+    "flags.f1.plain": "कंपनी बिना पैसे दिए आपको तुरंत भारत में या विदेश में कहीं भी भेज सकती है।",
+    "flags.f1.why": "आपको बिना किसी आर्थिक मदद के अचानक जगह बदलने का खर्च और जीवनशैली में बदलाव का सामना करना पड़ सकता है।",
+    "flags.f2.category": "प्रोबेशन",
+    "flags.f2.title": "अस्पष्ट प्रोबेशन अवधि",
+    "flags.f2.plain": "आपके प्रोबेशन की कोई तय आखिरी तारीख नहीं है और कंपनी इसे जब चाहे बढ़ा सकती है।",
+    "flags.f2.why": "तय आखिरी तारीख न होने की वजह से, बिना जॉब सिक्योरिटी के आप अनिश्चित काल तक प्रोबेशन पर रह सकते हैं।",
+    "flags.f3.category": "वैरिएबल पे और रिकवरी",
+    "flags.f3.title": "मर्जी के मुताबिक मिलने वाला बोनस और रिकवरी",
+    "flags.f3.plain": "आपका बोनस कंपनी की मर्जी पर है और अगर आप इसे मिलने के एक साल के भीतर इस्तीफा देते हैं तो इसे वापस लिया जा सकता है।",
+    "flags.f3.why": "अगर आप कंपनी छोड़ने का फैसला करते हैं, तो जो पैसे आपने पहले ही खर्च कर दिए हैं वे आपसे वापस लिए जा सकते हैं।",
+    "flags.f4.category": "बॉन्ड और ट्रेनिंग का खर्च वसूलना",
+    "flags.f4.title": "ट्रेनिंग का खर्च वसूलने वाला बॉन्ड",
+    "flags.f4.plain": "अगर आप दो साल के भीतर नौकरी छोड़ते हैं या आपको निकाला जाता है, तो आपको Rs. 3,00,000 देने होंगे।",
+    "flags.f4.why": "यह रकम काफी ज़्यादा है और खराब कामकाजी माहौल होने पर भी यह आपको इस नौकरी में फंसाए रख सकती है।",
+    "flags.f5.category": "घंटे, ओवरटाइम और छुट्टी",
+    "flags.f5.title": "बिना पैसे का ओवरटाइम और लंबे घंटे",
+    "flags.f5.plain": "आपको बिना किसी अतिरिक्त वेतन के वीकेंड और छुट्टियों पर भी काम करना पड़ सकता है।",
+    "flags.f5.why": "अतिरिक्त समय के लिए सही पैसे मिले बिना आपको बहुत लंबे समय तक काम करना पड़ सकता है।",
+    "flags.f6.category": "नोटिस और रिकवरी",
+    "flags.f6.title": "लंबी नोटिस अवधि",
+    "flags.f6.plain": "प्रोबेशन पास करने के बाद इस्तीफा देने के लिए आपको 90 दिनों का नोटिस देना होगा।",
+    "flags.f6.why": "तीन महीने की नोटिस अवधि काफी लंबी है और इससे दूसरी कंपनी में जल्दी नौकरी पाना मुश्किल हो सकता है।",
+    "flags.f7.category": "नौकरी से निकालना",
+    "flags.f7.title": "वजह बताकर अचानक नौकरी से निकालना",
+    "flags.f7.plain": "कंपनी अपने फायदे के खिलाफ मानकर किसी भी वजह से बिना नोटिस दिए आपको तुरंत निकाल सकती है।",
+    "flags.f7.why": "साफ नियमों के न होने से कंपनी के पास किसी भी पल आपकी नौकरी खत्म करने की पूरी ताकत आ जाती है।",
+    "flags.f8.category": "गोपनीयता",
+    "flags.f8.title": "हमेशा के लिए गोपनीयता की बाध्यता",
+    "flags.f8.plain": "आपको बिना किसी समय सीमा के, हमेशा के लिए कंपनी की जानकारी गुप्त रखनी होगी।",
+    "flags.f8.why": "जिंदगी भर गोपनीयता का नियम निभाना मुश्किल हो सकता है और नौकरी छोड़ने के बहुत बाद तक कानूनी जोखिम पैदा हो सकते हैं।",
+    "flags.f9.category": "आईपी असाइनमेंट",
+    "flags.f9.title": "बौद्धिक संपदा (IP) का व्यापक दावा",
+    "flags.f9.plain": "कंपनी आपके द्वारा बनाई गई हर चीज़ पर अपना हक जताती है, यहाँ तक कि काम के घंटों के बाद और आपके खुद के समय में भी।",
+    "flags.f9.why": "इससे आप अपनी नौकरी के अलावा व्यक्तिगत प्रोजेक्ट्स या शौक पर काम नहीं कर पाएंगे।",
+    "flags.f10.category": "नॉन-कम्पलीट और नॉन-सोलिसिट",
+    "flags.f10.title": "दो साल की पूरे भारत में लागू होने वाली नॉन-कम्पलीट पाबंदी",
+    "flags.f10.plain": "नौकरी छोड़ने के बाद आप दो साल तक भारत में कहीं भी किसी मुकाबले वाली कंपनी या क्लाइंट के लिए काम नहीं कर सकते।",
+    "flags.f10.why": "इस पाबंदी की वजह से नौकरी छोड़ने के बाद अपने क्षेत्र में नई नौकरी ढूंढना आपके लिए बहुत मुश्किल हो सकता है।",
+    "flags.f11.category": "विवादों का समाधान",
+    "flags.f11.title": "कंपनी द्वारा चुना गया मध्यस्थ",
+    "flags.f11.plain": "किसी भी कानूनी विवाद का फैसला पूरी तरह से कंपनी द्वारा चुने गए मध्यस्थ द्वारा किया जाएगा।",
+    "flags.f11.why": "केवल एक पक्ष द्वारा चुना गया मध्यस्थ आपको निष्पक्ष या न्यायसंगत नहीं लग सकता है।",
+    "clauses.c1.heading": "ऑफर और भूमिका",
+    "clauses.c1.plain": "आपको ब्राइटवे एनालिटिक्स में एसोसिएट डेटा इंजीनियर की भूमिका दी जाती है।",
+    "clauses.c2.heading": "काम करने की जगह",
+    "clauses.c2.plain": "आप 1 दिसंबर 2026 तक बेंगलुरु में ज्वाइन करेंगे।",
+    "clauses.c3.heading": "जगह बदलना",
+    "clauses.c3.plain": "कंपनी बिना नोटिस दिए और बिना रीलोकेशन का खर्च दिए आपका ट्रांसफर कहीं भी कर सकती है।",
+    "clauses.c4.heading": "प्रोबेशन",
+    "clauses.c4.plain": "आप प्रोबेशन पर शुरुआत करते हैं जिसे कंपनी अपनी मर्ज़ी से बढ़ा सकती है।",
+    "clauses.c5.heading": "प्रोबेशन नोटिस",
+    "clauses.c5.plain": "कोई भी पक्ष सात दिनों के नोटिस के साथ प्रोबेशन खत्म कर सकता है।",
+    "clauses.c6.heading": "वेतन",
+    "clauses.c6.plain": "आपका पक्का सालाना वेतन Rs. 9,60,000 है जो हर महीने दिया जाता है।",
+    "clauses.c7.heading": "बोनस और रिकवरी",
+    "clauses.c7.plain": "परफॉर्मेंस बोनस कंपनी की मर्जी पर है और अगर आप एक साल के भीतर छोड़ते हैं तो इसे वापस करना होगा।",
+    "clauses.c8.heading": "ज्वाइनिंग बोनस",
+    "clauses.c8.plain": "आपको Rs. 75,000 का ज्वाइनिंग बोनस मिलता है जिसे 18 महीने के भीतर छोड़ने पर आपको वापस करना होगा।",
+    "clauses.c9.heading": "ट्रेनिंग की प्रतिबद्धता",
+    "clauses.c9.plain": "आप ट्रेनिंग के बदले दो साल तक रुकने के लिए सहमत हैं।",
+    "clauses.c10.heading": "ट्रेनिंग बॉन्ड की रिकवरी",
+    "clauses.c10.plain": "जल्दी छोड़ने पर आपको ट्रेनिंग के खर्च के रूप में Rs. 3,00,000 देने होंगे।",
+    "clauses.c11.heading": "काम के घंटे",
+    "clauses.c11.plain": "आप बिना किसी ओवरटाइम वेतन के अतिरिक्त घंटे और वीकेंड पर काम कर सकते हैं।",
+    "clauses.c12.heading": "नोटिस अवधि",
+    "clauses.c12.plain": "पुष्टि के बाद, इस्तीफा देने के लिए आपको या कंपनी को 90 दिनों का नोटिस देना होगा।",
+    "clauses.c13.heading": "अंतिम भुगतान में कटौती",
+    "clauses.c13.plain": "कंपनी आपके अंतिम वेतन से कई तरह के खर्च और कथित नुकसान काट सकती है।",
+    "clauses.c14.heading": "वजह बताकर नौकरी से निकालना",
+    "clauses.c14.plain": "कंपनी कारण की व्यापक वजहों से बिना नोटिस दिए आपको तुरंत निकाल सकती है।",
+    "clauses.c15.heading": "गोपनीयता",
+    "clauses.c15.plain": "आपको हमेशा के लिए कंपनी की जानकारी गुप्त रखनी होगी।",
+    "clauses.c16.heading": "बौद्धिक संपदा",
+    "clauses.c16.plain": "आपके द्वारा बनाए गए सभी काम और आविष्कार पूरी तरह से कंपनी के हैं।",
+    "clauses.c17.heading": "नॉन-कम्पलीट",
+    "clauses.c17.plain": "नौकरी छोड़ने के बाद आप दो साल तक भारत में कहीं भी प्रतिस्पर्धियों के लिए काम नहीं कर सकते।",
+    "clauses.c18.heading": "नॉन-सोलिसिटेशन",
+    "clauses.c18.plain": "आप दो साल तक कंपनी के कर्मचारियों को काम पर नहीं रख सकते या इसके क्लाइंट्स के साथ डील नहीं कर सकते।",
+    "clauses.c19.heading": "आचार संहिता",
+    "clauses.c19.plain": "आपको कंपनी की सभी नीतियों और नियमों का पालन करना होगा।",
+    "clauses.c20.heading": "विशेष रोज़गार",
+    "clauses.c20.plain": "नौकरी के दौरान आप कोई भी अन्य भुगतान वाला या बिना भुगतान वाला काम नहीं कर सकते।",
+    "clauses.c21.heading": "शासी कानून और विवाद",
+    "clauses.c21.plain": "विवादों को गुरुग्राम में कंपनी द्वारा नियुक्त मध्यस्थ द्वारा संभाला जाता है।",
+    "clauses.c22.heading": "स्वीकृति",
+    "clauses.c22.plain": "आपको तीन दिनों के भीतर इस ऑफर लेटर पर साइन करके वापस भेजना होगा।",
+    "questions.q1.text": "क्या नॉन-कम्पलीट के दायरे को सभी क्लाइंट्स और पूरे भारत क्षेत्र के बजाय सीधे प्रतिस्पर्धियों तक सीमित किया जा सकता है?",
+    "questions.q2.text": "क्या ट्रेनिंग बॉन्ड की रकम और रीपेमेंट की शर्तों को कम या हटाया जा सकता है?",
+    "questions.q3.text": "क्या 90 दिन की नोटिस अवधि को घटाकर 30 दिन करना संभव है?",
+    "questions.q4.text": "क्या प्रोबेशन अवधि की कोई निश्चित अधिकतम लंबाई हो सकती है, जैसे छह महीने?",
+    "questions.q5.text": "क्या बौद्धिक संपदा क्लॉज़ से कंपनी की संपत्ति के बिना, पूरी तरह से आपके अपने समय पर बनाए गए व्यक्तिगत प्रोजेक्ट्स को बाहर रखा जा सकता है?",
+    "questions.q6.text": "मुझे भुगतान के साथ कितने दिनों की वार्षिक छुट्टी और सिक लीव मिलेगी?",
+    "checklist.before.b1.text": "HR से कहें कि वे ट्रेनिंग बॉन्ड और नॉन-कम्पलीट क्लॉज़ को स्पष्ट करें या नरम करें।",
+    "checklist.before.b2.text": "साइन करने से पहले अपनी पेड लीव के अधिकारों के बारे में विवरण की पुष्टि करें।",
+    "checklist.after.a1.text": "अपने व्यक्तिगत रिकॉर्ड के लिए इस ऑफर लेटर और एनेक्स्चर की साइन की हुई कॉपी अपने पास रखें।",
+    "glossary.g1.definition": "पैसे की एक पहले से तय की गई रकम जो आपको चुकानी होगी यदि आप कॉन्ट्रैक्ट की किसी शर्त को तोड़ते हैं।",
+    "glossary.g3.definition": "आपके परफॉर्मेंस की जांच करने के लिए नौकरी की शुरुआत में शुरुआती टेस्टिंग अवधि।",
+    "glossary.g4.definition": "एक निजी व्यक्ति का उपयोग करके पारंपरिक अदालतों के बाहर विवादों को सुलझाने का एक तरीका।",
+    "glossary.g5.definition": "पुराने साथियों को काम पर रखने या पुराने क्लाइंट्स से संपर्क करने से रोकने वाला नियम।"
+  }
+}

@@ -1,0 +1,745 @@
+{
+  "id": "rental",
+  "title": "Leave and License Agreement",
+  "docType": "rental",
+  "hiReviewed": false,
+  "en": {
+    "version": 1,
+    "docType": "rental",
+    "docTypeLabel": "Rental agreement",
+    "docTypeConfidence": "high",
+    "title": "Leave and License Agreement",
+    "stats": { "pages": 3, "chars": 5554, "segments": 34 },
+    "segments": [
+      {
+        "id": "s1",
+        "page": 1,
+        "text": "LEAVE AND LICENSE AGREEMENT\n\nThis Leave and License Agreement is made at Pune on the 1st day of June 2026 between Mr.\nArvind Kelkar, residing at 17 Lotus Lane, Kothrud, Pune, hereinafter called the Licensor, and\nMs. Meera Joshi, residing at 9 Station Road, Nashik, hereinafter called the Licensee. The\nLicensor and the Licensee are together called the parties."
+      },
+      {
+        "id": "s2",
+        "page": 1,
+        "text": "WHEREAS the Licensor is the owner of Flat No. 402, fourth floor, Neem Tower, Baner, Pune\n(the premises), and the Licensee has asked to use the premises for residential purposes only,\nthe parties agree as follows."
+      },
+      {
+        "id": "s3",
+        "page": 1,
+        "text": "1. TERM\n\n1.1 The license is granted for a period of eleven months starting on 1 July 2026 and ending on\n31 May 2027, unless it is ended earlier under this agreement."
+      },
+      {
+        "id": "s4",
+        "page": 1,
+        "text": "1.2 The first six months of the term are a lock-in period. If the Licensee leaves the premises\nduring the lock-in period for any reason, the entire security deposit shall stand forfeited, and\nthe Licensee shall in addition pay the license fee for the full remaining term of the agreement."
+      },
+      {
+        "id": "s5",
+        "page": 1,
+        "text": "2. LICENSE FEE\n\n2.1 The Licensee shall pay a monthly license fee of Rs. 28,000 on or before the 5th day of\neach calendar month by bank transfer to the account named by the Licensor."
+      },
+      {
+        "id": "s6",
+        "page": 1,
+        "text": "2.2 The license fee shall increase automatically on the first day of every third month by such\namount as the Licensor may decide and communicate to the Licensee."
+      },
+      {
+        "id": "s7",
+        "page": 1,
+        "text": "2.3 If any payment is late, the Licensee shall pay a late fee of Rs. 500 for every day of delay,\nand the unpaid late fee shall itself attract the same daily charge until the whole amount is\ncleared."
+      },
+      {
+        "id": "s8",
+        "page": 1,
+        "text": "3. SECURITY DEPOSIT\n\n3.1 The Licensee has paid an interest-free security deposit of Rs. 2,80,000, being ten months\nof license fee, which the Licensor acknowledges."
+      },
+      {
+        "id": "s9",
+        "page": 1,
+        "text": "3.2 The deposit shall be returned after the Licensee hands over vacant possession, after\ndeducting any amounts the Licensor considers appropriate for damage, cleaning, painting,\npending dues or any other reason. The Licensor shall return the balance, if any, within a\nreasonable time."
+      },
+      {
+        "id": "s10",
+        "page": 1,
+        "text": "4. USE OF THE PREMISES\n\n4.1 The Licensee shall use the premises only as a private residence for herself and her\nimmediate family and for no commercial purpose."
+      },
+      {
+        "id": "s11",
+        "page": 2,
+        "text": "4.2 The Licensee shall not sublet, assign or part with the premises or any part of it. No guest\nmay stay overnight at the premises without the prior written consent of the Licensor, and\nevery breach of this condition shall attract a penalty of Rs. 5,000 per guest per night."
+      },
+      {
+        "id": "s12",
+        "page": 2,
+        "text": "4.3 The Licensee shall follow the rules of the Neem Tower Co-operative Housing Society and\nshall not keep any pet animal in the premises."
+      },
+      {
+        "id": "s13",
+        "page": 2,
+        "text": "5. MAINTENANCE AND REPAIRS\n\n5.1 The Licensee shall keep the premises clean and in good condition, fair wear and tear\nexcepted."
+      },
+      {
+        "id": "s14",
+        "page": 2,
+        "text": "5.2 All repairs to the premises of whatever nature, including structural repairs, plumbing,\nelectrical wiring, seepage, and the replacement of fittings and appliances supplied by the\nLicensor, shall be carried out by the Licensee at her own cost."
+      },
+      {
+        "id": "s15",
+        "page": 2,
+        "text": "5.3 The Licensee shall not make any alteration or addition to the premises without the written\nconsent of the Licensor."
+      },
+      {
+        "id": "s16",
+        "page": 2,
+        "text": "6. ENTRY AND INSPECTION\n\n6.1 The Licensor or any person authorised by him may enter the premises at any time, with or\nwithout notice, to inspect the premises, show it to prospective buyers or licensees, or carry\nout any work he thinks fit."
+      },
+      {
+        "id": "s17",
+        "page": 2,
+        "text": "7. UTILITIES AND CHARGES\n\n7.1 Electricity charges as per the separate meter shall be paid by the Licensee directly to the\nsupply company."
+      },
+      {
+        "id": "s18",
+        "page": 2,
+        "text": "7.2 Water charges, society maintenance, parking charges, property tax and any other\noutgoings shall be paid as may be agreed between the parties from time to time."
+      },
+      {
+        "id": "s19",
+        "page": 2,
+        "text": "8. TERMINATION\n\n8.1 The Licensee may end this agreement after the lock-in period by giving the Licensor three\nmonths notice in writing."
+      },
+      {
+        "id": "s20",
+        "page": 2,
+        "text": "8.2 The Licensor may end this agreement at any time by giving the Licensee seven days\nnotice in writing, without giving any reason."
+      },
+      {
+        "id": "s21",
+        "page": 2,
+        "text": "8.3 On the expiry or termination of the license the Licensee shall hand over vacant and\npeaceful possession of the premises with all fittings listed in the Schedule."
+      },
+      {
+        "id": "s22",
+        "page": 2,
+        "text": "8.4 If the Licensee fails to hand over possession on the due date, she shall pay damages of Rs.\n3,000 for each day of delay, without prejudice to the other rights of the Licensor."
+      },
+      {
+        "id": "s23",
+        "page": 3,
+        "text": "9. RENEWAL\n\n9.1 The agreement may be renewed for a further term on such terms as the Licensor may\ndecide at the time. The Licensor is under no obligation to renew, and the Licensee shall\naccept the terms offered or vacate the premises."
+      },
+      {
+        "id": "s24",
+        "page": 3,
+        "text": "10. NO TENANCY\n\n10.1 The parties agree that this is a license only, and nothing in it creates a tenancy or any\nother interest in the premises in favour of the Licensee."
+      },
+      {
+        "id": "s25",
+        "page": 3,
+        "text": "11. NOTICES\n\n11.1 Any notice under this agreement shall be in writing and sent by registered post or email\nto the addresses given above, or to any other address a party notifies in writing."
+      },
+      {
+        "id": "s26",
+        "page": 3,
+        "text": "12. DISPUTES\n\n12.1 Any dispute between the parties about this agreement shall be subject to the courts at\nPune only."
+      },
+      {
+        "id": "s27",
+        "page": 3,
+        "text": "SCHEDULE OF FITTINGS\n\n(a) Two ceiling fans in each bedroom and one in the living room."
+      },
+      {
+        "id": "s28",
+        "page": 3,
+        "text": "(b) One double-door refrigerator and one washing machine, both in working condition."
+      },
+      {
+        "id": "s29",
+        "page": 3,
+        "text": "(c) Modular kitchen with a chimney and a two-burner hob."
+      },
+      { "id": "s30", "page": 3, "text": "(d) Wardrobes in both bedrooms with keys." },
+      { "id": "s31", "page": 3, "text": "(e) Six tube lights and four LED bulbs with fittings." },
+      {
+        "id": "s32",
+        "page": 3,
+        "text": "IN WITNESS WHEREOF the parties have signed this agreement on the date first written\nabove."
+      },
+      {
+        "id": "s33",
+        "page": 3,
+        "text": "Signed by the Licensor: Arvind Kelkar. Signed by the Licensee: Meera Joshi."
+      },
+      {
+        "id": "s34",
+        "page": 3,
+        "text": "Witness 1: Sunil Pawar, Baner, Pune. Witness 2: Kavita Rane, Aundh, Pune."
+      }
+    ],
+    "summary": "This document is a leave and license agreement for a residential flat in Pune for an eleven-month term. Before signing, you should carefully review the heavy penalties, automatic rent increases, owner entry rules, and mismatched notice periods.",
+    "score": { "value": 100, "band": "high", "counts": { "high": 2, "medium": 8, "missing": 1 } },
+    "keyFacts": [
+      { "id": "k1", "label": "Rent", "value": "Rs. 28,000 per month", "segmentId": "s5" },
+      { "id": "k2", "label": "Security Deposit", "value": "Rs. 2,80,000", "segmentId": "s8" },
+      { "id": "k3", "label": "Term", "value": "eleven months", "segmentId": "s3" },
+      { "id": "k4", "label": "Lock-in Period", "value": "first six months", "segmentId": "s4" },
+      {
+        "id": "k5",
+        "label": "Late Fee",
+        "value": "Rs. 500 for every day of delay",
+        "segmentId": "s7"
+      },
+      {
+        "id": "k6",
+        "label": "Guest Penalty",
+        "value": "Rs. 5,000 per guest per night",
+        "segmentId": "s11"
+      }
+    ],
+    "flags": [
+      {
+        "id": "f1",
+        "kind": "present",
+        "severity": "high",
+        "category": "Lock-in and early exit",
+        "title": "Severe lock-in penalty",
+        "plain": "If you leave during the first six months, you lose your entire security deposit and must also pay rent for all the remaining months.",
+        "why": "This term may cost you a lot of money if unexpected personal or professional changes force you to move early.",
+        "segmentId": "s4",
+        "quote": "If the Licensee leaves the premises\nduring the lock-in period for any reason, the entire security deposit shall stand forfeited, and\nthe Licensee shall in addition pay the license fee for the full remaining term of the agreement.",
+        "termIds": ["g2", "g3"]
+      },
+      {
+        "id": "f2",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Rent increase",
+        "title": "Frequent automatic rent increases",
+        "plain": "Your rent can increase automatically every three months by whatever amount the owner decides.",
+        "why": "This can make your housing costs unpredictable and hard to budget for.",
+        "segmentId": "s6",
+        "quote": "The license fee shall increase automatically on the first day of every third month by such\namount as the Licensor may decide and communicate to the Licensee.",
+        "termIds": ["g1", "g2"]
+      },
+      {
+        "id": "f3",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Late fees",
+        "title": "Compounding daily late fees",
+        "plain": "If your rent payment is late, you pay a daily fee of Rs. 500, and even the unpaid late fees accumulate daily charges.",
+        "why": "This can cause small payment delays to snowball into very large debts quickly.",
+        "segmentId": "s7",
+        "quote": "If any payment is late, the Licensee shall pay a late fee of Rs. 500 for every day of delay,\nand the unpaid late fee shall itself attract the same daily charge until the whole amount is\ncleared.",
+        "termIds": ["g2"]
+      },
+      {
+        "id": "f4",
+        "kind": "present",
+        "severity": "high",
+        "category": "Deposit return",
+        "title": "Open-ended deposit deductions",
+        "plain": "The owner can deduct any amount they choose from your security deposit for various reasons before returning the balance.",
+        "why": "This gives the owner total control over your money, making it risky to get your full deposit back.",
+        "segmentId": "s9",
+        "quote": "The deposit shall be returned after the Licensee hands over vacant possession, after\ndeducting any amounts the Licensor considers appropriate for damage, cleaning, painting,\npending dues or any other reason.",
+        "termIds": ["g1", "g2"]
+      },
+      {
+        "id": "f5",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Subletting and guests",
+        "title": "Strict overnight guest restrictions and penalties",
+        "plain": "Guests cannot stay overnight without written permission, and breaking this rule costs Rs. 5,000 per guest per night.",
+        "why": "This severely limits your ability to host family or friends and carries a heavy financial penalty.",
+        "segmentId": "s11",
+        "quote": "No guest\nmay stay overnight at the premises without the prior written consent of the Licensor, and\nevery breach of this condition shall attract a penalty of Rs. 5,000 per guest per night.",
+        "termIds": ["g1"]
+      },
+      {
+        "id": "f6",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Repairs and maintenance",
+        "title": "Tenant bears all repair costs",
+        "plain": "You are responsible for paying for all repairs, including major structural fixes, plumbing, wiring, and appliance replacements.",
+        "why": "This could force you to pay large, unexpected bills for maintaining property that you do not own.",
+        "segmentId": "s14",
+        "quote": "All repairs to the premises of whatever nature, including structural repairs, plumbing,\nelectrical wiring, seepage, and the replacement of fittings and appliances supplied by the\nLicensor, shall be carried out by the Licensee at her own cost.",
+        "termIds": ["g1", "g2"]
+      },
+      {
+        "id": "f7",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Owner entry",
+        "title": "Unrestricted owner entry",
+        "plain": "The owner or their authorised visitors can enter your home at any time without giving you prior notice.",
+        "why": "This may affect your privacy and peace of mind during your stay.",
+        "segmentId": "s16",
+        "quote": "The Licensor or any person authorised by him may enter the premises at any time, with or\nwithout notice, to inspect the premises, show it to prospective buyers or licensees, or carry\nout any work he thinks fit.",
+        "termIds": ["g1", "g2"]
+      },
+      {
+        "id": "f8",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Utilities and society charges",
+        "title": "Unspecified utility and maintenance costs",
+        "plain": "Who pays for water, maintenance, parking, and taxes is left open to future agreement rather than being clearly stated.",
+        "why": "Unclear terms about extra costs can lead to disputes and unexpected expenses later.",
+        "segmentId": "s18",
+        "quote": "Water charges, society maintenance, parking charges, property tax and any other\noutgoings shall be paid as may be agreed between the parties from time to time.",
+        "termIds": ["g5"]
+      },
+      {
+        "id": "f9",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Notice balance",
+        "title": "Unequal notice periods",
+        "plain": "You must give three months notice to leave, but the owner can give just seven days notice.",
+        "why": "This creates an unfair balance where your obligations are much heavier than the owner's.",
+        "segmentId": "s19",
+        "quote": "The Licensee may end this agreement after the lock-in period by giving the Licensor three\nmonths notice in writing.",
+        "termIds": ["g1", "g2", "g3"]
+      },
+      {
+        "id": "f10",
+        "kind": "present",
+        "severity": "medium",
+        "category": "Renewal",
+        "title": "Unilateral renewal terms",
+        "plain": "The owner decides if the agreement renews and what terms apply, leaving you with no negotiating power.",
+        "why": "You may be forced to accept harsh new terms or leave when the term ends.",
+        "segmentId": "s23",
+        "quote": "The agreement may be renewed for a further term on such terms as the Licensor may\ndecide at the time. The Licensor is under no obligation to renew, and the Licensee shall\naccept the terms offered or vacate the premises.",
+        "termIds": ["g1", "g2"]
+      },
+      {
+        "id": "f11",
+        "kind": "missing",
+        "severity": "medium",
+        "category": "Stamp duty and registration",
+        "title": "Stamp duty and registration details missing",
+        "plain": "The document does not mention who pays for stamp duty and official registration charges.",
+        "why": "Without this, you might end up paying unexpected extra government fees or having an improperly registered document.",
+        "termIds": []
+      }
+    ],
+    "clauses": [
+      {
+        "id": "c1",
+        "segmentId": "s1",
+        "heading": "Parties and Location",
+        "plain": "This agreement is made in Pune between Mr. Arvind Kelkar as the Licensor and Ms. Meera Joshi as the Licensee."
+      },
+      {
+        "id": "c2",
+        "segmentId": "s2",
+        "heading": "Premises Purpose",
+        "plain": "The owner lets out Flat No. 402 in Baner, Pune, strictly for residential use by the Licensee."
+      },
+      {
+        "id": "c3",
+        "segmentId": "s3",
+        "heading": "Term of License",
+        "plain": "The license lasts for eleven months, starting on 1 July 2026 and ending on 31 May 2027."
+      },
+      {
+        "id": "c4",
+        "segmentId": "s4",
+        "heading": "Lock-in Period",
+        "plain": "The first six months are a lock-in period with heavy penalties for early departure.",
+        "flagId": "f1"
+      },
+      {
+        "id": "c5",
+        "segmentId": "s5",
+        "heading": "License Fee",
+        "plain": "You must pay a monthly rent of Rs. 28,000 by the 5th day of each calendar month."
+      },
+      {
+        "id": "c6",
+        "segmentId": "s6",
+        "heading": "Rent Increases",
+        "plain": "The rent increases automatically every three months by an amount chosen by the owner.",
+        "flagId": "f2"
+      },
+      {
+        "id": "c7",
+        "segmentId": "s7",
+        "heading": "Late Fees",
+        "plain": "Late payments incur a daily fee of Rs. 500, which compounds over time.",
+        "flagId": "f3"
+      },
+      {
+        "id": "c8",
+        "segmentId": "s8",
+        "heading": "Security Deposit Amount",
+        "plain": "You have paid an interest-free security deposit of Rs. 2,80,000, equal to ten months of rent."
+      },
+      {
+        "id": "c9",
+        "segmentId": "s9",
+        "heading": "Deposit Return",
+        "plain": "The deposit is returned after you leave, minus any deductions the owner decides to make.",
+        "flagId": "f4"
+      },
+      {
+        "id": "c10",
+        "segmentId": "s10",
+        "heading": "Use of Premises",
+        "plain": "The property must be used only as a private residence for your immediate family."
+      },
+      {
+        "id": "c11",
+        "segmentId": "s11",
+        "heading": "Subletting and Guests",
+        "plain": "Subletting is banned, and overnight guests require written consent or face a heavy penalty.",
+        "flagId": "f5"
+      },
+      {
+        "id": "c12",
+        "segmentId": "s12",
+        "heading": "Society Rules and Pets",
+        "plain": "You must follow housing society rules, and keeping pets is not allowed."
+      },
+      {
+        "id": "c13",
+        "segmentId": "s13",
+        "heading": "General Upkeep",
+        "plain": "You must keep the premises clean and in good condition, allowing for fair wear and tear."
+      },
+      {
+        "id": "c14",
+        "segmentId": "s14",
+        "heading": "Repairs and Maintenance",
+        "plain": "You are responsible for all repairs, including structural work, plumbing, electrical items, and appliances.",
+        "flagId": "f6"
+      },
+      {
+        "id": "c15",
+        "segmentId": "s15",
+        "heading": "Alterations",
+        "plain": "You cannot make any alterations or additions to the premises without written consent."
+      },
+      {
+        "id": "c16",
+        "segmentId": "s16",
+        "heading": "Entry and Inspection",
+        "plain": "The owner or their agents can enter the property at any time without notice.",
+        "flagId": "f7"
+      },
+      {
+        "id": "c17",
+        "segmentId": "s17",
+        "heading": "Electricity Charges",
+        "plain": "You must pay electricity bills directly to the supply company using a separate meter."
+      },
+      {
+        "id": "c18",
+        "segmentId": "s18",
+        "heading": "Other Bills and Charges",
+        "plain": "Water, maintenance, parking, and taxes will be paid based on future agreements between you and the owner.",
+        "flagId": "f8"
+      },
+      {
+        "id": "c19",
+        "segmentId": "s19",
+        "heading": "Tenant Notice",
+        "plain": "You can end the agreement after the lock-in period by giving three months written notice.",
+        "flagId": "f9"
+      },
+      {
+        "id": "c20",
+        "segmentId": "s20",
+        "heading": "Owner Notice",
+        "plain": "The owner can end the agreement at any time with seven days written notice."
+      },
+      {
+        "id": "c21",
+        "segmentId": "s21",
+        "heading": "Handing Over Possession",
+        "plain": "You must return the property and fittings in good condition when the license ends."
+      },
+      {
+        "id": "c22",
+        "segmentId": "s22",
+        "heading": "Holdover Damages",
+        "plain": "Failing to hand over possession on time results in a daily charge of Rs. 3,000."
+      },
+      {
+        "id": "c23",
+        "segmentId": "s23",
+        "heading": "Renewal Terms",
+        "plain": "The owner decides if and how the agreement can be renewed.",
+        "flagId": "f10"
+      },
+      {
+        "id": "c24",
+        "segmentId": "s24",
+        "heading": "No Tenancy",
+        "plain": "This document creates a license only and does not give you tenancy rights."
+      },
+      {
+        "id": "c25",
+        "segmentId": "s25",
+        "heading": "Notices",
+        "plain": "Official notices must be sent in writing via registered post or email."
+      },
+      {
+        "id": "c26",
+        "segmentId": "s26",
+        "heading": "Dispute Resolution",
+        "plain": "Any legal disputes regarding this agreement are subject to the courts in Pune."
+      },
+      {
+        "id": "c27",
+        "segmentId": "s27",
+        "heading": "Schedule of Fittings",
+        "plain": "The premises includes ceiling fans in the bedrooms and living room."
+      },
+      {
+        "id": "c28",
+        "segmentId": "s28",
+        "heading": "Appliances",
+        "plain": "A working double-door refrigerator and washing machine are provided."
+      },
+      {
+        "id": "c29",
+        "segmentId": "s29",
+        "heading": "Kitchen Fittings",
+        "plain": "A modular kitchen with a chimney and a two-burner hob is provided."
+      },
+      {
+        "id": "c30",
+        "segmentId": "s30",
+        "heading": "Wardrobes",
+        "plain": "Wardrobes with keys are provided in both bedrooms."
+      },
+      {
+        "id": "c31",
+        "segmentId": "s31",
+        "heading": "Lighting",
+        "plain": "Tube lights and LED bulbs with fittings are included."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "text": "Can we remove or cap the automatic rent increase clause that happens every three months?",
+        "flagIds": ["f2"]
+      },
+      {
+        "id": "q2",
+        "text": "Will the owner agree to give equal notice periods instead of a seven-day owner notice and a three-month tenant notice?",
+        "flagIds": ["f9"]
+      },
+      {
+        "id": "q3",
+        "text": "Can we clarify that major structural repairs and appliance replacements are the owner's responsibility?",
+        "flagIds": ["f6"]
+      },
+      {
+        "id": "q4",
+        "text": "Can we add a clear timeline for returning the security deposit and limit allowable deductions?",
+        "flagIds": ["f4"]
+      },
+      {
+        "id": "q5",
+        "text": "Can we remove the restriction and heavy penalty on overnight guests?",
+        "flagIds": ["f5"]
+      },
+      {
+        "id": "q6",
+        "text": "Who will pay for stamp duty and registration charges?",
+        "flagIds": ["f11"]
+      }
+    ],
+    "checklist": {
+      "before": [
+        {
+          "id": "b1",
+          "text": "Discuss and negotiate the high penalties, frequent rent increases, and repair responsibilities with the owner.",
+          "flagIds": ["f1", "f2", "f6"]
+        },
+        {
+          "id": "b2",
+          "text": "Clarify who pays for utility charges like water and maintenance.",
+          "flagIds": ["f8"]
+        }
+      ],
+      "after": [
+        {
+          "id": "a1",
+          "text": "Keep payment receipts for the security deposit and monthly rent safely.",
+          "flagIds": ["f2", "f3", "f6"]
+        }
+      ]
+    },
+    "glossary": [
+      {
+        "id": "g1",
+        "term": "Licensor",
+        "definition": "The owner of the property who is letting you use it."
+      },
+      {
+        "id": "g2",
+        "term": "Licensee",
+        "definition": "You, the person taking the property on rent."
+      },
+      {
+        "id": "g3",
+        "term": "Lock-in period",
+        "definition": "A set time during which neither party can end the agreement without heavy financial penalties."
+      },
+      {
+        "id": "g4",
+        "term": "Sublet",
+        "definition": "To rent out the property or a part of it to someone else."
+      },
+      {
+        "id": "g5",
+        "term": "Outgoings",
+        "definition": "Regular expenses related to the property, such as taxes and utility bills."
+      }
+    ],
+    "warnings": []
+  },
+  "hi": {
+    "docTypeLabel": "रेंट समझौता",
+    "summary": "यह दस्तावेज़ पुणे में एक रेजिडेंशियल फ्लैट के लिए ग्यारह महीने की अवधि का लीव एंड लाइसेंस समझौता है। साइन करने से पहले, आपको भारी पेनल्टी, अपने आप किराया बढ़ने, मालिक के आने के नियमों, और अलग-अलग नोटिस अवधियों की सावधानीपूर्वक समीक्षा करनी चाहिए।",
+    "keyFacts.k1.label": "किराया",
+    "keyFacts.k1.value": "Rs. 28,000 प्रति माह",
+    "keyFacts.k2.label": "सिक्योरिटी डिपॉजिट",
+    "keyFacts.k2.value": "Rs. 2,80,000",
+    "keyFacts.k3.label": "अवधि",
+    "keyFacts.k3.value": "ग्यारह महीने",
+    "keyFacts.k4.label": "लॉक-इन अवधि",
+    "keyFacts.k4.value": "पहले छह महीने",
+    "keyFacts.k5.label": "लेट फीस",
+    "keyFacts.k5.value": "देरी के हर दिन के लिए Rs. 500",
+    "keyFacts.k6.label": "गेस्ट पेनल्टी",
+    "keyFacts.k6.value": "प्रति गेस्ट प्रति रात Rs. 5,000",
+    "flags.f1.category": "लॉक-इन और जल्दी निकलना",
+    "flags.f1.title": "गंभीर लॉक-इन पेनल्टी",
+    "flags.f1.plain": "यदि आप पहले छह महीनों के दौरान छोड़ते हैं, तो आप अपना पूरा सिक्योरिटी डिपॉजिट खो देते हैं और आपको बाकी सभी महीनों का किराया भी देना होगा।",
+    "flags.f1.why": "यदि अप्रत्याशित व्यक्तिगत या पेशेवर बदलाव आपको जल्दी से मूव करने के लिए मजबूर करते हैं, तो इस क्लॉज़ पर बहुत अधिक पैसे खर्च हो सकते हैं।",
+    "flags.f2.category": "किराया बढ़ना",
+    "flags.f2.title": "बार-बार अपने आप किराया बढ़ना",
+    "flags.f2.plain": "मा मालिक द्वारा तय की गई किसी भी राशि से आपका किराया हर तीन महीने में अपने आप बढ़ सकता है।",
+    "flags.f2.why": "इससे आपके रहने का खर्च अनिश्चित हो सकता है और बजट बनाना मुश्किल हो सकता है।",
+    "flags.f3.category": "लेट फीस",
+    "flags.f3.title": "कंपाउंडिंग दैनिक लेट फीस",
+    "flags.f3.plain": "यदि आपका किराया भुगतान लेट है, तो आप Rs. 500 की दैनिक फीस देते हैं, और यहाँ तक कि बिना भुगतान की गई लेट फीस पर भी रोजाना चार्ज जुड़ते हैं।",
+    "flags.f3.why": "इससे भुगतान में छोटी सी देरी बहुत जल्दी बहुत बड़े कर्ज में बदल सकती है।",
+    "flags.f4.category": "डिपॉजिट वापसी",
+    "flags.f4.title": "खुले तौर पर डिपॉजिट कटौती",
+    "flags.f4.plain": "मालिक शेष राशि वापस करने से पहले विभिन्न कारणों से आपके सिक्योरिटी डिपॉजिट से अपनी पसंद की कोई भी राशि काट सकता है।",
+    "flags.f4.why": "यह मालिक को आपके पैसों पर पूरा नियंत्रण देता है, जिससे आपका पूरा डिपॉजिट वापस मिलना जोखिम भरा हो जाता है।",
+    "flags.f5.category": "सबलेटिंग और गेस्ट",
+    "flags.f5.title": "सख्त ओवरनाइट गेस्ट प्रतिबंध और पेनल्टी",
+    "flags.f5.plain": "लिखित अनुमति के बिना गेस्ट रात भर नहीं रुक सकते, और इस नियम को तोड़ने पर प्रति गेस्ट प्रति रात Rs. 5,000 का खर्च आता है।",
+    "flags.f5.why": "यह परिवार या दोस्तों को होस्ट करने की आपकी क्षमता को गंभीर रूप से सीमित करता है और इस पर भारी वित्तीय पेनल्टी लगती है।",
+    "flags.f6.category": "रिपेयर और मेंटेनेंस",
+    "flags.f6.title": "किरायेदार सभी रिपेयर लागत उठाता है",
+    "flags.f6.plain": "आप सभी रिपेयर के भुगतान के लिए जिम्मेदार हैं, जिसमें बड़े स्ट्रक्चरल फिक्स, प्लंबिंग, वायरिंग और अप्लायंसेज बदलना शामिल है।",
+    "flags.f6.why": "इससे आपको ऐसी प्रॉपर्टी के मेंटेनेंस के लिए बड़े, अप्रत्याशित बिल चुकाने के लिए मजबूर होना पड़ सकता है जिसके आप मालिक नहीं हैं।",
+    "flags.f7.category": "मालिक का प्रवेश",
+    "flags.f7.title": "अतिथियों या मालिक का बिना रोक-टोक प्रवेश",
+    "flags.f7.plain": "मालिक या उनके अधिकृत आगंतुक आपको पहले से नोटिस दिए बिना किसी भी समय आपके घर में प्रवेश कर सकते हैं।",
+    "flags.f7.why": "इससे आपके रहने के दौरान आपकी प्राइवेसी और मानसिक शांति प्रभावित हो सकती है।",
+    "flags.f8.category": "यूटिलिटी और सोसाइटी चार्ज",
+    "flags.f8.title": "अनिर्दिष्ट यूटिलिटी और मेंटेनेंस लागत",
+    "flags.f8.plain": "कौन पानी, मेंटेनेंस, पार्किंग और टैक्स के लिए भुगतान करता है, इसे स्पष्ट रूप से बताने के बजाय भविष्य के समझौते पर छोड़ दिया गया है।",
+    "flags.f8.why": "अतिरिक्त लागतों के बारे में स्पष्ट शर्तें बाद में विवादों और अप्रत्याशित खर्चों का कारण बन सकती हैं।",
+    "flags.f9.category": "नोटिस बैलेंस",
+    "flags.f9.title": "असमान नोटिस अवधियां",
+    "flags.f9.plain": "जाने के लिए आपको तीन महीने का नोटिस देना होगा, लेकिन मालिक सिर्फ सात दिन का नोटिस दे सकता है।",
+    "flags.f9.why": "इससे एक अनुचित संतुलन बनता है जहाँ आपकी जिम्मेदारियां मालिक की तुलना में बहुत भारी होती हैं।",
+    "flags.f10.category": "नवीनीकरण",
+    "flags.f10.title": "एकतरफा नवीनीकरण शर्तें",
+    "flags.f10.plain": "मालिक तय करता है कि समझौता नवीनीकृत होता है या नहीं और कौन सी शर्तें लागू होती हैं, जिससे आपके पास कोई मोलभाव करने की शक्ति नहीं बचती।",
+    "flags.f10.why": "अवधि समाप्त होने पर आपको कठोर नई शर्तें स्वीकार करने या छोड़ने के लिए मजबूर किया जा सकता है।",
+    "flags.f11.category": "स्टैंप ड्यूटी और रजिस्ट्रेशन",
+    "flags.f11.title": "स्टैंप ड्यूटी और रजिस्ट्रेशन विवरण गायब",
+    "flags.f11.plain": "दस्तावेज़ में यह उल्लेख नहीं है कि स्टैंप ड्यूटी और आधिकारिक रजिस्ट्रेशन शुल्क का भुगतान कौन करता है।",
+    "flags.f11.why": "इसके बिना, आप अप्रत्याशित अतिरिक्त सरकारी फीस चुका सकते हैं या आपके पास ठीक से रजिस्टर्ड दस्तावेज़ नहीं होगा।",
+    "clauses.c1.heading": "पार्टियां और स्थान",
+    "clauses.c1.plain": "यह समझौता पुणे में लाइसेंसार के रूप में श्री अरविंद केल्कर और लाइसेंसि के रूप में सुश्री मीरा जोशी के बीच हुआ है।",
+    "clauses.c2.heading": "परिसर का उद्देश्य",
+    "clauses.c2.plain": "मालिक लाइसेंसि द्वारा कड़ाई से आवासीय उपयोग के लिए बानेर, पुणे में फ्लैट नंबर 402 किराए पर देता है।",
+    "clauses.c3.heading": "लाइसेंस की अवधि",
+    "clauses.c3.plain": "लाइसेंस ग्यारह महीने तक रहता है, जो 1 जुलाई 2026 से शुरू होकर 31 मई 2027 को समाप्त होता है।",
+    "clauses.c4.heading": "लॉक-इन अवधि",
+    "clauses.c4.plain": "पहले छह महीने शुरुआती विदाई के लिए भारी पेनल्टी के साथ लॉक-इन अवधि हैं।",
+    "clauses.c5.heading": "लाइसेंस फीस",
+    "clauses.c5.plain": "आपको प्रत्येक कैलेंडर महीने के 5th दिन तक Rs. 28,000 का मासिक किराया देना होगा।",
+    "clauses.c6.heading": "किराया बढ़ना",
+    "clauses.c6.plain": "मालिक द्वारा चुनी गई राशि से किराया हर तीन महीने में अपने आप बढ़ जाता है।",
+    "clauses.c7.heading": "लेट फीस",
+    "clauses.c7.plain": "लेट भुगतान पर Rs. 500 की दैनिक फीस लगती है, जो समय के साथ बढ़ती जाती है।",
+    "clauses.c8.heading": "सिक्योरिटी डिपॉजिट राशि",
+    "clauses.c8.plain": "आपने दस महीने के किराए के बराबर Rs. 2,80,000 का ब्याज मुक्त सिक्योरिटी डिपॉजिट दिया है।",
+    "clauses.c9.heading": "डिपॉजिट वापसी",
+    "clauses.c9.plain": "मालिक द्वारा की जाने वाली किसी भी कटौती को घटाकर, आपके जाने के बाद डिपॉजिट वापस कर दिया जाता है।",
+    "clauses.c10.heading": "परिसर का उपयोग",
+    "clauses.c10.plain": "प्रॉपर्टी का उपयोग केवल आपके तत्काल परिवार के लिए एक निजी निवास के रूप में किया जाना चाहिए।",
+    "clauses.c11.heading": "सबलेटिंग और गेस्ट",
+    "clauses.c11.plain": "सबलेटिंग प्रतिबंधित है, और रात भर ठहरने वाले मेहमानों के लिए लिखित सहमति की आवश्यकता होती है अन्यथा भारी पेनल्टी चुकानी होगी।",
+    "clauses.c12.heading": "सोसाइटी के नियम और पालतू जानवर",
+    "clauses.c12.plain": "आपको हाउसिंग सोसाइटी के नियमों का पालन करना होगा, और पालतू जानवर रखने की अनुमति नहीं है।",
+    "clauses.c13.heading": "सामान्य रखरखाव",
+    "clauses.c13.plain": "आपको उचित टूट-फूट की अनुमति देते हुए परिसर को साफ और अच्छी स्थिति में रखना होगा।",
+    "clauses.c14.heading": "रिपेयर और मेंटेनेंस",
+    "clauses.c14.plain": "आप स्ट्रक्चरल काम, प्लंबिंग, इलेक्ट्रिकल आइटम और अप्लायंसेज सहित सभी रिपेयर के लिए जिम्मेदार हैं।",
+    "clauses.c15.heading": "बदलाव",
+    "clauses.c15.plain": "आप लिखित सहमति के बिना परिसर में कोई बदलाव या वृद्धि नहीं कर सकते।",
+    "clauses.c16.heading": "प्रवेश और निरीक्षण",
+    "clauses.c16.plain": "मालिक या उनके एजेंट बिना नोटिस के किसी भी समय प्रॉपर्टी में प्रवेश कर सकते हैं।",
+    "clauses.c17.heading": "बिजली के चार्ज",
+    "clauses.c17.plain": "आपको एक अलग मीटर का उपयोग करके सीधे आपूर्ति कंपनी को बिजली के बिलों का भुगतान करना होगा।",
+    "clauses.c18.heading": "अन्य बिल और चार्ज",
+    "clauses.c18.plain": "पानी, मेंटेनेंस, पार्किंग और टैक्स का भुगतान आपके और मालिक के बीच भविष्य के समझौतों के आधार पर किया जाएगा।",
+    "clauses.c19.heading": "किरायेदार का नोटिस",
+    "clauses.c19.plain": "आप तीन महीने का लिखित नोटिस देकर लॉक-इन अवधि के बाद समझौता समाप्त कर सकते हैं।",
+    "clauses.c20.heading": "मालिक का नोटिस",
+    "clauses.c20.plain": "मालिक सात दिन के लिखित नोटिस के साथ किसी भी समय समझौता समाप्त कर सकता है।",
+    "clauses.c21.heading": "कब्जा सौंपना",
+    "clauses.c21.plain": "लाइसेंस समाप्त होने पर आपको प्रॉपर्टी और फिटिंग अच्छी स्थिति में वापस करनी होगी।",
+    "clauses.c22.heading": "होल्डओवर नुकसान",
+    "clauses.c22.plain": "समय पर कब्जा न सौंपने पर Rs. 3,000 का दैनिक चार्ज लगता है।",
+    "clauses.c23.heading": "नवीनीकरण की शर्तें",
+    "clauses.c23.plain": "मालिक तय करता है कि समझौता कब और कैसे नवीनीकृत किया जा सकता है।",
+    "clauses.c24.heading": "कोई टेनेंसी नहीं",
+    "clauses.c24.plain": "यह दस्तावेज़ केवल एक लाइसेंस बनाता है और आपको टेनेंसी के अधिकार नहीं देता है।",
+    "clauses.c25.heading": "नोटिस",
+    "clauses.c25.plain": "आधिकारिक नोटिस रजिस्टर्ड डाक या ईमेल के माध्यम से लिखित रूप में भेजे जाने चाहिए।",
+    "clauses.c26.heading": "विवाद समाधान",
+    "clauses.c26.plain": "इस समझौते से संबंधित कोई भी कानूनी विवाद पुणे की अदालतों के अधीन है।",
+    "clauses.c27.heading": "फिटिंग की सूची",
+    "clauses.c27.plain": "परिसर में बेडरूम और लिविंग रूम में सीलिंग फैन शामिल हैं।",
+    "clauses.c28.heading": "अप्लाइंसेज",
+    "clauses.c28.plain": "एक काम करने वाला डबल-डोर रेफ्रिजरेटर और वॉशिंग मशीन प्रदान की जाती है।",
+    "clauses.c29.heading": "किचन फिटिंग",
+    "clauses.c29.plain": "चिमनी और दो-बर्नर हॉब के साथ एक मॉड्यूलर किचन प्रदान किया जाता है।",
+    "clauses.c30.heading": "वार्डरोब",
+    "clauses.c30.plain": "दोनों बेडरूम में चाबी वाले वार्डरोब दिए गए हैं।",
+    "clauses.c31.heading": "लाइटिंग",
+    "clauses.c31.plain": "फिटिंग के साथ ट्यूब लाइट और एलईडी बल्ब शामिल हैं।",
+    "questions.q1.text": "क्या हम हर तीन महीने में होने वाले अपने आप किराया बढ़ने वाले क्लॉज़ को हटा सकते हैं या सीमित कर सकते हैं?",
+    "questions.q2.text": "क्या मालिक सात दिन के मालिक के नोटिस और तीन महीने के किरायेदार के नोटिस के बजाय समान नोटिस अवधि देने के लिए सहमत होगा?",
+    "questions.q3.text": "क्या हम यह स्पष्ट कर सकते हैं कि प्रमुख स्ट्रक्चरल रिपेयर और अप्लायंसेज बदलना मालिक की जिम्मेदारी है?",
+    "questions.q4.text": "क्या हम सिक्योरिटी डिपॉजिट वापस करने के लिए एक स्पष्ट समयसीमा जोड़ सकते हैं और स्वीकार्य कटौतियों को सीमित कर सकते हैं?",
+    "questions.q5.text": "क्या हम रात भर रुकने वाले मेहमानों पर प्रतिबंध और भारी पेनल्टी हटा सकते हैं?",
+    "questions.q6.text": "स्टैंप ड्यूटी और रजिस्ट्रेशन चार्ज का भुगतान कौन करेगा?",
+    "checklist.before.b1.text": "मालिक के साथ भारी पेनल्टी, बार-बार किराया बढ़ने और रिपेयर की जिम्मेदारियों पर चर्चा करें और बातचीत करें।",
+    "checklist.before.b2.text": "स्पष्ट करें कि पानी और मेंटेनेंस जैसे यूटिलिटी चार्ज का भुगतान कौन करता है।",
+    "checklist.after.a1.text": "सिक्योरिटी डिपॉजिट और मासिक किराए की भुगतान रसीदें सुरक्षित रखें।",
+    "glossary.g1.definition": "प्रॉपर्टी का मालिक जो आपको इसका उपयोग करने दे रहा है।",
+    "glossary.g2.definition": "आप, किराए पर प्रॉपर्टी लेने वाले व्यक्ति।",
+    "glossary.g3.definition": "एक निश्चित समय जिसके दौरान कोई भी पक्ष भारी वित्तीय पेनल्टी के बिना समझौता समाप्त नहीं कर सकता है।",
+    "glossary.g4.definition": "प्रॉपर्टी या उसके किसी हिस्से को किसी अन्य को किराए पर देना।",
+    "glossary.g5.definition": "प्रॉपर्टी से संबंधित नियमित खर्च, जैसे टैक्स और यूटिलिटी बिल।"
+  }
+}

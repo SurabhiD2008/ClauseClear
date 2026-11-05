@@ -1,0 +1,81 @@
+/* Shared by the guard's self-test pages (test only, served at /__guard/ when
+   E2E_GUARD_PAGES=1). The clean page built on it passes every check. */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font:
+    16px/1.5 system-ui,
+    sans-serif;
+  color: #111;
+  background: #fff;
+}
+main {
+  padding: 16px;
+  max-width: 40rem;
+}
+.cc-tap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+}
+a.cc-tap {
+  color: #0645ad;
+}
+:focus-visible {
+  outline: 3px solid #0645ad;
+  outline-offset: 2px;
+}
+/* Broken on purpose, one rule per check. */
+.wide {
+  width: 2000px;
+  height: 20px;
+  background: #eee;
+}
+.clip {
+  overflow: hidden;
+  height: 1.5em;
+  width: 10em;
+}
+.tiny {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
+.faint {
+  color: #b8b8b8;
+  background: #c8c8c8;
+}
+.no-ring:focus,
+.no-ring:focus-visible {
+  outline: none;
+}
+.invisible {
+  opacity: 0;
+}
+.tall {
+  height: 1200px;
+  background: #f4f4f4;
+}
+.pushdown {
+  height: 600px;
+  background: #ddd;
+}
+.smooth {
+  scroll-behavior: smooth;
+}
+.spin {
+  width: 44px;
+  height: 44px;
+  background: #0645ad;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

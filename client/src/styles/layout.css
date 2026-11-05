@@ -1,0 +1,134 @@
+/* Footer and the placeholder page shell (SPEC section 9). Page visuals come in later prompts. */
+/* <main> is at least a screen tall, so the footer always starts below the fold.
+ * A route that renders nothing for a frame before it redirects (/results without
+ * a result goes home) painted the footer under the header, then moved it away
+ * (prompt 18, CLS 0.17 to 0.33 on phones). */
+#main {
+  min-height: 100vh;
+}
+
+.cc-footer {
+  border-top: var(--rule-section) solid var(--ink);
+}
+
+.cc-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 18px 28px;
+}
+
+.cc-footer__nav {
+  display: none;
+}
+
+.cc-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.cc-footer__links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* A short word (Hindi "प्राइवेसी") is narrower than a tap target. */
+  min-width: var(--touch);
+  min-height: var(--touch);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.cc-footer__notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  color: var(--muted);
+}
+
+@media (max-width: 639.98px) {
+  .cc-footer__nav {
+    display: block;
+  }
+}
+
+/* Placeholder controls: plain, readable, 44 px targets. */
+.cc-shell {
+  display: grid;
+  /* minmax(0, …): a file input's min-content width must not widen the column at 320 px. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+}
+
+/*
+ * A page whose content is still loading (the sample route). Padding, not the
+ * shell's margin, so nothing collapses through <main> and moves it; one screen
+ * tall, so the footer starts below the fold and the content replaces this
+ * without a layout shift.
+ */
+.cc-shell--pending {
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 32px;
+}
+
+.cc-shell textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 10px;
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  font: inherit;
+  font-size: 16px;
+}
+
+.cc-shell__button,
+.cc-shell input[type="file"] {
+  min-height: var(--touch);
+  padding: 8px 14px;
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* The file input's built-in width can exceed a 320 px screen, so it fills a shrinkable block. */
+.cc-shell__file {
+  display: grid;
+  flex: 1 1 240px;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cc-shell input[type="file"] {
+  width: 100%;
+  min-width: 0;
+}
+
+.cc-shell__button:disabled {
+  border-color: var(--rule);
+  color: var(--muted);
+}
+
+.cc-shell__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.cc-shell__steps li[aria-current="step"] {
+  font-weight: 600;
+}
