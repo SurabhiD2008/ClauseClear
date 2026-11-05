@@ -1,0 +1,31 @@
+# Render Blueprint (prompt 20, A181): one free Node web service that serves the
+# API and the built client (SPEC section 4). Variable names only: every value is
+# entered in the Render dashboard (sync: false asks for it on the first sync).
+# Variables not listed here use the defaults in .env.example.
+services:
+  - type: web
+    name: clauseclear
+    runtime: node
+    plan: free
+    region: singapore
+    # Dev dependencies (tsc, vite) are needed to build, so they are installed
+    # even if NODE_ENV is set to production.
+    buildCommand: npm ci --include=dev && npm run build
+    # npm start runs server/dist/start.js, which defaults NODE_ENV to production.
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: LLM_PROVIDER_ORDER
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        sync: false
+      - key: GEMINI_THINKING_LEVEL
+        sync: false
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: NVIDIA_MODEL
+        sync: false
+      - key: TRUST_PROXY
+        sync: false

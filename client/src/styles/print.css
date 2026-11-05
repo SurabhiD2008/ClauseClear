@@ -1,0 +1,152 @@
+/* The printed report (SPEC F16, design.md section 8): A4, black on white, no
+   sticky panels, no buttons. Quotes stay, every flag is open, and a flag, a
+   clause reading or a checklist item never splits across pages. Nothing is
+   stored: printing is the browser's own Save as PDF. */
+@page {
+  size: A4;
+  margin: 16mm 14mm;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Rotations and marker fills are screen decoration. */
+  .cc-ruled,
+  .cc-quote,
+  .cc-stamp,
+  .cc-sticky,
+  .cc-checklist__sheet {
+    transform: none !important;
+  }
+
+  /* Off the page: navigation, notices that come and go, every button, the
+     document panel and its sheet, the glossary notes and the read-aloud controls. */
+  .cc-skip-link,
+  .cc-header,
+  .cc-footer,
+  .cc-statusbar,
+  .cc-results__actions,
+  .cc-results__aside,
+  .cc-sheet-dialog,
+  .cc-filter,
+  .cc-flags__more,
+  .cc-flag__find,
+  .cc-flag__sign,
+  .cc-read,
+  .cc-read-hint,
+  .cc-override,
+  .cc-questions__head .cc-button,
+  .cc-question__copy,
+  .cc-results__next,
+  .cc-gloss__tip,
+  .cc-checklist__back,
+  .cc-checklist__actions {
+    display: none !important;
+  }
+
+  .cc-page,
+  .cc-results,
+  .cc-checklist {
+    max-width: none;
+    padding: 0;
+    border: 0;
+  }
+
+  .cc-results__grid {
+    display: block;
+  }
+
+  /* Every flag prints open, with its quote. */
+  .cc-flag__body[hidden] {
+    display: block !important;
+  }
+
+  .cc-flag,
+  .cc-clause,
+  .cc-quote,
+  .cc-question,
+  .cc-check,
+  .cc-score,
+  .cc-facts__grid > * {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  .cc-flag__heading {
+    break-after: avoid;
+  }
+
+  /* Black on white: the highlighter becomes an underline, stamps and ink go black. */
+  .cc-marker,
+  mark {
+    background: none !important;
+    color: #000 !important;
+    text-decoration: underline 1.5px;
+    text-underline-offset: 3px;
+  }
+
+  .cc-stamp,
+  .cc-term,
+  a {
+    color: #000 !important;
+    border-color: #000 !important;
+    background: #fff !important;
+  }
+
+  .cc-term {
+    text-decoration: none;
+  }
+
+  .cc-quote {
+    border: 1px solid #000;
+    background: #fff;
+  }
+
+  .cc-ruled,
+  .cc-ruled--legal {
+    border: 1px solid #000;
+    background: #fff !important;
+    color: #000;
+  }
+
+  .cc-ruled::before {
+    background: #000;
+  }
+
+  .cc-progress__bar {
+    border-color: #000;
+  }
+
+  .cc-progress__fill {
+    background: #000 !important;
+    print-color-adjust: exact;
+  }
+
+  .cc-check__box {
+    print-color-adjust: exact;
+  }
+
+  .cc-checklist__sheets {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .cc-checklist__sheet--after {
+    margin-top: 0;
+  }
+}

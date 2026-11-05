@@ -1,0 +1,54 @@
+{
+  "name": "clauseclear",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w shared && npm run build -w server && npm run build -w client",
+    "start": "npm run start -w server",
+    "typecheck": "npm run build -w shared && tsc -p tsconfig.json && npm run typecheck --workspaces",
+    "lint": "eslint . --max-warnings=0 && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "audit": "tsx --conditions=development scripts/audit.ts",
+    "fixtures": "tsx --conditions=development scripts/build-fixtures.ts",
+    "samples": "tsx --conditions=development scripts/build-samples.ts",
+    "samples:report": "tsx --conditions=development scripts/samples-report.ts",
+    "fixtures:stats": "tsx --conditions=development scripts/fixture-stats.ts",
+    "prompts:show": "tsx --conditions=development scripts/show-prompts.ts",
+    "check:providers": "tsx --conditions=development scripts/check-providers.ts",
+    "test:live": "tsx --conditions=development scripts/live-test.ts",
+    "live:summary": "tsx --conditions=development scripts/live-summary.ts",
+    "smoke": "tsx --conditions=development scripts/smoke.ts",
+    "screenshots": "tsx --conditions=development scripts/screenshots.ts",
+    "measure:layout": "tsx --conditions=development scripts/measure-layout.ts",
+    "voice:check": "tsx --conditions=development scripts/voice-check.ts",
+    "results:check": "tsx --conditions=development scripts/check-results.ts"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@pdf-lib/fontkit": "1.1.1",
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "concurrently": "10.0.6",
+    "eslint": "10.14.0",
+    "pdf-lib": "1.17.1",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.0.5"
+  },
+  "overrides": {
+    "minimatch": "11.0.4"
+  }
+}

@@ -1,0 +1,123 @@
+/* Header, wordmark and language toggle (SPEC section 9, design.md section 4). */
+.cc-header {
+  position: relative;
+  border-bottom: var(--rule-section) solid var(--ink);
+}
+
+.cc-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 14px;
+}
+
+/* The wordmark is a name, so it keeps the English face in Hindi mode. */
+.cc-wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-family: "Archivo", "Arial", sans-serif;
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cc-wordmark:hover {
+  background: none;
+}
+
+.cc-header__right {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 36px);
+}
+
+.cc-header__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 26px);
+}
+
+.cc-header__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-family: var(--font-label);
+  font-size: var(--label-size);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cc-header__links a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.cc-toggle-wrap {
+  position: relative;
+}
+
+.cc-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.cc-toggle__item {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The toggle letters stay Latin in Hindi mode, so they keep the English mono face. */
+.cc-toggle__slash {
+  padding-inline: 2px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: var(--label-size);
+  color: var(--muted);
+}
+
+.cc-toggle__button {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding-inline: 6px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: var(--label-size);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+.cc-toggle__button[aria-pressed="true"] {
+  color: var(--ink);
+  box-shadow: inset 0 -4px 0 var(--pen-blue);
+}
+
+.cc-toggle__failed {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 5;
+  width: max-content;
+  max-width: min(320px, calc(100vw - 2 * var(--gutter)));
+  padding: 8px 12px;
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  font-family: var(--font-reading);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+@media (max-width: 639.98px) {
+  .cc-header__nav {
+    display: none;
+  }
+}

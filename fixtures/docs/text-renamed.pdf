@@ -1,0 +1,2 @@
+This is a plain text file that has been renamed to end in .pdf.
+It has no PDF header, so the server must reject it as NOT_PDF.

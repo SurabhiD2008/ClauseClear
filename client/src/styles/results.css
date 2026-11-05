@@ -1,0 +1,937 @@
+/* Results page (design/results.png, design.md sections 4 and 5.2, SPEC section 9). */
+
+a.cc-button {
+  text-decoration: none;
+}
+
+.cc-button--compact {
+  min-height: var(--touch);
+  padding-inline: 18px;
+}
+
+.cc-results {
+  padding-block: 24px 72px;
+}
+
+.cc-results__h2 {
+  font-family: var(--font-display);
+  font-size: var(--h2-size);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* --- Top row: file name, meta, sample stamp, "Check another document" --- */
+.cc-results__top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.cc-results__file {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: center;
+  min-width: 0;
+  font-family: var(--font-label);
+  font-size: 13px;
+}
+
+.cc-results__name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.cc-results__meta {
+  color: var(--muted);
+}
+
+.cc-stamp--sample {
+  color: var(--pen-blue);
+  transform: rotate(var(--tilt-sample));
+}
+
+.cc-results__notices {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.cc-notice {
+  max-width: 760px;
+  padding: 12px 16px;
+  border: var(--rule-thin) dashed var(--pen-blue);
+  background: var(--white);
+  color: var(--pen-blue-dark);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* --- Two columns: findings 6fr, document 5fr (SPEC section 9) --- */
+.cc-results__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.cc-results__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 56px;
+}
+
+.cc-results__aside {
+  position: sticky;
+  top: 16px;
+}
+
+/* --- Verdict --- */
+.cc-verdict {
+  padding-top: 18px;
+  border-top: var(--rule-block) solid var(--ink);
+}
+
+.cc-verdict__detected {
+  margin-bottom: 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-verdict__title {
+  margin-bottom: 18px;
+}
+
+.cc-score {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.cc-score__figure {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 6px 4px 6px 14px;
+}
+
+.cc-score__value {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 8vw, 112px);
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 0.95;
+}
+
+.cc-score .cc-redpen__svg {
+  inset: -14% -22% -16% -18%;
+  width: 140%;
+  height: 130%;
+}
+
+.cc-score__max {
+  margin: 0 0 8px 22px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cc-score__note {
+  font-family: var(--font-hand);
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 700;
+  color: var(--red-pen);
+  transform: rotate(var(--tilt-note));
+}
+
+.cc-verdict__summary {
+  max-width: 640px;
+  margin-bottom: 16px;
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.6;
+}
+
+.cc-tallies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-bottom: 26px;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-tally--high {
+  color: var(--red-text);
+}
+
+.cc-tally--medium {
+  color: var(--orange-text);
+}
+
+.cc-tally--missing {
+  color: var(--pen-blue);
+}
+
+/* Ruler scale: a 1.5 px baseline with ticks every 10 percent and a red circle at the score. */
+.cc-ruler {
+  max-width: 640px;
+  margin: 0;
+}
+
+.cc-ruler__line {
+  position: relative;
+  height: 18px;
+  border-bottom: var(--rule-section) solid var(--ink);
+}
+
+.cc-ruler__tick {
+  position: absolute;
+  bottom: 0;
+  width: 1.5px;
+  height: 10px;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.cc-ruler__tick:first-child,
+.cc-ruler__tick:nth-child(6),
+.cc-ruler__tick:nth-child(11) {
+  height: 16px;
+}
+
+.cc-ruler__mark {
+  position: absolute;
+  bottom: 2px;
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+  transform: translateX(-50%);
+}
+
+.cc-ruler__mark path {
+  fill: none;
+  stroke: var(--red-pen);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.cc-ruler__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- The numbers: dotted-leader rows, two columns --- */
+.cc-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 36px;
+  margin: 20px 0 0;
+}
+
+.cc-facts__grid .cc-leader {
+  flex-wrap: wrap;
+}
+
+.cc-facts__grid .cc-leader__value {
+  margin-left: auto;
+  overflow-wrap: anywhere;
+}
+
+/* --- Flags --- */
+.cc-flags__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cc-filter {
+  display: flex;
+  gap: 4px;
+}
+
+.cc-filter__button {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding: 4px 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-filter__button[aria-pressed="true"] {
+  color: var(--ink);
+  box-shadow: inset 0 -5px 0 var(--highlighter);
+}
+
+.cc-flags__empty {
+  padding: 18px 0;
+  border-top: var(--rule-thin) solid var(--rule);
+  font-size: 18px;
+}
+
+.cc-flag-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-flag {
+  border-top: var(--rule-thin) solid var(--rule);
+}
+
+.cc-flag[data-open="true"] {
+  border-top: var(--rule-block) solid var(--ink);
+}
+
+.cc-flag__heading {
+  font: inherit;
+}
+
+.cc-flag__head {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 32px;
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+  min-height: var(--touch);
+  padding: 18px 0;
+  text-align: left;
+}
+
+.cc-flag__number {
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cc-flag--high .cc-flag__number {
+  color: var(--red-text);
+}
+
+.cc-flag--medium .cc-flag__number {
+  color: var(--orange-text);
+}
+
+.cc-flag--missing .cc-flag__number {
+  color: var(--pen-blue);
+}
+
+.cc-flag__label {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.cc-flag__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.cc-flag__sign {
+  font-family: var(--font-label);
+  font-size: 28px;
+  line-height: 1;
+  text-align: center;
+}
+
+.cc-flag__body {
+  display: grid;
+  gap: 10px;
+  padding: 0 0 28px 68px;
+}
+
+.cc-flag__plain {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.cc-flag__why-label {
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-flag__why {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* The note floats under its text block instead of pushing the rows below it:
+   hover opens and closes it, and a layout jump would move the next button
+   away from the pointer. It is anchored to the block, so it stays on screen. */
+.cc-gloss-text {
+  position: relative;
+}
+
+.cc-gloss-text .cc-gloss__tip {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 12px;
+  z-index: 5;
+  width: min(290px, calc(100% - 12px));
+}
+
+/* No room below inside the window or the scrolling panel: the note sits above. */
+.cc-gloss-text .cc-gloss__tip--above {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
+/* In the document viewer the note lines up with the clause text, past the circles. */
+.cc-doc__segment.cc-gloss-text .cc-gloss__tip {
+  left: 44px;
+  width: min(290px, calc(100% - 44px));
+}
+
+/* A clause reading with glossary terms is wrapped; the wrapper takes its grid cell. */
+.cc-clause > .cc-gloss-text {
+  min-width: 0;
+}
+
+/* Read aloud (F15): a secondary button, or a one-line hint without a voice. */
+.cc-read {
+  margin-top: 14px;
+}
+
+.cc-read-hint {
+  margin-top: 12px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Quote strip: dashed border, caption, the quote over a marker, "Found in your document". */
+.cc-quote {
+  margin: 10px 0 0;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--quote-border);
+  background: var(--white);
+  transform: rotate(var(--tilt-quote));
+}
+
+.cc-quote__caption {
+  margin-bottom: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-quote__text {
+  margin: 0;
+  font-family: var(--font-reading);
+  font-size: 17px;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.cc-missing-box {
+  margin-top: 10px;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--pen-blue);
+  background: var(--white);
+  color: var(--pen-blue-dark);
+  font-size: 17px;
+}
+
+/* --- Every clause --- */
+.cc-clauses__list {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-clause {
+  display: grid;
+  grid-template-columns: 32px 170px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-top: var(--rule-thin) solid var(--rule);
+}
+
+.cc-clause__number,
+.cc-clause__heading {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.cc-clause__heading {
+  overflow-wrap: anywhere;
+}
+
+.cc-clause__plain {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* --- Questions on notebook paper --- */
+.cc-questions__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cc-questions__sheet {
+  padding-right: 14px;
+}
+
+.cc-questions__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-question {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.cc-question__number {
+  position: absolute;
+  left: -44px;
+  width: 30px;
+  font-weight: 700;
+  color: var(--red-pen);
+  text-align: right;
+}
+
+.cc-question__copy {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  margin-block: -1px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: var(--pen-blue);
+}
+
+.cc-results__next {
+  margin-top: -32px;
+}
+
+.cc-results__disclaimer {
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* --- Document viewer: sticky sheet with its own scroll --- */
+.cc-doc {
+  border: var(--rule-thin) solid var(--rule);
+  background: var(--white);
+  box-shadow: var(--shadow-lift);
+}
+
+.cc-doc__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  border-bottom: var(--rule-thin) solid var(--rule);
+  background: var(--desk);
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-doc__heading {
+  font: inherit;
+  font-weight: 600;
+}
+
+.cc-doc__hint {
+  color: var(--muted);
+}
+
+.cc-doc__body {
+  position: relative;
+  max-height: min(840px, calc(100vh - 80px));
+  overflow-y: auto;
+  padding: 28px 22px;
+  overscroll-behavior: contain;
+}
+
+.cc-doc__segment {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding-block: 8px;
+}
+
+.cc-doc__circles {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.cc-doc__circle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: var(--rule-section) solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-hand);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cc-doc__circle--high {
+  color: var(--red-text);
+}
+
+.cc-doc__circle--medium {
+  color: var(--orange-text);
+}
+
+.cc-doc__text {
+  font-family: var(--font-reading);
+  font-size: 17px;
+  line-height: 1.7;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.cc-doc__flagged {
+  background: var(--clause-flagged);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.cc-doc__text mark {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-doc__body {
+    scroll-behavior: auto;
+  }
+}
+
+/* --- Below 1024 px: one column, and the document is a bottom sheet --- */
+.cc-flag__find {
+  justify-self: start;
+  margin-top: 6px;
+}
+
+.cc-flags__more {
+  margin-top: 16px;
+}
+
+.cc-sheet-dialog {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: none;
+  height: 65vh;
+  height: 65dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.cc-sheet-dialog::backdrop {
+  background: rgb(20 20 26 / 35%);
+}
+
+.cc-sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-top: var(--rule-thin) solid var(--rule);
+  background: var(--white);
+  box-shadow:
+    -1px -2px 0 var(--rule-soft),
+    0 -22px 30px -24px rgb(20 20 26 / 55%);
+}
+
+.cc-sheet__grabber {
+  align-self: center;
+  width: 44px;
+  height: 5px;
+  margin: 10px 0 2px;
+  background: var(--rule);
+}
+
+.cc-sheet__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: center;
+  padding: 2px 12px 8px var(--gutter);
+  border-bottom: var(--rule-thin) solid var(--rule);
+}
+
+.cc-sheet__title {
+  flex: 1 1 140px;
+  min-width: 0;
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-sheet__close {
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  background: var(--desk);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.cc-sheet .cc-doc {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+.cc-sheet .cc-doc__body {
+  flex: 1;
+  max-height: none;
+  padding: 16px var(--gutter) 24px;
+}
+
+.cc-sheet .cc-doc__text {
+  font-size: 16.5px;
+}
+
+/* Below 1024 px the findings take the whole width; the viewer lives in the sheet. */
+@media (max-width: 1023.98px) {
+  .cc-results__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cc-results__aside {
+    position: static;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .cc-facts__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cc-clause {
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+
+  .cc-clause__plain,
+  .cc-clause > .cc-gloss-text {
+    grid-column: 2;
+  }
+
+  .cc-flag__body {
+    padding-left: 0;
+  }
+
+  /* Sizes from results-mobile.png (design.md 5.3). */
+  .cc-verdict__title {
+    font-size: 44px;
+  }
+
+  .cc-score__value {
+    font-size: 88px;
+  }
+
+  .cc-verdict__summary {
+    font-size: 19px;
+  }
+
+  .cc-flag__head {
+    grid-template-columns: 36px minmax(0, 1fr) 28px;
+    gap: 12px;
+  }
+
+  .cc-flag__number {
+    font-size: 28px;
+  }
+
+  .cc-flag__title {
+    font-size: 19px;
+  }
+
+  .cc-flag__sign {
+    font-size: 24px;
+  }
+
+  .cc-stamp {
+    font-size: 11px;
+  }
+
+  .cc-doc__circle {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+}
+
+/* --- Top row actions: Save report and Check another document --- */
+.cc-results__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* --- "Not right? Change it" under the detected type (SPEC F3) --- */
+.cc-override__toggle {
+  font-size: 15px;
+  color: var(--pen-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cc-override__form {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  max-width: 460px;
+  margin: 6px 0 12px;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--pen-blue);
+  background: var(--white);
+}
+
+.cc-override__form[hidden] {
+  display: none;
+}
+
+.cc-override__label {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-override__select {
+  min-height: var(--touch);
+  max-width: 100%;
+  padding: 0 12px;
+  border: var(--rule-section) solid var(--ink);
+  background: var(--white);
+  font: inherit;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.cc-override__note {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* --- The status bar: fixed, so its notices never move the page --- */
+/* A zero-height strip pinned 16 px above the bottom of the window. Its rows are
+ * stacked bottom-up (column-reverse) and overflow upwards, so the bar itself never
+ * changes size and a notice that appears is drawn above the ones already there
+ * instead of pushing them. A bar pinned with bottom: 0 that grew moved its own
+ * top and its first notice, which counted as a layout shift (prompt 18). */
+.cc-statusbar {
+  position: fixed;
+  right: 0;
+  bottom: 16px;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+  height: 0;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+
+.cc-statusbar > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+  width: 100%;
+}
+
+.cc-statusbar__notice {
+  max-width: min(760px, 100%);
+  pointer-events: auto;
+  box-shadow: var(--shadow-sticky);
+}
+
+/* --- Not found --- */
+.cc-notfound {
+  padding-block: 48px 96px;
+}
+
+.cc-notfound__strip {
+  max-width: 720px;
+  padding: 24px 26px;
+}
+
+.cc-notfound__title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}

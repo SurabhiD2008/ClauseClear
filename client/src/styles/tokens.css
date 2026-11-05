@@ -1,0 +1,92 @@
+/* Design tokens: SPEC.md section 10, plus the extra tokens measured in
+   design/design.md section 3 (ASSUMPTIONS A36). Components use these variables only. */
+:root {
+  /* Colour (SPEC section 10) */
+  --paper: #fafaf6;
+  --ink: #14141a;
+  --muted: #5b5b63;
+  --rule: #cfcfc8;
+  --rule-soft: #e4e4dd;
+  --desk: #f0efe8;
+  --pen-blue: #2038d6;
+  --pen-blue-dark: #1b2f9e;
+  --highlighter: #ffe94a;
+  --red-pen: #d4281e; /* decorative strokes only */
+  --red-text: #b81f16; /* high-severity text */
+  --orange-text: #8a3f00; /* medium-severity text */
+  --note-ink: #1d2a63; /* handwriting */
+  --ruled-line: #b9c6ec;
+  --margin-line: #e58b85;
+  --legal-pad: #fff6b3;
+
+  /* Colour (design.md section 3) */
+  --ink-soft: #2b2b33;
+  --white: #ffffff;
+  --legal-pad-border: #e2d77f;
+  --legal-pad-rule: #d8cb63;
+  --clause-flagged: #eeebdd;
+  --leader: #9a9aa0;
+  --quote-border: #8e8e86;
+
+  /* Type families. Hindi mode prepends the Devanagari faces (base.css). */
+  --font-display: "Archivo", "Arial", sans-serif;
+  --font-reading: "Source Serif 4", "Georgia", serif;
+  --font-label: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  --font-hand: "Kalam", "Comic Sans MS", cursive;
+
+  --tracking-display: -0.035em;
+  --tracking-label: 0.06em;
+  --tracking-stamp: 0.12em;
+
+  /* Type sizes */
+  --h1-size: clamp(40px, 6vw, 84px);
+  --h1-leading: 1;
+  --h2-size: clamp(24px, 2.4vw, 30px);
+  --body-size: clamp(17px, 1.3vw, 20px);
+  --body-leading: 1.65;
+  --label-size: 13px;
+
+  /* Lines and layout */
+  --rule-thin: 1px;
+  --rule-section: 1.5px;
+  --rule-strong: 2px;
+  --rule-block: 3px;
+  --page-max: 1360px;
+  --gutter: clamp(16px, 3.6vw, 48px);
+  --touch: 44px;
+  --focus-ring: 3px;
+
+  /* Shadows (design.md section 3) */
+  --shadow-lift: 1px 2px 0 var(--rule-soft), 0 22px 30px -24px rgb(20 20 26 / 55%);
+  --shadow-slip: 3px 5px 0 rgb(20 20 26 / 14%);
+  --shadow-sticky: 3px 4px 0 rgb(20 20 26 / 18%);
+
+  /* Rotations: under 3 degrees, under 1 degree below 640 px (SPEC section 10) */
+  --tilt-high: -3deg;
+  --tilt-medium: 2deg;
+  --tilt-missing: -2deg;
+  --tilt-sheet: 1.3deg;
+  --tilt-slip: -1.4deg;
+  --tilt-notebook: -0.6deg;
+  --tilt-legal-pad: 0.7deg;
+  --tilt-sticky: -1.2deg;
+  --tilt-sample: -1deg;
+  --tilt-quote: -0.4deg;
+  --tilt-note: -2.8deg; /* design.md says -4 to -5; SPEC caps rotation under 3 (A37) */
+}
+
+@media (max-width: 639.98px) {
+  :root {
+    --tilt-high: -0.8deg;
+    --tilt-medium: 0.6deg;
+    --tilt-missing: -0.6deg;
+    --tilt-sheet: 0.5deg;
+    --tilt-slip: -0.6deg;
+    --tilt-notebook: -0.3deg;
+    --tilt-legal-pad: 0.3deg;
+    --tilt-sticky: -0.5deg;
+    --tilt-note: -0.9deg;
+    --tilt-sample: -0.5deg;
+    --tilt-quote: -0.2deg;
+  }
+}
