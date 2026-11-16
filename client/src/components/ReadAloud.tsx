@@ -31,8 +31,11 @@ export function ReadAloud({ id, text, lang, label }: ReadAloudProps) {
     [id, text, lang],
   );
 
-  // The voice list arrives shortly after load; nothing shows until it does.
-  if (state.availability === "checking") return null;
+  // The voice list arrives shortly after load. Until it does, an empty box the
+  // size of the button holds its place, so the rows below do not jump (A184).
+  if (state.availability === "checking") {
+    return <div className="cc-read-pending" aria-hidden="true" />;
+  }
   if (state.availability === "unsupported" || pickVoice(state.voices, lang) === null) {
     return (
       <p className="cc-read-hint" data-testid="read-aloud-hint">

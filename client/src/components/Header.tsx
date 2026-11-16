@@ -7,7 +7,7 @@ import { Wordmark } from "./Wordmark";
 export function Header() {
   const t = useT();
   return (
-    <header className="cc-header">
+    <header className="cc-header cc-night">
       <a className="cc-skip-link" href="#main">
         {t("common.skipToContent")}
       </a>

@@ -162,11 +162,24 @@ export function UploadBox({
           </div>
         </div>
         <div className="cc-upload__body cc-upload__layer" data-off={!idle} aria-hidden={!idle}>
-          <div>
-            <p className="cc-upload__title">
-              {dragging ? t("landing.dropActive") : t("landing.uploadTitle")}
-            </p>
-            <p className="cc-upload__meta">{t("landing.uploadMeta", { mb: MAX_FILE_MB })}</p>
+          <div className="cc-upload__lead">
+            <svg
+              className="cc-upload__glyph"
+              viewBox="0 0 54 66"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path className="cc-upload__glyph-page" d="M2 2 H38 L52 16 V64 H2 Z" />
+              <path className="cc-upload__glyph-page" d="M38 2 V16 H52" />
+              <path className="cc-upload__glyph-mark" d="M11 38 H43" />
+              <path className="cc-upload__glyph-line" d="M11 27 H34 M11 38 H43 M11 49 H43" />
+            </svg>
+            <div>
+              <p className="cc-upload__title">
+                {dragging ? t("landing.dropActive") : t("landing.uploadTitle")}
+              </p>
+              <p className="cc-upload__meta">{t("landing.uploadMeta", { mb: MAX_FILE_MB })}</p>
+            </div>
           </div>
           <div className="cc-upload__actions">
             <button type="button" className="cc-button cc-button--primary" onClick={choosePdf}>

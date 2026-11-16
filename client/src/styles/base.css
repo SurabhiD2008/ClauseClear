@@ -21,7 +21,9 @@ html {
 
 body {
   min-height: 100vh;
-  background: var(--paper);
+  /* Paper grain: a faint noise tile, so flat areas read as paper, not as a screen. */
+  background: var(--paper)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .09 0 0 0 0 .06 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
   color: var(--ink-soft);
   font-family: var(--font-reading);
   font-size: var(--body-size);
@@ -61,7 +63,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: var(--ink);
+  color: var(--heading, var(--ink));
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: var(--tracking-display);
@@ -80,9 +82,12 @@ h2 {
 }
 
 a {
-  color: var(--pen-blue);
+  color: var(--link, var(--pen-blue));
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
+  transition:
+    background-color var(--dur-quick) var(--ease-out),
+    color var(--dur-quick) var(--ease-out);
 }
 
 a:hover {
@@ -92,8 +97,36 @@ a:hover {
 
 /* A visible 3 px focus ring on every interactive element (SPEC section 11). */
 :focus-visible {
-  outline: var(--focus-ring) solid var(--pen-blue);
+  outline: var(--focus-ring) solid var(--focus-color);
   outline-offset: 2px;
+}
+
+::selection {
+  background: var(--highlighter);
+  color: var(--ink);
+}
+
+/* --- The night desk ---
+   Dark ink-blue surfaces (header, landing hero, small print, footer). The
+   scope swaps the text, link, muted and focus colours through variables, and
+   every sheet of paper lying on the desk swaps them back. */
+.cc-night {
+  --heading: var(--on-night);
+  --link: var(--highlighter);
+  --muted: var(--on-night-muted);
+  --focus-color: var(--highlighter);
+  --toggle-bar: var(--highlighter);
+  background-color: var(--night);
+  color: var(--on-night);
+}
+
+.cc-night :is(.cc-upload, .cc-hero-sheet, .cc-slip, .cc-contract, .cc-hero__note),
+.cc-dialog {
+  --heading: var(--ink);
+  --link: var(--pen-blue);
+  --muted: #5b5b63;
+  --focus-color: var(--pen-blue);
+  color: var(--ink-soft);
 }
 
 .cc-page {
@@ -125,6 +158,7 @@ a:hover {
   border: var(--rule-strong) solid var(--ink);
   font-family: var(--font-label);
   font-size: var(--label-size);
+  color: var(--pen-blue);
 }
 
 .cc-skip-link:focus {

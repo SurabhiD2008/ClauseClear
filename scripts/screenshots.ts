@@ -56,6 +56,16 @@ if (base === undefined) {
 async function settle(page: Page): Promise<void> {
   await page.evaluate(() => document.fonts.ready);
   await page.waitForLoadState("networkidle");
+  // The hero and the score are marked up as the page arrives (A184); wait for
+  // every animation that ends, so the shot shows the finished mark-up.
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((a) => a.effect?.getComputedTiming().iterations !== Infinity)
+        .map((a) => a.finished.catch(() => undefined)),
+    ),
+  );
   await page.waitForTimeout(300);
 }
 

@@ -1,7 +1,9 @@
 /* Header, wordmark and language toggle (SPEC section 9, design.md section 4). */
 .cc-header {
   position: relative;
-  border-bottom: var(--rule-section) solid var(--ink);
+  /* Above the hero's lamp light, so the toggle's failure note is never under it. */
+  z-index: 6;
+  border-bottom: var(--rule-thin) solid var(--night-rule);
 }
 
 .cc-header__inner {
@@ -22,13 +24,9 @@
   font-weight: 900;
   letter-spacing: var(--tracking-display);
   line-height: 1;
-  color: var(--ink);
+  color: var(--heading, var(--ink));
   text-decoration: none;
   white-space: nowrap;
-}
-
-.cc-wordmark:hover {
-  background: none;
 }
 
 .cc-header__right {
@@ -52,14 +50,20 @@
   font-weight: 500;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--heading, var(--ink));
   text-decoration: none;
   white-space: nowrap;
+  /* A marker stroke under the link that sweeps in from the left on hover. */
+  background: linear-gradient(var(--highlighter), var(--highlighter)) no-repeat 0 calc(50% + 12px) /
+    0% 3px;
+  transition: background-size var(--dur-open) var(--ease-out);
 }
 
-.cc-header__links a:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
+.cc-header__links a:hover,
+.cc-header__links a:focus-visible {
+  background-color: transparent;
+  background-size: 100% 3px;
+  color: var(--heading, var(--ink));
 }
 
 .cc-toggle-wrap {
@@ -95,9 +99,17 @@
   color: var(--muted);
 }
 
+.cc-toggle__button {
+  transition: color var(--dur-quick) var(--ease-out);
+}
+
+.cc-toggle__button:hover {
+  color: var(--heading, var(--ink));
+}
+
 .cc-toggle__button[aria-pressed="true"] {
-  color: var(--ink);
-  box-shadow: inset 0 -4px 0 var(--pen-blue);
+  color: var(--heading, var(--ink));
+  box-shadow: inset 0 -4px 0 var(--toggle-bar, var(--pen-blue));
 }
 
 .cc-toggle__failed {

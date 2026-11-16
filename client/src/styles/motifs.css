@@ -33,16 +33,28 @@
 /* --- Marker highlight: the only gradient in the product (SPEC section 10) --- */
 .cc-marker {
   color: var(--ink);
+  /* The stroke's ragged ends are a fixed few pixels, so a long line is marked
+     to its last letter. */
   background: linear-gradient(
     104deg,
-    transparent 0.9%,
-    var(--highlighter) 2.4%,
-    var(--highlighter) 96%,
-    transparent 99%
+    transparent 1px,
+    var(--highlighter) 5px,
+    var(--highlighter) calc(100% - 5px),
+    transparent calc(100% - 1px)
   );
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   padding-inline: 0.18em;
+}
+
+/* A highlight that arrives (a flag just opened, a clause just selected) is
+   drawn across, not switched on. */
+@media (prefers-reduced-motion: no-preference) {
+  mark.cc-marker,
+  .cc-flag__title.cc-marker {
+    background-repeat: no-repeat;
+    animation: cc-mark var(--dur-open) var(--ease-pen) backwards;
+  }
 }
 
 /* --- Red-pen circle: an imperfect SVG loop drawn over its content --- */
@@ -86,6 +98,7 @@
   font-size: 21px;
   line-height: 42px;
   color: var(--note-ink);
+  box-shadow: var(--shadow-sheet);
   transform: rotate(var(--tilt-notebook));
 }
 
@@ -118,6 +131,20 @@
   font-size: 15px;
   line-height: 1.5;
   transform: rotate(var(--tilt-sticky));
+}
+
+/* A note that opens is stuck down: it drops a few pixels onto the page. */
+@media (prefers-reduced-motion: no-preference) {
+  .cc-gloss-text .cc-sticky {
+    animation: cc-stick 180ms var(--ease-out) backwards;
+  }
+}
+
+@keyframes cc-stick {
+  from {
+    opacity: 0;
+    translate: 0 -6px;
+  }
 }
 
 .cc-sticky__title {
@@ -163,15 +190,28 @@
 
 /* --- Section mark: "§1  What you can feed it" --- */
 .cc-section-mark {
+  display: grid;
+  gap: 10px;
   font-family: var(--font-label);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--heading, var(--ink));
   line-height: 1.5;
 }
 
+/* The section sign is the big mark in the margin, as in a statute book. The
+   number is a name, so it keeps the English display face in Hindi mode. */
 .cc-section-mark__number {
-  margin-right: 0.8em;
+  font-family: "Archivo", "Arial", sans-serif;
+  font-size: clamp(44px, 5.4vw, 76px);
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 0.9;
+  color: var(--pen-blue);
+}
+
+.cc-night .cc-section-mark__number {
+  color: var(--highlighter);
 }

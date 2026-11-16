@@ -18,7 +18,7 @@ export function RedPenCircle({ children }: { children: ReactNode }) {
         aria-hidden="true"
         focusable="false"
       >
-        <path d={LOOP} vectorEffect="non-scaling-stroke" />
+        <path d={LOOP} pathLength={1} vectorEffect="non-scaling-stroke" />
       </svg>
     </span>
   );

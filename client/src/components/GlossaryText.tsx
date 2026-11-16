@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useId,
   useLayoutEffect,
@@ -160,6 +161,45 @@ export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
   return { root, term, tips };
 }
 
+/** Closing punctuation that must not start a line on its own after a term. */
+const TRAILING = /^[.,;:!?)\]”’"']+/;
+
+/**
+ * Lays out a run of text pieces. A term is a button, and a line may break after
+ * a button, which left the full stop that follows it alone at the start of the
+ * next line; the term and its punctuation are kept together instead.
+ */
+export function glossaryPieces<T>(
+  pieces: readonly { text: string; term?: T | undefined }[],
+  renderTerm: (term: T, text: string, key: number) => ReactNode,
+): ReactNode[] {
+  const out: ReactNode[] = [];
+  let carried = 0;
+  pieces.forEach((piece, i) => {
+    if (piece.term === undefined) {
+      const text = piece.text.slice(carried);
+      carried = 0;
+      if (text !== "") out.push(<Fragment key={i}>{text}</Fragment>);
+      return;
+    }
+    const next = pieces[i + 1];
+    const tail = next !== undefined && next.term === undefined ? TRAILING.exec(next.text)?.[0] : "";
+    const button = renderTerm(piece.term, piece.text, i);
+    if (tail === undefined || tail === "") {
+      out.push(button);
+      return;
+    }
+    carried = tail.length;
+    out.push(
+      <span key={`keep-${String(i)}`} className="cc-term-keep">
+        {button}
+        {tail}
+      </span>,
+    );
+  });
+  return out;
+}
+
 interface GlossaryTextProps {
   text: string;
   terms: readonly GlossaryNote[];
@@ -186,9 +226,7 @@ export function GlossaryText({ text, terms, as: Tag = "p", className, lang }: Gl
   return (
     <div ref={glossary.root} className="cc-gloss-text">
       <Tag className={className} lang={lang}>
-        {parts.map((part, i) =>
-          part.term === undefined ? part.text : glossary.term(part.term, part.text, i),
-        )}
+        {glossaryPieces(parts, glossary.term)}
       </Tag>
       {glossary.tips(used)}
     </div>

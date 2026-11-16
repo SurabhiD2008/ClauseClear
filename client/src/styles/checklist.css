@@ -4,8 +4,7 @@
 .cc-checklist {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 32px var(--gutter) 64px;
-  border-top: var(--rule-strong) solid var(--ink);
+  padding: 32px var(--gutter) 88px;
 }
 
 .cc-checklist__back {
@@ -80,16 +79,22 @@
 
 .cc-progress__bar {
   grid-column: 1 / -1;
-  height: 22px;
-  border: var(--rule-section) solid var(--ink);
+  height: 26px;
+  border: var(--rule-strong) solid var(--ink);
   background: var(--white);
+  box-shadow: var(--shadow-press);
 }
 
 .cc-progress__fill {
   display: block;
   height: 100%;
+  border-right: var(--rule-strong) solid var(--ink);
   background: var(--highlighter);
-  transition: width 0.2s ease-out;
+  transition: width var(--dur-open) var(--ease-out);
+}
+
+.cc-progress__fill[style*="width: 0%"] {
+  border-right: 0;
 }
 
 .cc-checklist__sheets {
@@ -157,6 +162,19 @@
   padding-top: 0;
   cursor: pointer;
   overflow-wrap: anywhere;
+  transition: color var(--dur-open) var(--ease-out);
+}
+
+.cc-check__box {
+  transition: scale var(--dur-quick) var(--ease-out);
+}
+
+.cc-check__box:hover {
+  scale: 1.08;
+}
+
+.cc-check__box:active {
+  scale: 0.92;
 }
 
 .cc-check[data-ticked="true"] .cc-check__text {

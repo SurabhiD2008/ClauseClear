@@ -141,102 +141,104 @@ export function Landing() {
 
   return (
     <div className="cc-landing">
-      <section className="cc-page cc-hero" aria-labelledby="hero-title">
-        <div className="cc-hero__main">
-          <p className="cc-kicker">{t("landing.kicker")}</p>
-          <h1 id="hero-title" className="cc-hero__title">
-            {t("landing.h1Before")}
-            <RedPenCircle>{t("landing.h1Circled")}</RedPenCircle>
-            {t("landing.h1After")}
-          </h1>
-          <p className="cc-hero__intro">{t("landing.intro")}</p>
+      <section className="cc-hero-band cc-night" aria-labelledby="hero-title">
+        <div className="cc-page cc-hero">
+          <div className="cc-hero__main">
+            <p className="cc-kicker">{t("landing.kicker")}</p>
+            <h1 id="hero-title" className="cc-hero__title">
+              {t("landing.h1Before")}
+              <RedPenCircle>{t("landing.h1Circled")}</RedPenCircle>
+              {t("landing.h1After")}
+            </h1>
+            <p className="cc-hero__intro">{t("landing.intro")}</p>
 
-          {note === "resultGone" && (
-            <p className="cc-hero__note" role="status">
-              {t("landing.resultGone")}
-            </p>
-          )}
+            {note === "resultGone" && (
+              <p className="cc-hero__note" role="status">
+                {t("landing.resultGone")}
+              </p>
+            )}
 
-          <UploadBox
-            active={active}
-            runId={runId}
-            progress={run.progress}
-            onFile={(file) => {
-              start({ kind: "file", file, name: file.name });
-            }}
-            onPaste={() => {
-              setPasteOpen(true);
-            }}
-            onCancel={() => {
-              app.analysis.cancel();
-            }}
-            errorRef={errorRef}
-            errorSizers={errorSizers}
-            renderError={
-              shownError === null || shownError.code === "CANCELLED"
-                ? undefined
-                : (choosePdf) => (
-                    <ErrorStrip
-                      error={shownError}
-                      {...(retry === null
-                        ? {}
-                        : {
-                            onRetry: () => {
-                              start(retry);
-                            },
-                          })}
-                      onPaste={() => {
-                        setPasteOpen(true);
-                      }}
-                      onChoose={choosePdf}
-                    />
-                  )
-            }
-          />
+            <UploadBox
+              active={active}
+              runId={runId}
+              progress={run.progress}
+              onFile={(file) => {
+                start({ kind: "file", file, name: file.name });
+              }}
+              onPaste={() => {
+                setPasteOpen(true);
+              }}
+              onCancel={() => {
+                app.analysis.cancel();
+              }}
+              errorRef={errorRef}
+              errorSizers={errorSizers}
+              renderError={
+                shownError === null || shownError.code === "CANCELLED"
+                  ? undefined
+                  : (choosePdf) => (
+                      <ErrorStrip
+                        error={shownError}
+                        {...(retry === null
+                          ? {}
+                          : {
+                              onRetry: () => {
+                                start(retry);
+                              },
+                            })}
+                        onPaste={() => {
+                          setPasteOpen(true);
+                        }}
+                        onChoose={choosePdf}
+                      />
+                    )
+              }
+            />
 
-          {/* A cancel is the user's own click, so its note can sit under the idle box
+            {/* A cancel is the user's own click, so its note can sit under the idle box
               (the page may move within 500 ms of input). */}
-          {shownError?.code === "CANCELLED" && !active && (
-            <div ref={errorRef} tabIndex={-1} className="cc-hero__error">
-              <ErrorStrip
-                error={shownError}
-                {...(retry === null
-                  ? {}
-                  : {
-                      onRetry: () => {
-                        start(retry);
-                      },
-                    })}
-                onPaste={() => {
-                  setPasteOpen(true);
-                }}
-              />
-            </div>
-          )}
+            {shownError?.code === "CANCELLED" && !active && (
+              <div ref={errorRef} tabIndex={-1} className="cc-hero__error">
+                <ErrorStrip
+                  error={shownError}
+                  {...(retry === null
+                    ? {}
+                    : {
+                        onRetry: () => {
+                          start(retry);
+                        },
+                      })}
+                  onPaste={() => {
+                    setPasteOpen(true);
+                  }}
+                />
+              </div>
+            )}
 
-          <p className="cc-hero__small">{t("landing.privacyNotice")}</p>
-          <p className="cc-hero__small cc-hero__small--muted">{t("landing.scope")}</p>
-          <p className="cc-samples" id="samples">
-            <span>{t("landing.tryLabel")}</span>
-            {SAMPLES.map((sample) => (
-              <Link
-                key={sample.id}
-                className="cc-text-link"
-                to={`/results/sample/${sample.id}`}
-                onClick={(event) => {
-                  if (isFollowUpClick(event)) {
-                    event.preventDefault();
-                    return;
-                  }
-                  void app.analysis.openSample(sample.id, { fresh: true });
-                }}
-              >
-                {t(sample.label)}
-              </Link>
-            ))}
-          </p>
+            <p className="cc-hero__small">{t("landing.privacyNotice")}</p>
+            <p className="cc-hero__small cc-hero__small--muted">{t("landing.scope")}</p>
+            <p className="cc-samples" id="samples">
+              <span>{t("landing.tryLabel")}</span>
+              {SAMPLES.map((sample) => (
+                <Link
+                  key={sample.id}
+                  className="cc-text-link"
+                  to={`/results/sample/${sample.id}`}
+                  onClick={(event) => {
+                    if (isFollowUpClick(event)) {
+                      event.preventDefault();
+                      return;
+                    }
+                    void app.analysis.openSample(sample.id, { fresh: true });
+                  }}
+                >
+                  {t(sample.label)}
+                </Link>
+              ))}
+            </p>
+          </div>
+          <HeroSheet />
         </div>
-        <HeroSheet />
       </section>
 
       <section className="cc-band" aria-labelledby="feed">
@@ -247,7 +249,9 @@ export function Landing() {
           <div>
             <ul className="cc-feed">
               {FEED.map((key) => (
-                <li key={key}>{t(key)}</li>
+                <li key={key}>
+                  <span className="cc-feed__text">{t(key)}</span>
+                </li>
               ))}
               <li>
                 {t("landing.feedLastBefore")}
@@ -260,7 +264,7 @@ export function Landing() {
         </div>
       </section>
 
-      <section className="cc-band" id="how-it-works" aria-labelledby="how">
+      <section className="cc-band cc-band--pad" id="how-it-works" aria-labelledby="how">
         <div className="cc-page cc-band__grid">
           <SectionMark n={2} id="how">
             {t("landing.howLabel")}
@@ -341,7 +345,11 @@ export function Landing() {
         </div>
       </section>
 
-      <section className="cc-band" id="privacy" aria-labelledby="small-print">
+      <section
+        className="cc-band cc-band--night cc-night"
+        id="privacy"
+        aria-labelledby="small-print"
+      >
         <div className="cc-page cc-band__grid">
           <SectionMark n={4} id="small-print">
             {t("landing.smallPrintLabel")}

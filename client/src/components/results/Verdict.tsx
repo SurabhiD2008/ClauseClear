@@ -1,16 +1,25 @@
 import {
+  SCORE_BAND_HIGH_FROM,
+  SCORE_BAND_MEDIUM_FROM,
   SCORE_MAX,
   computeScore,
   type AnalysisResult,
   type DocType,
   type Lang,
 } from "@clauseclear/shared";
+import type { CSSProperties } from "react";
 import { useT } from "../../i18n/useT";
 import { ReadAloud } from "../ReadAloud";
 import { TypeOverride } from "./TypeOverride";
 import { RedPenCircle } from "../motifs/RedPenCircle";
 
 const TICKS = Array.from({ length: 11 }, (_, i) => i * 10);
+
+/** Where the medium and high bands start on the ruler, from the shared scoring constants. */
+const BANDS = {
+  "--band-medium": `${String((SCORE_BAND_MEDIUM_FROM / SCORE_MAX) * 100)}%`,
+  "--band-high": `${String((SCORE_BAND_HIGH_FROM / SCORE_MAX) * 100)}%`,
+} as CSSProperties;
 
 /**
  * The verdict block (design.md 5.2): detected type, h1, the circled score with its
@@ -79,7 +88,7 @@ export function Verdict({
       <ReadAloud id="summary" text={result.summary} lang={speechLang} label={t("results.listen")} />
 
       <figure className="cc-ruler" aria-label={t("results.scaleLabel", { score: score.value })}>
-        <div className="cc-ruler__line" aria-hidden="true">
+        <div className="cc-ruler__line" style={BANDS} aria-hidden="true">
           {TICKS.map((tick) => (
             <span key={tick} className="cc-ruler__tick" style={{ left: `${String(tick)}%` }} />
           ))}
@@ -91,6 +100,7 @@ export function Verdict({
           >
             <path
               d="M 15 3 C 24 2, 28 9, 27 16 C 26 24, 18 28, 11 26 C 4 24, 2 16, 4 10 C 6 5, 12 2, 18 4"
+              pathLength={1}
               vectorEffect="non-scaling-stroke"
             />
           </svg>

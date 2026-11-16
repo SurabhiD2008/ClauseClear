@@ -5,7 +5,7 @@ export function SectionMark({ n, children, id }: { n: number; children: ReactNod
   return (
     <h2 className="cc-section-mark" id={id}>
       <span className="cc-section-mark__number">§{n}</span>
-      {children}
+      <span className="cc-section-mark__label">{children}</span>
     </h2>
   );
 }

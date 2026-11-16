@@ -5,7 +5,7 @@ import { useT } from "../i18n/useT";
 export function Footer() {
   const t = useT();
   return (
-    <footer className="cc-footer">
+    <footer className="cc-footer cc-night">
       <div className="cc-page cc-footer__inner">
         <nav className="cc-footer__nav" aria-label={t("header.navLabel")}>
           <ul className="cc-footer__links">

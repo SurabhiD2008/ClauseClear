@@ -2,7 +2,7 @@ import type { AnalysisResult, Flag, Segment } from "@clauseclear/shared";
 import { Fragment, useEffect, useRef } from "react";
 import { useT } from "../../i18n/useT";
 import { displayText, segmentParts, splitTerms, termHits } from "../../lib/document";
-import { useGlossary, type GlossaryNote } from "../GlossaryText";
+import { glossaryPieces, useGlossary, type GlossaryNote } from "../GlossaryText";
 
 interface DocumentViewerProps {
   result: AnalysisResult;
@@ -99,13 +99,7 @@ function SegmentBlock({ segment, flags, numbers, selectedFlagId, notes }: Segmen
   const offsets = parts.map((_, i) => parts.slice(0, i).reduce((n, p) => n + p.text.length, 0));
   const used = notes.filter((note) => hits.some((hit) => hit.term.id === note.id));
   const pieces = (text: string, offset: number) =>
-    splitTerms(displayText(text), offset, hits).map((piece, j) =>
-      piece.term === undefined ? (
-        <Fragment key={j}>{piece.text}</Fragment>
-      ) : (
-        glossary.term(piece.term, piece.text, j)
-      ),
-    );
+    glossaryPieces(splitTerms(displayText(text), offset, hits), glossary.term);
   return (
     <div
       ref={glossary.root}

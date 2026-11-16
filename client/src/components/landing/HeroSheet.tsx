@@ -13,28 +13,34 @@ export function HeroSheet() {
   const t = useT();
   return (
     <div className="cc-hero__art" aria-hidden="true">
-      <div className="cc-hero-sheet">
-        <div className="cc-hero-sheet__head">
-          <span>{t("landing.heroDocLabel")}</span>
-          <span lang="en">{t("landing.heroPage")}</span>
-        </div>
-        <p className="cc-hero-sheet__clause" lang="en">
-          {t("landing.heroClause8Head")}
-          {t("landing.heroClause8")}
-        </p>
-        <p className="cc-hero-sheet__clause" lang="en">
-          {t("landing.heroClause9Head")}
-          <Marker>{t("landing.heroClause9Quote")}</Marker>
-        </p>
-        <p className="cc-hero-sheet__note">
-          <svg className="cc-hero-sheet__arrow" viewBox="0 0 44 26" focusable="false">
-            <path d="M42 20 C 30 24, 16 22, 6 6 M6 6 L 4 15 M6 6 L 14 9" />
+      <div className="cc-hero__stack">
+        <span className="cc-hero-sheet__under" />
+        <div className="cc-hero-sheet">
+          <svg className="cc-hero-sheet__clip" viewBox="0 0 22 58" focusable="false">
+            <path d="M6 20 V44 a5 5 0 0 0 10 0 V12 a8 8 0 0 0 -16 0 V46 a11 11 0 0 0 22 0 V18" />
           </svg>
-          {t("landing.heroNote")}
-        </p>
-        <p className="cc-hero-sheet__clause cc-hero-sheet__clause--faded" lang="en">
-          {t("landing.heroClause10")}
-        </p>
+          <div className="cc-hero-sheet__head">
+            <span>{t("landing.heroDocLabel")}</span>
+            <span lang="en">{t("landing.heroPage")}</span>
+          </div>
+          <p className="cc-hero-sheet__clause" lang="en">
+            {t("landing.heroClause8Head")}
+            {t("landing.heroClause8")}
+          </p>
+          <p className="cc-hero-sheet__clause" lang="en">
+            {t("landing.heroClause9Head")}
+            <Marker>{t("landing.heroClause9Quote")}</Marker>
+          </p>
+          <p className="cc-hero-sheet__note">
+            <svg className="cc-hero-sheet__arrow" viewBox="0 0 44 26" focusable="false">
+              <path d="M42 20 C 30 24, 16 22, 6 6 M6 6 L 4 15 M6 6 L 14 9" />
+            </svg>
+            {t("landing.heroNote")}
+          </p>
+          <p className="cc-hero-sheet__clause cc-hero-sheet__clause--faded" lang="en">
+            {t("landing.heroClause10")}
+          </p>
+        </div>
       </div>
       <div className="cc-slip">
         <p className="cc-slip__meta">

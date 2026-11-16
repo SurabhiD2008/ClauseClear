@@ -28,6 +28,17 @@
   --leader: #9a9aa0;
   --quote-border: #8e8e86;
 
+  /* Night desk: the ink-blue surface the paper sits on (header, landing hero,
+     small print, footer). Same hue as the ballpoint blue, taken almost to black. */
+  --night: #0c1130;
+  --night-raised: #161c47;
+  --night-rule: #323a75;
+  --on-night: #fafaf6;
+  --on-night-muted: #b9bedb;
+  --red-pen-lit: #ff6f61; /* decorative strokes on the night desk */
+  --lamp: rgb(255 240 190 / 9%); /* the pool of lamp light behind the hero sheet */
+  --focus-color: var(--pen-blue);
+
   /* Type families. Hindi mode prepends the Devanagari faces (base.css). */
   --font-display: "Archivo", "Arial", sans-serif;
   --font-reading: "Source Serif 4", "Georgia", serif;
@@ -60,6 +71,17 @@
   --shadow-lift: 1px 2px 0 var(--rule-soft), 0 22px 30px -24px rgb(20 20 26 / 55%);
   --shadow-slip: 3px 5px 0 rgb(20 20 26 / 14%);
   --shadow-sticky: 3px 4px 0 rgb(20 20 26 / 18%);
+  --shadow-press: 4px 4px 0 var(--ink);
+  --shadow-press-down: 1px 1px 0 var(--ink);
+  --shadow-night: 0 2px 0 rgb(0 0 0 / 35%), 0 34px 60px -28px rgb(0 0 0 / 80%);
+  --shadow-sheet: 1px 2px 0 var(--rule-soft), 0 26px 44px -30px rgb(20 20 26 / 45%);
+
+  /* Motion: one quick duration for presses and hovers, one slower for things
+     that open; the pen and marker strokes of the hero use the slow curve. */
+  --dur-quick: 140ms;
+  --dur-open: 280ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-pen: cubic-bezier(0.55, 0.1, 0.25, 1);
 
   /* Rotations: under 3 degrees, under 1 degree below 640 px (SPEC section 10) */
   --tilt-high: -3deg;

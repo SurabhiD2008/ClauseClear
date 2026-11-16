@@ -20,6 +20,10 @@ Informational only. Not legal advice.
 
 All five come from the bundled samples (`npm run screenshots`).
 
+## Design
+
+ClauseClear looks like what it does: a contract someone careful has already marked up. Sheets of paper lie on a dark desk, blue ballpoint is for actions, a yellow highlighter marks what matters, a red pen circles the warnings, and labels are typewritten like a form. On the landing page the sample clause is marked up as you arrive; on the results page the score is circled and each flag unfolds beside the line it quotes. Severity is always a word on a stamp, never colour alone, and all motion is switched off for visitors who ask their device for reduced motion.
+
 ## Features
 
 - **Upload a PDF or paste text.** PDFs up to 10 MB and 25 pages with a text layer; pasted text from 200 to 60,000 characters.

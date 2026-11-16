@@ -23,6 +23,30 @@
     transition: none !important;
   }
 
+  /* The cover sheet and the document bar lose their screen dress. */
+  .cc-verdict {
+    padding: 0;
+    border: 0;
+  }
+
+  .cc-night,
+  .cc-doc__bar {
+    --heading: #000;
+    --muted: #333;
+    --link: #000;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .cc-flag-list {
+    margin: 0;
+  }
+
+  .cc-flag,
+  .cc-flag[data-open="true"] {
+    background: none;
+  }
+
   /* Rotations and marker fills are screen decoration. */
   .cc-ruled,
   .cc-quote,
@@ -47,6 +71,7 @@
   .cc-flag__sign,
   .cc-read,
   .cc-read-hint,
+  .cc-read-pending,
   .cc-override,
   .cc-questions__head .cc-button,
   .cc-question__copy,
