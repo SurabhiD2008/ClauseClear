@@ -10,15 +10,15 @@ Informational only. Not legal advice.
 
 ## Screenshots
 
-| Results (desktop)                                                                                                                                                   | Results (phone)                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| ![Results for the sample rental agreement on desktop: score 100 of 100, the summary, flag counts, and the document beside it](docs/screenshots/results-desktop.png) | ![The same results on a phone](docs/screenshots/results-mobile.png) |
+| Results (desktop)                                                                                                                                                   | Results (phone)                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| ![Results for the sample rental agreement on desktop: score 100 of 100, the summary, flag counts, and the document beside it](docs/screenshots/results-desktop.png) | ![Results on a phone: the verdict, the flags, and a flagged clause sliding up from the bottom](docs/screenshots/results-mobile.png) |
 
 | Landing page                                                          | Checklist                                                                                                                 | Results in Hindi                                                                                         |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | ![The landing page with the upload box](docs/screenshots/landing.png) | ![The before-and-after-signing checklist, each item tagged with the flags that raised it](docs/screenshots/checklist.png) | ![The rental results in Hindi; the quoted document stays in English](docs/screenshots/results-hindi.png) |
 
-All five come from the bundled samples (`npm run screenshots`).
+All five are from the live site's bundled samples. `npm run screenshots` saves plain versions of them.
 
 ## Design
 
@@ -142,7 +142,7 @@ Any other OpenAI-compatible free endpoint works without code changes: add its na
 | `npm run check:providers` | Lists models per key and sends one tiny request to each provider (real calls)                                                                    |
 | `npm run test:live`       | Three real PDFs through the real providers, at most 6 calls; manual, never in the audit                                                          |
 | `npm run smoke -- <url>`  | Checks a running instance, local or deployed (below)                                                                                             |
-| `npm run screenshots`     | Saves the five screenshots above into `docs/screenshots` from sample data                                                                        |
+| `npm run screenshots`     | Saves plain versions of the five screenshots above into `docs/screenshots` from sample data                                                      |
 
 `npm run e2e` and `npm run screenshots` need Playwright's Chromium once: `npx playwright install chromium`.
 
