@@ -61,7 +61,7 @@ const MATRIX: Record<AnalysisStatus, string[]> = {
   cancelled: ["validating", "-", "-", "-", "-", "-", "-", "-", "idle"],
 };
 
-describe("analysis state machine (SPEC section 9)", () => {
+describe("analysis state machine", () => {
   it("covers every status in the matrix", () => {
     expect(Object.keys(MATRIX).sort()).toEqual([...ANALYSIS_STATUSES].sort());
   });

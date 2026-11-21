@@ -1,4 +1,4 @@
-// Startup checks (prompt 20, A181). The server refuses to start when no LLM
+// Startup checks. The server refuses to start when no LLM
 // provider is usable, unless the configured mode is the mock: a deployment with
 // its keys missing would otherwise come up healthy and fail every analysis.
 // The report names each provider and its model, never a key.

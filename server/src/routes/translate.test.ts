@@ -124,4 +124,32 @@ describe("POST /api/translate", () => {
     expect(res.body).toEqual({ strings: {}, unchanged: [] });
     expect(recorder.requests).toHaveLength(0);
   });
+
+  it("the server-wide daily cap answers RATE_LIMITED with retryAfterSec and makes no call", async () => {
+    const { app, recorder, logLines } = testApp({ app: { limits: { dailyTranslations: 1 } } });
+    const strings = { summary: rental.en.summary };
+    const first = await request(app).post("/api/translate").send({ lang: "hi", strings });
+    expect(first.status).toBe(200);
+    const callsAfterFirst = recorder.requests.length;
+    const second = await request(app).post("/api/translate").send({ lang: "hi", strings });
+    expect(second.status).toBe(429);
+    expect(errorOf(second).code).toBe("RATE_LIMITED");
+    expect(errorOf(second).retryAfterSec).toBeGreaterThan(0);
+    expect(second.headers["retry-after"]).toBe(String(errorOf(second).retryAfterSec));
+    expect(recorder.requests).toHaveLength(callsAfterFirst);
+    expect(logLines().some((l) => l.event === "translate_rejected" && l.limit === "daily")).toBe(
+      true,
+    );
+  });
+
+  it("an empty map never uses up the daily cap", async () => {
+    const { app } = testApp({ app: { limits: { dailyTranslations: 1 } } });
+    for (let i = 0; i < 3; i++) {
+      const res = await request(app).post("/api/translate").send({ lang: "hi", strings: {} });
+      expect(res.status).toBe(200);
+    }
+    const strings = { summary: rental.en.summary };
+    const real = await request(app).post("/api/translate").send({ lang: "hi", strings });
+    expect(real.status).toBe(200);
+  });
 });

@@ -5,7 +5,7 @@ import { useAnalysis } from "../state/hooks";
 
 /**
  * /results reads the analysis from memory. After a refresh there is none, so it
- * goes home with the "isn't stored" note (SPEC section 9). A run started from
+ * goes home with the "isn't stored" note. A run started from
  * this page ("Not right? Change it") also clears the result; then the landing
  * page shows that run's progress and follows it to the new result.
  */

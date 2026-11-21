@@ -1,4 +1,4 @@
-// Server-sent events from POST /api/analyze (SPEC section 7). The browser's
+// Server-sent events from POST /api/analyze. The browser's
 // EventSource cannot POST, so the response body is read as a stream and parsed
 // here: an incremental parser for the wire format (WHATWG "event stream
 // interpretation"), then a typed decoder for the three events the API sends.

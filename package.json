@@ -18,8 +18,11 @@
     "lint": "eslint . --max-warnings=0 && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "e2e": "playwright test",
-    "audit": "tsx --conditions=development scripts/audit.ts",
+    "verify": "tsx --conditions=development scripts/verify/index.ts",
+    "verify:final": "tsx --conditions=development scripts/verify/index.ts --final",
+    "audit": "npm run verify:final",
     "fixtures": "tsx --conditions=development scripts/build-fixtures.ts",
     "samples": "tsx --conditions=development scripts/build-samples.ts",
     "samples:report": "tsx --conditions=development scripts/samples-report.ts",
@@ -27,6 +30,8 @@
     "prompts:show": "tsx --conditions=development scripts/show-prompts.ts",
     "check:providers": "tsx --conditions=development scripts/check-providers.ts",
     "test:live": "tsx --conditions=development scripts/live-test.ts",
+    "eval": "tsx --conditions=development scripts/eval.ts",
+    "eval:live": "tsx --conditions=development scripts/eval.ts --live",
     "live:summary": "tsx --conditions=development scripts/live-summary.ts",
     "smoke": "tsx --conditions=development scripts/smoke.ts",
     "screenshots": "tsx --conditions=development scripts/screenshots.ts",
@@ -39,8 +44,10 @@
     "@pdf-lib/fontkit": "1.1.1",
     "@playwright/test": "1.64.1",
     "@types/node": "24.19.2",
+    "@vitest/coverage-v8": "5.0.5",
     "concurrently": "10.0.6",
     "eslint": "10.14.0",
+    "fast-check": "4.10.2",
     "pdf-lib": "1.17.1",
     "prettier": "3.9.10",
     "tsx": "4.23.15",
@@ -50,5 +57,9 @@
   },
   "overrides": {
     "minimatch": "11.0.4"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true
   }
 }

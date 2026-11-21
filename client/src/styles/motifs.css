@@ -1,4 +1,4 @@
-/* Reusable pieces of the marked-up-contract look (SPEC section 10, design.md section 4). */
+/* Reusable pieces of the marked-up-contract look. */
 
 /* --- Severity stamp: a word on a bordered, rotated label, never colour alone --- */
 .cc-stamp {
@@ -30,7 +30,7 @@
   transform: rotate(var(--tilt-missing));
 }
 
-/* --- Marker highlight: the only gradient in the product (SPEC section 10) --- */
+/* --- Marker highlight: the only gradient in the product --- */
 .cc-marker {
   color: var(--ink);
   /* The stroke's ragged ends are a fixed few pixels, so a long line is marked
@@ -86,7 +86,7 @@
    Rules are an SVG pattern, not a gradient, so the marker stays the only
    gradient. The two colours repeat --ruled-line and --legal-pad-rule because
    CSS variables cannot reach inside a data URI. Every line is 42 px tall so
-   wrapped Hindi stays on the rules (design.md section 6). */
+   wrapped Hindi stays on the rules. */
 .cc-ruled {
   position: relative;
   padding: 21px 22px 21px 64px;

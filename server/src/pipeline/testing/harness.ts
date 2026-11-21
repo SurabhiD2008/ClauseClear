@@ -35,7 +35,7 @@ export interface RecorderOptions {
   budgetMs?: number;
   /**
    * Puts a provider that always fails (an invalid key) in front of the mock,
-   * and caps the mock's output at this many tokens (A95).
+   * and caps the mock's output at this many tokens.
    */
   cappedFallback?: number;
   /** Replaces the mock for one schemaName. */

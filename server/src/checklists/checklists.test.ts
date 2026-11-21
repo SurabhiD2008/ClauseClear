@@ -7,8 +7,8 @@ import { loanChecklist } from "./loan.js";
 import { rentalChecklist } from "./rental.js";
 import { termsChecklist } from "./terms.js";
 
-/** The category names and default severities exactly as the SPEC section 8 tables give them. */
-const SPEC_TABLES: [Checklist, [string, "high" | "medium"][], string[]][] = [
+/** The category names and default severities exactly as the documented checklists give them. */
+const DOCUMENTED_TABLES: [Checklist, [string, "high" | "medium"][], string[]][] = [
   [
     rentalChecklist,
     [
@@ -109,9 +109,11 @@ function ids(list: Checklist): string[] {
   return list.categories.map((c) => c.id);
 }
 
-describe("SPEC section 8 tables", () => {
-  it.each(SPEC_TABLES.map(([list, rows, basics]) => [list.docType, list, rows, basics] as const))(
-    "%s has every category with its SPEC default severity, in order",
+describe("documented checklist tables", () => {
+  it.each(
+    DOCUMENTED_TABLES.map(([list, rows, basics]) => [list.docType, list, rows, basics] as const),
+  )(
+    "%s has every category with its documented default severity, in order",
     (_docType, list, rows, basics) => {
       expect(list.categories.map((c) => [c.name, c.severity])).toEqual(rows);
       expect(list.missingBasics.map((b) => b.name)).toEqual(basics);
@@ -119,7 +121,7 @@ describe("SPEC section 8 tables", () => {
     },
   );
 
-  it("the general reading covers the nine SPEC topics plus missing basics", () => {
+  it("the general reading covers the nine documented topics plus missing basics", () => {
     expect(generalChecklist.categories.map((c) => c.name)).toEqual([
       "One-sided termination",
       "Penalties or liquidated damages",

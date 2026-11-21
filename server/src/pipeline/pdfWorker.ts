@@ -1,7 +1,7 @@
-// pdfjs runs in a worker thread, one per PDF (prompt 19, A175). In the main
+// pdfjs runs in a worker thread, one per PDF. In the main
 // thread its decoding is synchronous for long stretches: a 1 MB upload that
-// inflates to 1 GB held the event loop for 39 s, so the 20 s cap (SPEC section
-// 11) could not fire and every other request waited. A worker can be
+// inflates to 1 GB held the event loop for 39 s, so the 20 s cap
+// could not fire and every other request waited. A worker can be
 // terminated mid-decode, so the cap and a client disconnect now stop it, and
 // the server keeps answering meanwhile. At most PDF_PARSE_CONCURRENCY run at
 // once, which bounds the memory a burst of such files can take.
@@ -42,7 +42,7 @@ const PDFJS_URL = pathToFileURL(
 ).href;
 
 // Plain JavaScript, run with { eval: true }. XFA, font loading and system
-// fonts stay off, as before (A61). Only page sizes and text items come back.
+// fonts stay off, as before. Only page sizes and text items come back.
 // The worker loads pdfjs as soon as it starts, then reads exactly one job: a
 // spare is started ahead, so an upload does not wait for the import.
 const WORKER_SOURCE = `
@@ -168,6 +168,59 @@ export function pdfParseLoad(): { running: number; waiting: number } {
   return { running, waiting: waiting.length };
 }
 
+/** Waits for the worker's answer, the time cap or an abort, whichever comes first; then ends the worker. */
+function awaitWorker(
+  worker: Worker,
+  signal: AbortSignal | undefined,
+  timeoutMs: number,
+): Promise<RawPage[]> {
+  return new Promise<RawPage[]>((resolve, reject) => {
+    let settled = false;
+    const finish = (outcome: () => void) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      signal?.removeEventListener("abort", onAbort);
+      void worker.terminate();
+      outcome();
+    };
+    const timer = setTimeout(() => {
+      finish(() => {
+        reject(
+          new PipelineError("ANALYSIS_FAILED", `PDF parsing took over ${String(timeoutMs)} ms`),
+        );
+      });
+    }, timeoutMs);
+    const onAbort = () => {
+      finish(() => {
+        reject(signal?.reason as Error);
+      });
+    };
+    signal?.addEventListener("abort", onAbort, { once: true });
+    worker.on("message", (reply: WorkerReply) => {
+      finish(() => {
+        if ("pages" in reply) resolve(reply.pages);
+        else if ("code" in reply) reject(new PipelineError(reply.code));
+        else reject(classifyPdfError(reply.errorName));
+      });
+    });
+    worker.on("error", (error: Error & { code?: unknown }) => {
+      finish(() => {
+        reject(
+          error.code === "ERR_WORKER_OUT_OF_MEMORY"
+            ? new PipelineError("NOT_PDF", "PDF needs too much memory to read")
+            : new PipelineError("ANALYSIS_FAILED", "PDF worker failed"),
+        );
+      });
+    });
+    worker.on("exit", () => {
+      finish(() => {
+        reject(new PipelineError("ANALYSIS_FAILED", "PDF worker stopped without an answer"));
+      });
+    });
+  });
+}
+
 /**
  * Parses a PDF in a worker and returns each page's size and text items.
  * Rejects with PipelineError (NOT_PDF, PDF_ENCRYPTED, TOO_MANY_PAGES, TEXT_TOO_LONG, or
@@ -188,51 +241,7 @@ export async function parsePdfInWorker(
     const copy = new Uint8Array(bytes);
     const worker = takeWorker();
     worker.postMessage({ bytes: copy }, [copy.buffer]);
-    return await new Promise<RawPage[]>((resolve, reject) => {
-      let settled = false;
-      const finish = (outcome: () => void) => {
-        if (settled) return;
-        settled = true;
-        clearTimeout(timer);
-        signal?.removeEventListener("abort", onAbort);
-        void worker.terminate();
-        outcome();
-      };
-      const timer = setTimeout(() => {
-        finish(() => {
-          reject(
-            new PipelineError("ANALYSIS_FAILED", `PDF parsing took over ${String(timeoutMs)} ms`),
-          );
-        });
-      }, timeoutMs);
-      const onAbort = () => {
-        finish(() => {
-          reject(signal?.reason as Error);
-        });
-      };
-      signal?.addEventListener("abort", onAbort, { once: true });
-      worker.on("message", (reply: WorkerReply) => {
-        finish(() => {
-          if ("pages" in reply) resolve(reply.pages);
-          else if ("code" in reply) reject(new PipelineError(reply.code));
-          else reject(classifyPdfError(reply.errorName));
-        });
-      });
-      worker.on("error", (error: Error & { code?: unknown }) => {
-        finish(() => {
-          reject(
-            error.code === "ERR_WORKER_OUT_OF_MEMORY"
-              ? new PipelineError("NOT_PDF", "PDF needs too much memory to read")
-              : new PipelineError("ANALYSIS_FAILED", "PDF worker failed"),
-          );
-        });
-      });
-      worker.on("exit", () => {
-        finish(() => {
-          reject(new PipelineError("ANALYSIS_FAILED", "PDF worker stopped without an answer"));
-        });
-      });
-    });
+    return await awaitWorker(worker, signal, timeoutMs);
   } finally {
     release();
   }

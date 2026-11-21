@@ -1,4 +1,4 @@
-// A hard cap on real model calls for a script run (A91, A96). Each provider is
+// A hard cap on real model calls for a script run. Each provider is
 // wrapped; once the cap is spent, calls fail with a "request" error without
 // reaching the network, so the router gives up instead of retrying.
 import { LlmError, type LlmProvider } from "../server/src/llm/provider.js";

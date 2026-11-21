@@ -1,4 +1,4 @@
-// SPEC section 8, "Employment offer or contract".
+// Checklist: employment offer or contract.
 import type { Checklist } from "@clauseclear/shared";
 
 export const employmentChecklist: Checklist = {

@@ -5,7 +5,7 @@ import { createApp } from "../app.js";
 
 const guardPagesDir = fileURLToPath(new URL("../../../client/e2e/guard-pages", import.meta.url));
 
-// The oddity guard's broken pages (prompt 16) exist only when index.ts is told
+// The oddity guard's broken pages exist only when index.ts is told
 // to serve them (E2E_GUARD_PAGES=1). Without the option nothing is mounted.
 describe("/__guard test pages", () => {
   it("are not served unless the option is set", async () => {

@@ -83,7 +83,7 @@ describe("language store", () => {
     expect(root.lang).toBe("hi");
   });
 
-  it("init resolves only once a saved Hindi choice is applied, so the first render can wait (prompt 18)", async () => {
+  it("init resolves only once a saved Hindi choice is applied, so the first render can wait", async () => {
     let finish: (m: Messages) => void = () => undefined;
     const pending = new Promise<Messages>((resolve) => {
       finish = resolve;

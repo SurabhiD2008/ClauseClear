@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { canHover } from "./hover";
 
-describe("canHover (prompt 18)", () => {
+describe("canHover", () => {
   it("asks for (hover: hover) and follows the answer", () => {
     const asked: string[] = [];
     const media = (matches: boolean) => (query: string) => {

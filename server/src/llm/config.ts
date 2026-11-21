@@ -1,4 +1,4 @@
-// Reads the LLM settings from env (SPEC section 5). Nothing here is a model ID:
+// Reads the LLM settings from env. Nothing here is a model ID:
 // models and keys come only from env. A provider named in LLM_PROVIDER_ORDER
 // without a key, model or base URL is skipped and reported by name only.
 import { ENV_DEFAULTS } from "@clauseclear/shared";
@@ -23,11 +23,11 @@ export interface ProviderConfig {
   baseUrl: string;
   rpm: number;
   rpdBudget: number;
-  /** <NAME>_MAX_OUTPUT_TOKENS: the largest output this provider is asked for (A95). */
+  /** <NAME>_MAX_OUTPUT_TOKENS: the largest output this provider is asked for. */
   maxOutputTokens?: number;
-  /** Gemini only: <NAME>_THINKING_LEVEL (A92). */
+  /** Gemini only: <NAME>_THINKING_LEVEL. */
   thinkingLevel?: GeminiThinkingLevel;
-  /** Mock only, for a second mock: <NAME>_SCENARIO and <NAME>_SLOW_MS (A158). */
+  /** Mock only, for a second mock: <NAME>_SCENARIO and <NAME>_SLOW_MS. */
   mockScenario?: MockScenario;
   mockSlowMs?: number;
 }
@@ -45,7 +45,7 @@ export interface LlmConfig {
 }
 
 const NAME_PATTERN = /^[a-z][a-z0-9_]*$/;
-/** "mock", "mock2", ...: mock providers, so a test server can run two (A158). */
+/** "mock", "mock2", ...: mock providers, so a test server can run two. */
 const MOCK_NAME = /^mock\d*$/;
 
 function text(env: Env, key: string): string | undefined {
@@ -74,90 +74,99 @@ function thinkingLevel(env: Env, key: string): { thinkingLevel?: GeminiThinkingL
   return { thinkingLevel: level };
 }
 
+/** "mock" uses MOCK_SCENARIO and MOCK_SLOW_MS; "mock2" and on may set their own. */
+function mockProvider(env: Env, name: string, prefix: string): ProviderConfig {
+  // "mock" uses MOCK_SCENARIO and MOCK_SLOW_MS (read below for every mock);
+  // "mock2" and on may set their own, so one can fail while another answers.
+  const own = name === "mock" ? undefined : text(env, `${prefix}_SCENARIO`);
+  if (own !== undefined && !isMockScenario(own))
+    throw new Error(`${prefix}_SCENARIO is not a known scenario`);
+  const ownSlow = name === "mock" ? undefined : text(env, `${prefix}_SLOW_MS`);
+  return {
+    name,
+    kind: "mock",
+    apiKey: "",
+    model: "mock-fixtures",
+    baseUrl: "",
+    rpm: positiveInt(env, "MOCK_RPM", ENV_DEFAULTS.MOCK_RPM),
+    rpdBudget: positiveInt(env, "MOCK_RPD_BUDGET", ENV_DEFAULTS.MOCK_RPD_BUDGET),
+    ...(own === undefined ? {} : { mockScenario: own }),
+    ...(ownSlow === undefined ? {} : { mockSlowMs: positiveInt(env, `${prefix}_SLOW_MS`, 1) }),
+  };
+}
+
+const KNOWN_DEFAULTS: Record<string, { baseUrl?: string; rpm: number; rpd: number }> = {
+  gemini: {
+    baseUrl: ENV_DEFAULTS.GEMINI_BASE_URL,
+    rpm: ENV_DEFAULTS.GEMINI_RPM,
+    rpd: ENV_DEFAULTS.GEMINI_RPD_BUDGET,
+  },
+  nvidia: {
+    baseUrl: ENV_DEFAULTS.NVIDIA_BASE_URL,
+    rpm: ENV_DEFAULTS.NVIDIA_RPM,
+    rpd: ENV_DEFAULTS.NVIDIA_RPD_BUDGET,
+  },
+};
+
+/** A real provider from <NAME>_* variables, or the names of the settings it lacks. */
+function realProvider(
+  env: Env,
+  name: string,
+  prefix: string,
+): ProviderConfig | { missing: string } {
+  const kind = name === "gemini" ? "gemini" : "openai";
+  const known = KNOWN_DEFAULTS[name];
+  const apiKey = text(env, `${prefix}_API_KEY`);
+  const model = text(env, `${prefix}_MODEL`);
+  const baseUrl = text(env, `${prefix}_BASE_URL`) ?? known?.baseUrl;
+  if (apiKey === undefined || model === undefined || baseUrl === undefined) {
+    const missing = [
+      apiKey === undefined ? `${prefix}_API_KEY` : undefined,
+      model === undefined ? `${prefix}_MODEL` : undefined,
+      baseUrl === undefined ? `${prefix}_BASE_URL` : undefined,
+    ].filter((item): item is string => item !== undefined);
+    return { missing: missing.join(", ") };
+  }
+  return {
+    name,
+    kind,
+    apiKey,
+    model,
+    baseUrl,
+    rpm: positiveInt(env, `${prefix}_RPM`, known?.rpm ?? ENV_DEFAULTS.OPENAI_COMPAT_RPM),
+    rpdBudget: positiveInt(
+      env,
+      `${prefix}_RPD_BUDGET`,
+      known?.rpd ?? ENV_DEFAULTS.OPENAI_COMPAT_RPD_BUDGET,
+    ),
+    ...(kind === "gemini" ? thinkingLevel(env, `${prefix}_THINKING_LEVEL`) : {}),
+    ...(text(env, `${prefix}_MAX_OUTPUT_TOKENS`) === undefined
+      ? {}
+      : { maxOutputTokens: positiveInt(env, `${prefix}_MAX_OUTPUT_TOKENS`, 1) }),
+  };
+}
+
 export function readLlmConfig(env: Env): LlmConfig {
   const order = (text(env, "LLM_PROVIDER_ORDER") ?? "gemini,nvidia")
     .split(",")
     .map((name) => name.trim().toLowerCase())
     .filter((name) => name !== "");
-
   const providers: ProviderConfig[] = [];
   const skipped: LlmConfig["skipped"] = [];
-
   for (const name of new Set(order)) {
     if (!NAME_PATTERN.test(name)) {
       skipped.push({ name, missing: "a valid name (lowercase letters, digits, _)" });
       continue;
     }
     const prefix = name.toUpperCase();
-    if (MOCK_NAME.test(name)) {
-      // "mock" uses MOCK_SCENARIO and MOCK_SLOW_MS (read below for every mock);
-      // "mock2" and on may set their own, so one can fail while another answers.
-      const own = name === "mock" ? undefined : text(env, `${prefix}_SCENARIO`);
-      if (own !== undefined && !isMockScenario(own))
-        throw new Error(`${prefix}_SCENARIO is not a known scenario`);
-      const ownSlow = name === "mock" ? undefined : text(env, `${prefix}_SLOW_MS`);
-      providers.push({
-        name,
-        kind: "mock",
-        apiKey: "",
-        model: "mock-fixtures",
-        baseUrl: "",
-        rpm: positiveInt(env, "MOCK_RPM", ENV_DEFAULTS.MOCK_RPM),
-        rpdBudget: positiveInt(env, "MOCK_RPD_BUDGET", ENV_DEFAULTS.MOCK_RPD_BUDGET),
-        ...(own === undefined ? {} : { mockScenario: own }),
-        ...(ownSlow === undefined ? {} : { mockSlowMs: positiveInt(env, `${prefix}_SLOW_MS`, 1) }),
-      });
-      continue;
-    }
-
-    const kind = name === "gemini" ? "gemini" : "openai";
-    const defaults: Record<string, { baseUrl?: string; rpm: number; rpd: number }> = {
-      gemini: {
-        baseUrl: ENV_DEFAULTS.GEMINI_BASE_URL,
-        rpm: ENV_DEFAULTS.GEMINI_RPM,
-        rpd: ENV_DEFAULTS.GEMINI_RPD_BUDGET,
-      },
-      nvidia: {
-        baseUrl: ENV_DEFAULTS.NVIDIA_BASE_URL,
-        rpm: ENV_DEFAULTS.NVIDIA_RPM,
-        rpd: ENV_DEFAULTS.NVIDIA_RPD_BUDGET,
-      },
-    };
-    const known = defaults[name];
-    const apiKey = text(env, `${prefix}_API_KEY`);
-    const model = text(env, `${prefix}_MODEL`);
-    const baseUrl = text(env, `${prefix}_BASE_URL`) ?? known?.baseUrl;
-    const missing = [
-      apiKey === undefined ? `${prefix}_API_KEY` : undefined,
-      model === undefined ? `${prefix}_MODEL` : undefined,
-      baseUrl === undefined ? `${prefix}_BASE_URL` : undefined,
-    ].filter((item): item is string => item !== undefined);
-    if (apiKey === undefined || model === undefined || baseUrl === undefined) {
-      skipped.push({ name, missing: missing.join(", ") });
-      continue;
-    }
-    providers.push({
-      name,
-      kind,
-      apiKey,
-      model,
-      baseUrl,
-      rpm: positiveInt(env, `${prefix}_RPM`, known?.rpm ?? ENV_DEFAULTS.OPENAI_COMPAT_RPM),
-      rpdBudget: positiveInt(
-        env,
-        `${prefix}_RPD_BUDGET`,
-        known?.rpd ?? ENV_DEFAULTS.OPENAI_COMPAT_RPD_BUDGET,
-      ),
-      ...(kind === "gemini" ? thinkingLevel(env, `${prefix}_THINKING_LEVEL`) : {}),
-      ...(text(env, `${prefix}_MAX_OUTPUT_TOKENS`) === undefined
-        ? {}
-        : { maxOutputTokens: positiveInt(env, `${prefix}_MAX_OUTPUT_TOKENS`, 1) }),
-    });
+    const built = MOCK_NAME.test(name)
+      ? mockProvider(env, name, prefix)
+      : realProvider(env, name, prefix);
+    if ("missing" in built) skipped.push({ name, missing: built.missing });
+    else providers.push(built);
   }
-
   const scenario = text(env, "MOCK_SCENARIO") ?? "normal";
   if (!isMockScenario(scenario)) throw new Error("MOCK_SCENARIO is not a known scenario");
-
   return {
     providers,
     skipped,
@@ -209,7 +218,7 @@ export function buildProvider(
 export function createRouterFromConfig(
   config: LlmConfig,
   log?: (entry: LlmLogEntry) => void,
-  /** Wraps each built provider; test:live uses it for its call budget (A91). */
+  /** Wraps each built provider; test:live uses it for its call budget. */
   wrap: (provider: LlmProvider) => LlmProvider = (provider) => provider,
 ): LlmRouter {
   const providers: RoutedProvider[] = config.providers.map((provider) => ({

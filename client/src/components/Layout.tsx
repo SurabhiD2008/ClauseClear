@@ -14,8 +14,8 @@ export function Layout() {
 
   // A link to another page opens it at the top, before it paints. A sample
   // opened from low on the landing page kept that scroll, so its loading view
-  // showed the footer, which the results then moved (prompt 18, CLS 0.346 on
-  // mobile). Reload, Back and Forward ("POP") keep the browser's own scroll
+  // showed the footer, which the results then moved (a layout shift of 0.346
+  // on phones). Reload, Back and Forward ("POP") keep the browser's own scroll
   // restoration; an in-page hash is scrolled to by the page itself afterwards.
   useLayoutEffect(() => {
     if (navigationType !== NavigationType.Pop) window.scrollTo(0, 0);

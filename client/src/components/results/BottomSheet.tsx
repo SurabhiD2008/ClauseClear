@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
 import { useT } from "../../i18n/useT";
 import { LanguageToggle } from "../LanguageToggle";
 
@@ -14,20 +14,18 @@ interface BottomSheetProps {
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
 
-/**
- * The document as a bottom sheet below 1024 px (SPEC section 9, design.md section 4).
- * A native modal <dialog>, so the page behind is inert; Tab is also kept inside
- * explicitly. Esc, the close button and a tap on the backdrop close it, focus goes
- * back to the trigger, and the page does not scroll while it is open. The sheet
- * carries its own EN / HI toggle, because the header's is behind the backdrop.
- */
-export function BottomSheet({ open, title, onClose, returnFocus, children }: BottomSheetProps) {
-  const t = useT();
-  const dialog = useRef<HTMLDialogElement>(null);
-  const closeButton = useRef<HTMLButtonElement>(null);
-  const returnFocusRef = useRef(returnFocus);
-  returnFocusRef.current = returnFocus;
+type Ref<T> = RefObject<T | null>;
 
+/**
+ * Opens the dialog as a modal while open, focuses its close button and stops the
+ * page scrolling; closing gives focus back to the trigger.
+ */
+function useModalSheet(
+  dialog: Ref<HTMLDialogElement>,
+  closeButton: Ref<HTMLButtonElement>,
+  open: boolean,
+  returnFocusRef: { current: () => HTMLElement | null },
+): void {
   // A layout effect, so the sheet is open and laid out before the viewer inside
   // it scrolls to the clause in its own (passive) effect.
   useLayoutEffect(() => {
@@ -45,7 +43,10 @@ export function BottomSheet({ open, title, onClose, returnFocus, children }: Bot
       if (target?.isConnected === true) target.focus();
     };
   }, [open]);
+}
 
+/** Keeps Tab and Shift+Tab inside the open dialog. */
+function useFocusTrap(dialog: Ref<HTMLDialogElement>, open: boolean): void {
   useEffect(() => {
     const node = dialog.current;
     if (node === null || !open) return;
@@ -70,6 +71,24 @@ export function BottomSheet({ open, title, onClose, returnFocus, children }: Bot
       node.removeEventListener("keydown", onKey);
     };
   }, [open]);
+}
+
+/**
+ * The document as a bottom sheet below 1024 px.
+ * A native modal <dialog>, so the page behind is inert; Tab is also kept inside
+ * explicitly. Esc, the close button and a tap on the backdrop close it, focus goes
+ * back to the trigger, and the page does not scroll while it is open. The sheet
+ * carries its own EN / HI toggle, because the header's is behind the backdrop.
+ */
+export function BottomSheet({ open, title, onClose, returnFocus, children }: BottomSheetProps) {
+  const t = useT();
+  const dialog = useRef<HTMLDialogElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef(returnFocus);
+  returnFocusRef.current = returnFocus;
+
+  useModalSheet(dialog, closeButton, open, returnFocusRef);
+  useFocusTrap(dialog, open);
 
   return (
     <dialog

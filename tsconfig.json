@@ -6,5 +6,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["*.ts", "scripts/*.ts", "scripts/fixtures/*.ts"]
+  "include": ["*.ts", "scripts/*.ts", "scripts/fixtures/*.ts", "scripts/verify/*.ts"]
 }

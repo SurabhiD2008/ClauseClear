@@ -1,16 +1,9 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { expect, test, type Locator, type Page } from "./guard.js";
-import type { AnalysisResult, Flag } from "../../shared/src/schemas.js";
+import type { Flag } from "../../shared/src/schemas.js";
+import { rental } from "./helpers/data.js";
 
-// Prompt 14: glossary tooltips (SPEC F18, section 9) in the explanations, the
+// Glossary tooltips in the explanations, the
 // clause readings and the document viewer, by mouse, keyboard and touch.
-const ROOT = process.cwd();
-const rental = (
-  JSON.parse(readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8")) as {
-    en: AnalysisResult;
-  }
-).en;
 
 test.use({ reducedMotion: "reduce" });
 
@@ -93,26 +86,28 @@ test("the clause readings mark their terms once per reading", async ({ page }) =
   expect(total).toBeGreaterThan(0);
 });
 
-test("mouse: hover opens and leaving closes; a click pins it until a click outside", async ({
-  page,
-}, testInfo) => {
-  test.skip(testInfo.project.use.isMobile === true, "mouse hover is checked on desktop projects");
-  await openSample(page);
-  const term = page.locator(".cc-clause .cc-term").first();
-  const tip = await tipOf(page, term);
-  await term.hover();
-  await expect(tip).toBeVisible();
-  await expect(term).toHaveAttribute("aria-expanded", "true");
-  await page.mouse.move(2, 2);
-  await expect(tip).toBeHidden();
+// @mouse: runs on the projects with a mouse (desktop, laptop and tablet).
+test(
+  "mouse: hover opens and leaving closes; a click pins it until a click outside",
+  { tag: "@mouse" },
+  async ({ page }) => {
+    await openSample(page);
+    const term = page.locator(".cc-clause .cc-term").first();
+    const tip = await tipOf(page, term);
+    await term.hover();
+    await expect(tip).toBeVisible();
+    await expect(term).toHaveAttribute("aria-expanded", "true");
+    await page.mouse.move(2, 2);
+    await expect(tip).toBeHidden();
 
-  await term.click();
-  await expect(tip).toBeVisible();
-  await page.mouse.move(2, 2);
-  await expect(tip).toBeVisible();
-  await page.locator(".cc-results__disclaimer").click();
-  await expect(tip).toBeHidden();
-});
+    await term.click();
+    await expect(tip).toBeVisible();
+    await page.mouse.move(2, 2);
+    await expect(tip).toBeVisible();
+    await page.locator(".cc-results__disclaimer").click();
+    await expect(tip).toBeHidden();
+  },
+);
 
 test("keyboard: focus opens, Esc closes, Tab moves on and closes it", async ({ page }) => {
   await openSample(page);
@@ -225,22 +220,21 @@ test("the note flips above its clause when there is no room below in the panel",
   await expect.poll(inside).toBe(true);
 });
 
-test("Esc inside the bottom sheet closes the note and keeps the sheet", async ({
-  page,
-}, testInfo) => {
-  test.skip(
-    !["mobile", "small-phone", "tablet"].includes(testInfo.project.name),
-    "the sheet exists below 1024 px",
-  );
-  await openSample(page);
-  const panel = await viewer(page);
-  const term = panel.locator(".cc-term").first();
-  const tip = await tipOf(page, term);
-  await term.focus();
-  await expect(tip).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(tip).toBeHidden();
-  await expect(page.locator("dialog.cc-sheet-dialog[open]")).toHaveCount(1);
-  await page.keyboard.press("Escape");
-  await expect(page.locator("dialog.cc-sheet-dialog[open]")).toHaveCount(0);
-});
+// @sheet: the sheet exists below 1024 px, so this runs on tablet and phones.
+test(
+  "Esc inside the bottom sheet closes the note and keeps the sheet",
+  { tag: "@sheet" },
+  async ({ page }) => {
+    await openSample(page);
+    const panel = await viewer(page);
+    const term = panel.locator(".cc-term").first();
+    const tip = await tipOf(page, term);
+    await term.focus();
+    await expect(tip).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(tip).toBeHidden();
+    await expect(page.locator("dialog.cc-sheet-dialog[open]")).toHaveCount(1);
+    await page.keyboard.press("Escape");
+    await expect(page.locator("dialog.cc-sheet-dialog[open]")).toHaveCount(0);
+  },
+);

@@ -5,7 +5,7 @@ import { useResultView } from "../state/hooks";
 
 /**
  * Notices that come and go while a page is open: translating, translation
- * failed (SPEC section 9) and offline. They sit in a bar fixed to the bottom of
+ * failed and offline. They sit in a bar fixed to the bottom of
  * the window, so showing one never moves the page (no layout shift). The live
  * regions are always in the DOM, so a new message is announced.
  */

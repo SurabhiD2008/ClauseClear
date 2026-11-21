@@ -21,7 +21,7 @@ function flags(mix: Mix): { kind: FlagKind; severity: Severity }[] {
   ];
 }
 
-describe("computeScore (SPEC section 6)", () => {
+describe("computeScore", () => {
   // raw = 18*high + 8*medium + 10*highMissing + 5*mediumMissing, capped at 100
   const table: [string, Mix, number, "low" | "medium" | "high"][] = [
     ["no flags", {}, 0, "low"],

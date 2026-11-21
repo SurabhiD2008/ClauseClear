@@ -11,7 +11,7 @@ import { SampleResults } from "./routes/SampleResults";
 import { loadLatinFonts } from "./lib/fonts";
 import { languageStore } from "./state/language";
 
-// The routes table from SPEC section 9.
+// The routes table.
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -33,7 +33,7 @@ if (root === null) {
 // A saved Hindi choice is restored before the first render, so the first paint
 // is already Hindi: painting English and then swapping moved the whole page. The
 // Latin faces are waited for too (at most 3 s), so no font swaps in after the
-// first paint (prompt 18, audit item 2).
+// first paint.
 const element = root;
 void Promise.all([languageStore.init(), loadLatinFonts()]).finally(() => {
   createRoot(element).render(

@@ -1,4 +1,4 @@
-// One interface for every model provider (SPEC section 5), so adding a free
+// One interface for every model provider, so adding a free
 // endpoint is a new env block, not new code. Errors are typed so the router can
 // decide between retry, fallback and failure without reading message text.
 //

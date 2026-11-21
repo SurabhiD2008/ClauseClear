@@ -1,5 +1,5 @@
-# Render Blueprint (prompt 20, A181): one free Node web service that serves the
-# API and the built client (SPEC section 4). Variable names only: every value is
+# Render Blueprint: one free Node web service that serves the
+# API and the built client. Variable names only: every value is
 # entered in the Render dashboard (sync: false asks for it on the first sync).
 # Variables not listed here use the defaults in .env.example.
 services:

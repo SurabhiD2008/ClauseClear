@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { ERROR_CODES, ERROR_DEFINITIONS, errorBody, type ErrorCode } from "./errors.js";
 import { errorEventSchema } from "./schemas.js";
 
-// SPEC section 7 table, plus NOT_ENGLISH (ASSUMPTIONS A11) and NOT_FOUND (A30).
+// The documented error table, including NOT_ENGLISH and NOT_FOUND.
 const EXPECTED_STATUS: Record<ErrorCode, number> = {
   BAD_REQUEST: 400,
   NOT_FOUND: 404,

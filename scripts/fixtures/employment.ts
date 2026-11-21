@@ -1,5 +1,5 @@
 // Original text written for ClauseClear tests. Names, addresses and figures are fictional.
-// Every employment category in SPEC section 8 is present, and several are written to be flagged.
+// Every employment checklist category is present, and several are written to be flagged.
 // The leave policy is left out on purpose (part of "Missing basics").
 import { h, i, p, title, type DocumentSpec } from "./layout.js";
 

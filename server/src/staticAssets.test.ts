@@ -1,4 +1,4 @@
-// Compressed client assets (prompt 19, A179).
+// Compressed client assets.
 import http from "node:http";
 import type { AddressInfo } from "node:net";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";

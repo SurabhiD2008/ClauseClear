@@ -1,7 +1,7 @@
 import type { Flag } from "@clauseclear/shared";
 import type { Filter } from "../state/ui";
 
-/** SPEC F7: high, then medium, then missing; document order within each group. */
+/** High, then medium, then missing; document order within each group. */
 function rank(flag: Flag): number {
   if (flag.kind === "missing") return 2;
   return flag.severity === "high" ? 0 : 1;

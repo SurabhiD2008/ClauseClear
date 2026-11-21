@@ -1,4 +1,4 @@
-// npm run samples (prompt 9, A98; replaces the mock stubs of A85). Runs the
+// npm run samples. Runs the
 // rental, employment and loan fixture PDFs once through the real pipeline with
 // the real providers from .env, translates each result's translatable strings
 // to Hindi through the same checks as /api/translate, and writes

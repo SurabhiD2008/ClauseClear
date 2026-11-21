@@ -9,7 +9,7 @@ function click(at: EventTarget, detail: number) {
   return event;
 }
 
-describe("swallowFollowUpClicks (prompt 18, item 10)", () => {
+describe("swallowFollowUpClicks", () => {
   afterEach(() => {
     vi.useRealTimers();
   });
@@ -55,7 +55,7 @@ describe("swallowFollowUpClicks (prompt 18, item 10)", () => {
   });
 });
 
-describe("isFollowUpClick and settleGuard (prompt 19, A178)", () => {
+describe("isFollowUpClick and settleGuard", () => {
   it("only the second and later clicks of a sequence are follow-ups", () => {
     expect(isFollowUpClick({ detail: 0 })).toBe(false);
     expect(isFollowUpClick({ detail: 1 })).toBe(false);

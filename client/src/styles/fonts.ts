@@ -1,4 +1,4 @@
-// English faces ship with the page (SPEC section 10). Devanagari faces load
+// English faces ship with the page. Devanagari faces load
 // with Hindi in a separate chunk (i18n/hindiAssets.ts); Kalam's Devanagari
 // subset is left out here for the same reason.
 import "@fontsource/archivo/800.css";

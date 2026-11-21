@@ -34,7 +34,7 @@ export function SampleResults() {
     );
   }
   // Holds a screen of height while the fixture loads, so the results replace it
-  // without pushing the footer out of view (prompt 18, audit item 1).
+  // without pushing the footer out of view.
   return (
     <div className="cc-page cc-shell cc-shell--pending">
       <p role="status">{t("landing.openingSample")}</p>

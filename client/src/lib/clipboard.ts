@@ -1,4 +1,4 @@
-// Copy for the questions (SPEC section 9 "Copy"): the Clipboard API first, then
+// Copy for the questions: the Clipboard API first, then
 // a hidden textarea and execCommand for browsers or contexts without it.
 
 export interface ClipboardEnv {
@@ -37,8 +37,7 @@ function copyWithTextarea(text: string, doc: ClipboardEnv["document"]): boolean 
   area.select();
   let ok = false;
   try {
-    // SPEC section 9 asks for this fallback; execCommand is deprecated but still the only route without the Clipboard API.
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- execCommand is the only copy route when the Clipboard API is missing or refused
     ok = doc.execCommand("copy");
   } catch {
     ok = false;

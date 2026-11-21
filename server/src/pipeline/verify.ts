@@ -1,4 +1,4 @@
-// SPEC section 6 step 8, the trust step. The model proposes; this file checks.
+// The trust step. The model proposes; this file checks.
 //   - A present flag survives only if its segmentId exists and its quote is a
 //     substring of that segment after normalising whitespace, quotes and case.
 //   - A near miss (token similarity >= QUOTE_FUZZY_MIN_SIMILARITY against the
@@ -8,8 +8,7 @@
 //   - Every number in a key fact must appear in the document, or the fact goes.
 //   - Glossary terms must appear in the document, or they go.
 // References to anything dropped are removed, and flags are renumbered.
-import { QUOTE_FUZZY_MIN_SIMILARITY, type Segment } from "@clauseclear/shared";
-import type { DraftAnalysis, DraftFlag } from "./merge.js";
+import { QUOTE_FUZZY_MIN_SIMILARITY } from "@clauseclear/shared";
 
 /** Text in match form, plus where each match-form character came from in the original. */
 interface Folded {
@@ -90,7 +89,7 @@ export type QuoteMatch =
   | { kind: "repaired"; quote: string; similarity: number }
   | { kind: "missed"; similarity: number };
 
-/** Checks one quote against one segment's text (SPEC section 6 step 8). */
+/** Checks one quote against one segment's text. */
 export function matchQuote(quote: string, segmentText: string): QuoteMatch {
   const wanted = fold(trimQuote(quote)).text;
   if (wanted === "") return { kind: "missed", similarity: 0 };
@@ -133,157 +132,9 @@ export function numbersIn(text: string): string[] {
   return [...text.matchAll(/\d+(?:[.,]\d+)*/g)].map((m) => m[0].replace(/,/g, ""));
 }
 
-export interface VerificationStats {
-  /** Present flags the model proposed. */
-  checked: number;
-  exact: number;
-  repaired: number;
-  dropped: number;
-  keyFactsDropped: number;
-  termsDropped: number;
-}
-
-/** What happened to one proposed present flag. Ids, categories and numbers only, never text. */
-export interface FlagOutcome {
-  /** The flag's id in the draft, before renumbering. */
-  draftId: string;
-  /** Its id in the result, when kept. */
-  finalId?: string;
-  categoryId: string;
-  severity: DraftFlag["severity"];
-  segmentId?: string;
-  outcome: "kept" | "repaired" | "dropped";
-  reason: "exact" | "fuzzy" | "unknown_segment" | "no_quote" | "below_threshold";
-  /** Best token similarity, for fuzzy and below_threshold. */
-  similarity?: number;
-}
-
-export interface Verified {
-  draft: DraftAnalysis;
-  stats: VerificationStats;
-  outcomes: FlagOutcome[];
-  /** Share of present flags that failed (0 when there were none). */
-  failRatio: number;
-}
-
-export function verifyDraft(draft: DraftAnalysis, segments: Segment[]): Verified {
-  const bySegment = new Map(segments.map((s) => [s.id, s]));
-  const docText = segments.map((s) => s.text).join("\n\n");
-  const docFolded = fold(docText).text;
-  const docNumbers = new Set(numbersIn(docText));
-  const stats: VerificationStats = {
-    checked: 0,
-    exact: 0,
-    repaired: 0,
-    dropped: 0,
-    keyFactsDropped: 0,
-    termsDropped: 0,
-  };
-
-  const kept: DraftFlag[] = [];
-  const outcomes: FlagOutcome[] = [];
-  const round = (n: number) => Math.round(n * 1000) / 1000;
-  for (const flag of draft.flags) {
-    if (flag.kind === "missing") {
-      kept.push(flag);
-      continue;
-    }
-    stats.checked += 1;
-    const segment = flag.segmentId === undefined ? undefined : bySegment.get(flag.segmentId);
-    const match =
-      segment === undefined || flag.quote === undefined
-        ? undefined
-        : matchQuote(flag.quote, segment.text);
-    const base = {
-      draftId: flag.id,
-      categoryId: flag.categoryId,
-      severity: flag.severity,
-      ...(flag.segmentId === undefined ? {} : { segmentId: flag.segmentId }),
-    };
-    if (match === undefined || match.kind === "missed") {
-      stats.dropped += 1;
-      outcomes.push({
-        ...base,
-        outcome: "dropped",
-        ...(segment === undefined
-          ? { reason: "unknown_segment" as const }
-          : match === undefined
-            ? { reason: "no_quote" as const }
-            : { reason: "below_threshold" as const, similarity: round(match.similarity) }),
-      });
-      continue;
-    }
-    if (match.kind === "exact") {
-      stats.exact += 1;
-      outcomes.push({ ...base, outcome: "kept", reason: "exact" });
-    } else {
-      stats.repaired += 1;
-      outcomes.push({
-        ...base,
-        outcome: "repaired",
-        reason: "fuzzy",
-        similarity: round(match.similarity),
-      });
-    }
-    kept.push({ ...flag, quote: match.quote });
-  }
-
-  // Renumber f1.. in order and remap every reference; dropped ids vanish.
-  const renamed = new Map<string, string>();
-  const flags = kept.map((flag, i) => {
-    const id = `f${String(i + 1)}`;
-    renamed.set(flag.id, id);
-    return { ...flag, id };
-  });
-  for (const outcome of outcomes) {
-    const finalId = renamed.get(outcome.draftId);
-    if (finalId !== undefined) outcome.finalId = finalId;
-  }
-  const remap = (ids: string[]) =>
-    ids.map((id) => renamed.get(id)).filter((id): id is string => id !== undefined);
-
-  const glossary = draft.glossary.filter((entry) => {
-    const ok = docFolded.includes(fold(entry.term).text);
-    if (!ok) stats.termsDropped += 1;
-    return ok;
-  });
-  const termIds = new Set(glossary.map((g) => g.id));
-
-  const keyFacts = draft.keyFacts
-    .filter((fact) => {
-      const ok = numbersIn(fact.value).every((n) => docNumbers.has(n));
-      if (!ok) stats.keyFactsDropped += 1;
-      return ok;
-    })
-    .map((fact) =>
-      fact.segmentId === undefined || bySegment.has(fact.segmentId)
-        ? fact
-        : { id: fact.id, label: fact.label, value: fact.value },
-    );
-
-  const clauses = draft.clauses
-    .filter((c) => bySegment.has(c.segmentId))
-    .map((c) => {
-      const flagId = c.flagId === undefined ? undefined : renamed.get(c.flagId);
-      const base = { id: c.id, segmentId: c.segmentId, heading: c.heading, plain: c.plain };
-      return flagId === undefined ? base : { ...base, flagId };
-    });
-
-  return {
-    draft: {
-      ...draft,
-      flags: flags.map((f) => ({ ...f, termIds: f.termIds.filter((t) => termIds.has(t)) })),
-      glossary,
-      keyFacts,
-      clauses,
-      questions: draft.questions.map((q) => ({ ...q, flagIds: remap(q.flagIds) })),
-      checklist: {
-        before: draft.checklist.before.map((item) => ({ ...item, flagIds: remap(item.flagIds) })),
-        after: draft.checklist.after.map((item) => ({ ...item, flagIds: remap(item.flagIds) })),
-      },
-    },
-    stats,
-    outcomes,
-    failRatio: stats.checked === 0 ? 0 : stats.dropped / stats.checked,
-  };
-}
+export {
+  verifyDraft,
+  type FlagOutcome,
+  type VerificationStats,
+  type Verified,
+} from "./verifyDraft.js";

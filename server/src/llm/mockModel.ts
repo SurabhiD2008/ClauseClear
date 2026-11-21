@@ -1,5 +1,5 @@
-// A deterministic stand-in for the model, used by the mock provider (SPEC
-// section 12). It reads the same prompts a real model gets and answers in the
+// A deterministic stand-in for the model, used by the mock provider. It
+// reads the same prompts a real model gets and answers in the
 // shape they ask for, so the whole pipeline runs in tests with no key:
 //
 //   - segments come from the "[s12] text" lines between the document markers;
@@ -9,6 +9,8 @@
 //
 // It never follows anything written inside the document: like a well-behaved
 // model, it treats the block as data. Output depends only on the prompt text.
+
+import { glossaryOf } from "./mockGlossary.js";
 
 interface MockSegment {
   id: string;
@@ -30,21 +32,6 @@ interface MockBasic {
 
 const RISK_PHRASES =
   /forfeit|penalt|at any time|sole discretion|without (?:any )?(?:prior )?(?:notice|reason)|automatically|indemnif|arbitrat|perpetual|irrevocable|non-refundable|liquidated damages|compounded|for every day|any other reason|from time to time|immediately due|all repairs|any amount/i;
-
-const GLOSSARY: [string, string][] = [
-  ["lock-in period", "A time at the start when you cannot leave without paying a penalty."],
-  ["security deposit", "Money you pay at the start that should come back to you at the end."],
-  ["licensee", "The person who is allowed to use the place, usually you."],
-  ["licensor", "The owner who lets you use the place."],
-  ["indemnify", "To pay for someone else's losses or legal costs."],
-  ["arbitration", "Settling a dispute through a private judge instead of a court."],
-  ["liquidated damages", "A fixed amount you agree to pay if you break the agreement."],
-  ["probation", "A trial period at the start of a job."],
-  ["foreclosure", "Paying off a loan in full before its end date."],
-  ["guarantor", "A person who promises to pay if the borrower does not."],
-  ["notice period", "How much warning one side must give before ending the agreement."],
-  ["class action", "A case brought by many people together against one company."],
-];
 
 const WORD = /[a-z]{4,}/g;
 
@@ -178,14 +165,6 @@ function keyFactsOf(segments: MockSegment[]) {
   return facts.slice(0, 8);
 }
 
-function glossaryOf(text: string) {
-  const lower = text.toLowerCase();
-  return GLOSSARY.filter(([term]) => lower.includes(term)).map(([term, definition]) => ({
-    term,
-    definition,
-  }));
-}
-
 function followUps(refs: { id: string; title: string }[]) {
   return {
     questions: refs.slice(0, 8).map((r) => ({
@@ -216,46 +195,41 @@ function summaryOf(flags: number, missing: number): string {
   return `ClauseClear found ${String(flags)} terms that may be risky and ${String(missing)} basics that seem to be missing. Read the flagged terms before you sign.`;
 }
 
-/** The mock model's answer as a JSON-ready object, or undefined for prompts it does not know. */
 /** What the mock puts before each "translated" string. */
 export const MOCK_HINDI_PREFIX = "हिंदी: ";
 
-export function mockModelAnswer(
-  schemaName: string,
+/** Translation: every value marked as Hindi, numbers and symbols untouched. */
+function translationAnswer(user: string): Record<string, unknown> {
+  const strings = jsonBlock<Record<string, string>>(user, "STRINGS", {});
+  return Object.fromEntries(
+    Object.entries(strings).map(([key, value]) => [key, `${MOCK_HINDI_PREFIX}${value}`]),
+  );
+}
+
+function synthesisAnswer(user: string): Record<string, unknown> {
+  const flags = jsonBlock<{ id: string; title: string; quote: string }[]>(user, "FLAGS", []);
+  const candidates = jsonBlock<unknown[]>(user, "KEY FACT CANDIDATES", []);
+  const basics = jsonBlock<{ basicId: string; name: string }[]>(
+    user,
+    "MISSING BASICS TO CHECK",
+    [],
+  );
+  const missing = missingFor(basics.map((b) => ({ id: b.basicId, name: b.name, categoryId: "" })));
+  return {
+    summary: summaryOf(flags.length, missing.length),
+    keyFacts: candidates.slice(0, 8),
+    missing,
+    ...followUps([...flags, ...missing]),
+    glossary: glossaryOf(flags.map((f) => f.quote).join(" ")),
+  };
+}
+
+/** A whole-document answer ("analysis") or one part of a long document ("chunk"). */
+function documentAnswer(
+  schemaName: "analysis" | "chunk",
   system: string,
   user: string,
 ): Record<string, unknown> | undefined {
-  if (schemaName === "docType") return { docType: "rental", confidence: "high" };
-
-  // Translation: every value marked as Hindi, numbers and symbols untouched.
-  if (schemaName === "translation") {
-    const strings = jsonBlock<Record<string, string>>(user, "STRINGS", {});
-    return Object.fromEntries(
-      Object.entries(strings).map(([key, value]) => [key, `${MOCK_HINDI_PREFIX}${value}`]),
-    );
-  }
-
-  if (schemaName === "synthesis") {
-    const flags = jsonBlock<{ id: string; title: string; quote: string }[]>(user, "FLAGS", []);
-    const candidates = jsonBlock<unknown[]>(user, "KEY FACT CANDIDATES", []);
-    const basics = jsonBlock<{ basicId: string; name: string }[]>(
-      user,
-      "MISSING BASICS TO CHECK",
-      [],
-    );
-    const missing = missingFor(
-      basics.map((b) => ({ id: b.basicId, name: b.name, categoryId: "" })),
-    );
-    return {
-      summary: summaryOf(flags.length, missing.length),
-      keyFacts: candidates.slice(0, 8),
-      missing,
-      ...followUps([...flags, ...missing]),
-      glossary: glossaryOf(flags.map((f) => f.quote).join(" ")),
-    };
-  }
-
-  if (schemaName !== "analysis" && schemaName !== "chunk") return undefined;
   const segments = segmentsOf(user);
   if (segments.length === 0) return undefined;
   const categories = categoriesOf(system);
@@ -294,4 +268,17 @@ export function mockModelAnswer(
     ...followUps([...flags, ...missing]),
     glossary: glossaryOf(segments.map((s) => s.text).join(" ")),
   };
+}
+
+/** The mock model's answer as a JSON-ready object, or undefined for prompts it does not know. */
+export function mockModelAnswer(
+  schemaName: string,
+  system: string,
+  user: string,
+): Record<string, unknown> | undefined {
+  if (schemaName === "docType") return { docType: "rental", confidence: "high" };
+  if (schemaName === "translation") return translationAnswer(user);
+  if (schemaName === "synthesis") return synthesisAnswer(user);
+  if (schemaName !== "analysis" && schemaName !== "chunk") return undefined;
+  return documentAnswer(schemaName, system, user);
 }

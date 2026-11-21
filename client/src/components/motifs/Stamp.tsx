@@ -2,7 +2,7 @@ import { useT } from "../../i18n/useT";
 
 export type StampSeverity = "high" | "medium" | "missing";
 
-/** Severity is a word on a rotated stamp, never colour alone (SPEC section 10). */
+/** Severity is a word on a rotated stamp, never colour alone. */
 export function Stamp({ severity }: { severity: StampSeverity }) {
   const t = useT();
   return (

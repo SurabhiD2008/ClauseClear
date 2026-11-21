@@ -1,8 +1,8 @@
-/* Footer and the placeholder page shell (SPEC section 9). Page visuals come in later prompts. */
+/* Footer and the page shell. */
 /* <main> is at least a screen tall, so the footer always starts below the fold.
  * A route that renders nothing for a frame before it redirects (/results without
  * a result goes home) painted the footer under the header, then moved it away
- * (prompt 18, CLS 0.17 to 0.33 on phones). */
+ * (CLS 0.17 to 0.33 on phones). */
 #main {
   min-height: 100vh;
 }

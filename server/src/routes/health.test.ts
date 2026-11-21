@@ -19,7 +19,7 @@ describe("GET /api/health", () => {
     expect(res.text).not.toContain("test-key-not-real-1234567890");
   });
 
-  it("sends the strict CSP from SPEC section 11", async () => {
+  it("sends the strict CSP", async () => {
     const res = await request(createApp()).get("/api/health");
     const csp = res.headers["content-security-policy"];
     expect(csp).toContain("default-src 'self'");
@@ -28,7 +28,7 @@ describe("GET /api/health", () => {
     expect(csp).toContain("frame-ancestors 'none'");
   });
 
-  it("refuses device features and keeps API answers out of every cache (A176)", async () => {
+  it("refuses device features and keeps API answers out of every cache", async () => {
     const app = createApp();
     for (const path of ["/api/health", "/api/samples/rental", "/api/nope"]) {
       const res = await request(app).get(path);

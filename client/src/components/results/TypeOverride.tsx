@@ -3,7 +3,7 @@ import { useId, useState } from "react";
 import { useT } from "../../i18n/useT";
 
 /**
- * "Not right? Change it" (SPEC F3): a text button that opens a select of the
+ * "Not right? Change it": a text button that opens a select of the
  * document types and a button that checks the document again as the chosen
  * type. It says first that the document goes to the AI service again.
  */

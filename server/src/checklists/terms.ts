@@ -1,4 +1,4 @@
-// SPEC section 8, "Terms of service or user agreement".
+// Checklist: terms of service or user agreement.
 import type { Checklist } from "@clauseclear/shared";
 
 export const termsChecklist: Checklist = {

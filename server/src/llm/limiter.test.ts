@@ -82,6 +82,60 @@ describe("DailyCounter", () => {
   });
 });
 
+describe("DailyCounter time boundaries", () => {
+  const usedUp = (iso: string) => {
+    const { clock, advance } = manualClock(Date.parse(iso));
+    const daily = new DailyCounter(1, clock);
+    daily.tryConsume();
+    return { daily, advance };
+  };
+
+  it("one second before Pacific midnight is still the same day; one second after is a new one", () => {
+    const { daily, advance } = usedUp("2026-11-02T23:59:58-08:00");
+    advance(1_000);
+    expect(daily.remaining()).toBe(0);
+    advance(2_000);
+    expect(daily.remaining()).toBe(1);
+  });
+
+  it("midnight in India (UTC+05:30) is not a reset", () => {
+    const { daily, advance } = usedUp("2026-11-03T18:00:00Z");
+    advance(30 * 60_000);
+    expect(daily.remaining()).toBe(0);
+  });
+
+  it("the night clocks go back in the US still resets once, at local midnight", () => {
+    const { daily, advance } = usedUp("2026-10-31T23:30:00-07:00");
+    advance(31 * 60_000);
+    expect(daily.remaining()).toBe(1);
+    daily.tryConsume();
+    advance(2 * 60 * 60_000);
+    expect(daily.remaining()).toBe(0);
+  });
+
+  it("a leap day is a day of its own", () => {
+    const { daily, advance } = usedUp("2028-02-28T23:59:00-08:00");
+    advance(2 * 60_000);
+    expect(daily.remaining()).toBe(1);
+    daily.tryConsume();
+    advance(24 * 60 * 60_000);
+    expect(daily.remaining()).toBe(1);
+  });
+
+  it("msUntilReset is always at least a second and at most a day", () => {
+    for (const iso of [
+      "2026-11-02T00:00:00-08:00",
+      "2026-11-02T23:59:59.900-08:00",
+      "2026-03-08T01:30:00-08:00",
+    ]) {
+      const { clock } = manualClock(Date.parse(iso));
+      const ms = new DailyCounter(1, clock).msUntilReset();
+      expect(ms).toBeGreaterThanOrEqual(1_000);
+      expect(ms).toBeLessThanOrEqual(25 * 60 * 60_000);
+    }
+  });
+});
+
 describe("ConcurrencyQueue", () => {
   it("runs at most `limit` tasks at once, first in first out", async () => {
     const queue = new ConcurrencyQueue(2);

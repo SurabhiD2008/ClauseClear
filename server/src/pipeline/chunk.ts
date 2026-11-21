@@ -1,4 +1,4 @@
-// SPEC section 6 step 7 (the split itself): chunks are cut at segment
+// Chunks are cut at segment
 // boundaries so no clause is ever divided between two model calls. Sizes are
 // estimated from the text the model will see ("[s12] text"), at characters / 4.
 import {
@@ -16,9 +16,9 @@ export interface Chunk {
 }
 
 /**
- * A segment as it appears in the prompt (section 6 step 6): one line, so line
+ * A segment as it appears in the prompt: one line, so line
  * breaks inside a segment become spaces. Quote checks normalise whitespace, so
- * a quote copied from this line still matches the segment (ASSUMPTIONS A76).
+ * a quote copied from this line still matches the segment.
  */
 export function segmentPromptLine(segment: Segment): string {
   return `[${segment.id}] ${segment.text.replace(/\s+/g, " ")}`;
@@ -33,7 +33,7 @@ export function documentTokens(segments: Segment[]): number {
   return estimateTokens(segments.map(segmentPromptLine).join("\n"));
 }
 
-/** True when the segments plus the prompt overhead fit one call (section 6 step 7). */
+/** True when the segments plus the prompt overhead fit one call. */
 export function fitsInOneCall(
   segments: Segment[],
   maxInputTokens: number,

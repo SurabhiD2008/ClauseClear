@@ -4,8 +4,8 @@ export const FONT_WAIT_MS = 3_000;
 /**
  * Loads font faces before the text that uses them goes on screen. Otherwise the
  * text first draws in a fallback font and moves when the real one swaps in, and
- * a move more than 500 ms after the last input counts as layout shift (prompt
- * 18, audit item 2). Resolves when every face has loaded or failed, or after
+ * a move more than 500 ms after the last input counts as layout shift.
+ * Resolves when every face has loaded or failed, or after
  * `waitMs`, so a hanging font never keeps the page from showing.
  */
 export async function loadFaces(
@@ -50,10 +50,10 @@ export const LATIN_FACES = [
 /**
  * The first render waits for the Latin faces (they are preloaded, so this is
  * usually immediate). Under load a face could still arrive after the first
- * paint, and the swap moved the results page by 36 px (prompt 18). The sample is
+ * paint, and the swap moved the results page by 36 px. The sample is
  * plain Latin: it once included the rupee sign, which sits in every face's
  * latin-ext subset, so the first render also waited for eight latin-ext files
- * that no page uses (no shown text needs a latin-ext glyph; prompt 19, A179).
+ * that no page uses (no shown text needs a latin-ext glyph).
  */
 export function loadLatinFonts(
   fonts?: Pick<FontFaceSet, "load">,

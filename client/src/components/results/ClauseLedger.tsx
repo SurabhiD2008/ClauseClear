@@ -3,8 +3,8 @@ import { useT } from "../../i18n/useT";
 import { GlossaryText, type GlossaryNote } from "../GlossaryText";
 
 /**
- * "Every clause, in plain language" (SPEC F11): number, heading, one-sentence
- * reading. Glossary terms in a reading are underlined (F18).
+ * "Every clause, in plain language": number, heading, one-sentence
+ * reading. Glossary terms in a reading are underlined.
  */
 export function ClauseLedger({
   clauses,

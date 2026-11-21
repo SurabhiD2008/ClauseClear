@@ -1,6 +1,6 @@
-// Translation prompts (SPEC section 6 step 11, section 8 term list). The strings
+// Translation prompts, with a fixed Hindi term list. The strings
 // go in one hashed data block, declared to be data; quotes and segments are
-// never in it (the route accepts only translatable keys, A18).
+// never in it (the route accepts only translatable keys).
 import type { TranslationMap } from "@clauseclear/shared";
 import { dataBlock } from "../pipeline/prompts/document.js";
 import type { PromptPair } from "../pipeline/prompts/index.js";
@@ -8,7 +8,7 @@ import type { PromptPair } from "../pipeline/prompts/index.js";
 /** Bumped whenever the wording changes, like PROMPT_VERSION. */
 export const TRANSLATE_PROMPT_VERSION = "translate-v1";
 
-/** SPEC section 8: use these consistently. */
+/** Use these consistently. */
 export const HINDI_TERMS: readonly (readonly [string, string])[] = [
   ["security deposit", "सिक्योरिटी डिपॉजिट"],
   ["lock-in period", "लॉक-इन अवधि"],

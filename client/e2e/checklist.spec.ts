@@ -1,16 +1,9 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
-import type { AnalysisResult, ChecklistItem, Flag } from "../../shared/src/schemas.js";
+import type { ChecklistItem, Flag } from "../../shared/src/schemas.js";
+import { rental } from "./helpers/data.js";
 
-// Prompt 14: the checklist page (SPEC F17, design.md 5.4) on the rental sample.
+// The checklist page on the rental sample.
 // Every expected count is computed here from the fixture, not written by hand.
-const ROOT = process.cwd();
-const rental = (
-  JSON.parse(readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8")) as {
-    en: AnalysisResult;
-  }
-).en;
 const { before, after } = rental.checklist;
 const items = [...before, ...after];
 

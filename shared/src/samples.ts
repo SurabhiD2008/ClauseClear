@@ -1,4 +1,4 @@
-// The bundled sample file (SPEC section 7, F14; A98). One file per sample in
+// The bundled sample file. One file per sample in
 // fixtures/samples/: the English result, its precomputed Hindi, and whether a
 // native speaker has reviewed that Hindi. The server refuses to start if any
 // file fails this schema.
@@ -9,7 +9,7 @@ import { extractTranslatable } from "./translatable.js";
 export const sampleFileSchema = z
   .strictObject({
     ...sampleSummarySchema.shape,
-    /** False until a native speaker has checked the Hindi (docs/ASSUMPTIONS.md, Hindi review). */
+    /** False until a native speaker has checked the Hindi (see the README's limitations). */
     hiReviewed: z.boolean(),
     en: analysisResultSchema,
     hi: translationMapSchema,

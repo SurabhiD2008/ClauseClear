@@ -1,0 +1,244 @@
+/* Landing page: the upload box, the loading view and error strips. */
+
+/* --- Upload box --- */
+.cc-upload {
+  position: relative;
+  padding: 30px 22px 22px;
+  border: var(--rule-strong) solid var(--white);
+  background: var(--white);
+  /* The form is the one thing on the desk that is highlighted. */
+  box-shadow: 10px 10px 0 var(--highlighter);
+  transition:
+    box-shadow var(--dur-open) var(--ease-out),
+    transform var(--dur-open) var(--ease-out);
+}
+
+.cc-upload[data-dragging="true"] {
+  outline: var(--rule-block) dashed var(--highlighter);
+  outline-offset: 6px;
+  box-shadow: 16px 16px 0 var(--highlighter);
+  transform: translate(-3px, -3px);
+}
+
+.cc-upload__legend {
+  position: absolute;
+  top: -0.95em;
+  left: 18px;
+  padding: 2px 10px;
+  background: var(--highlighter);
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* The idle view is the drop target: a dashed tray that fills the box. */
+.cc-upload__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  gap: 22px 28px;
+  padding: clamp(18px, 2.4vw, 28px);
+  border: var(--rule-section) dashed var(--leader);
+  transition:
+    border-color var(--dur-quick) var(--ease-out),
+    background-color var(--dur-quick) var(--ease-out);
+}
+
+.cc-upload:hover .cc-upload__body {
+  border-color: var(--pen-blue);
+}
+
+.cc-upload[data-dragging="true"] .cc-upload__body {
+  border-color: var(--pen-blue);
+  background: var(--legal-pad);
+}
+
+.cc-upload__lead {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* The sheet being dropped: a page with a folded corner and one marked line. */
+.cc-upload__glyph {
+  flex: none;
+  width: 54px;
+  height: 66px;
+  overflow: visible;
+  transition: transform var(--dur-open) var(--ease-out);
+}
+
+.cc-upload__glyph .cc-upload__glyph-page {
+  fill: var(--white);
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.cc-upload__glyph .cc-upload__glyph-line {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.cc-upload__glyph .cc-upload__glyph-mark {
+  fill: none;
+  stroke: var(--highlighter);
+  stroke-width: 7;
+}
+
+.cc-upload:hover .cc-upload__glyph,
+.cc-upload[data-dragging="true"] .cc-upload__glyph {
+  transform: translateY(-4px) rotate(-0.9deg);
+}
+
+.cc-upload__title {
+  font-family: var(--font-display);
+  font-size: clamp(23px, 2.1vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.cc-upload__meta {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.cc-upload__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --- Loading view, inside the upload box --- */
+/* The idle view and the loading view share one grid cell, so the box is as tall
+   as the taller one in both states and a run never moves the page. */
+.cc-upload__stack {
+  display: grid;
+}
+
+.cc-upload__layer {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.cc-upload__layer[data-off="true"] {
+  visibility: hidden;
+}
+
+.cc-loading {
+  display: grid;
+  gap: 18px;
+}
+
+.cc-loading__slow [data-shown="false"] {
+  visibility: hidden;
+}
+
+.cc-loading__steps {
+  display: grid;
+  gap: 6px;
+}
+
+.cc-loading__step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 32px;
+  font-size: 17px;
+  color: var(--muted);
+}
+
+.cc-loading__step[data-state="done"] {
+  color: var(--ink-soft);
+}
+
+.cc-loading__step[data-state="now"] {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cc-loading__mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: var(--rule-section) solid currentColor;
+}
+
+.cc-loading__step[data-state="now"] .cc-loading__mark {
+  background: var(--highlighter);
+}
+
+/* The step in hand: a marker stroke under its words that keeps being drawn. */
+.cc-loading__step {
+  transition: color var(--dur-open) var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cc-upload__layer:not([data-off="true"]) .cc-loading__step[data-state="now"] .cc-loading__mark {
+    animation: cc-pulse 1.1s var(--ease-out) infinite alternate;
+  }
+}
+
+@keyframes cc-pulse {
+  from {
+    scale: 0.82;
+  }
+
+  to {
+    scale: 1.08;
+  }
+}
+
+.cc-loading__mark svg path {
+  fill: none;
+  stroke: var(--pen-blue);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cc-loading__slow {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* --- Error strip: dashed strip, red stamp, a primary next step --- */
+.cc-error {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--quote-border);
+  background: var(--white);
+}
+
+.cc-error__message {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.cc-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.cc-error__actions .cc-button {
+  min-height: var(--touch);
+}

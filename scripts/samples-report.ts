@@ -1,6 +1,6 @@
-// npm run samples:report (prompt 9 evidence, A98): for each file in
+// npm run samples:report: for each file in
 // fixtures/samples, its size, flag counts, and the score recomputed two ways
-// (the shared computeScore, and the SPEC section 6 formula written out here
+// (the shared computeScore, and the scoring formula written out here
 // from SCORE_WEIGHTS), compared with the score stored in the file. Also the
 // Hindi coverage: keys present, keys left in English, and hiReviewed.
 // Exits 1 on any mismatch or invalid file.
@@ -62,7 +62,7 @@ const headers = [
   "Present high/med",
   "Missing high/med",
   "Stored score",
-  "SPEC formula",
+  "documented formula",
   "computeScore",
   "Band",
   "Match",

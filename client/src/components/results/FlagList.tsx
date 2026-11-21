@@ -1,13 +1,10 @@
 import type { Flag, Lang } from "@clauseclear/shared";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { useT } from "../../i18n/useT";
-import { displayText, segmentNumber } from "../../lib/document";
 import { visibleFlags } from "../../lib/flags";
 import type { Filter } from "../../state/ui";
-import { GlossaryText, type GlossaryNote } from "../GlossaryText";
-import { FoundTick } from "../landing/FoundTick";
-import { ReadAloud } from "../ReadAloud";
-import { Stamp } from "../motifs/Stamp";
+import type { GlossaryNote } from "../GlossaryText";
+import { FlagRow } from "./FlagRow";
 
 const FILTERS: {
   value: Filter;
@@ -43,32 +40,22 @@ interface FlagListProps {
   initialCount?: number | undefined;
 }
 
-/** "Marked up, worst first" (SPEC F7, F9, F10): filter buttons and one open flag at a time. */
-export function FlagList({
-  flags,
-  numbers,
-  filter,
-  selectedFlagId,
-  notesFor,
-  dynamicLang,
-  speechLang,
-  onFilter,
-  onSelect,
-  onFind,
-  initialCount,
-}: FlagListProps) {
-  const t = useT();
-  const all = visibleFlags(flags, filter);
-  // "See more" holds per filter, so a new filter starts short again.
+/**
+ * Below 640 px the list starts short, with "See N more flags"; the choice holds per
+ * filter. After "See more", focus moves to the first flag it revealed.
+ */
+function useSeeMore(
+  all: readonly Flag[],
+  filter: Filter,
+  selectedFlagId: string | null,
+  initialCount: number | undefined,
+) {
   const [expandedFor, setExpandedFor] = useState<Filter | null>(null);
   const selectedIndex = all.findIndex((flag) => flag.id === selectedFlagId);
   const limit =
     initialCount === undefined || expandedFor === filter || selectedIndex >= initialCount
       ? all.length
       : initialCount;
-  const shown = all.slice(0, limit);
-  const hidden = all.length - shown.length;
-  // After "See more", focus moves to the first flag it revealed, since the button is gone.
   const focusNext = useRef<string | null>(null);
   const list = useRef<HTMLOListElement>(null);
   useEffect(() => {
@@ -78,32 +65,115 @@ export function FlagList({
       ?.focus();
     focusNext.current = null;
   });
+  const revealMore = () => {
+    focusNext.current = all[limit]?.id ?? null;
+    setExpandedFor(filter);
+  };
+  return {
+    shown: all.slice(0, limit),
+    hidden: all.length - Math.min(limit, all.length),
+    list,
+    revealMore,
+  };
+}
 
+function FilterButtons({
+  filter,
+  onFilter,
+}: {
+  filter: Filter;
+  onFilter: (filter: Filter) => void;
+}) {
+  const t = useT();
+  return (
+    <div className="cc-filter" role="group" aria-label={t("results.filterLabel")}>
+      {FILTERS.map((option) => (
+        <button
+          key={option.value}
+          type="button"
+          className="cc-filter__button"
+          aria-pressed={filter === option.value}
+          onClick={() => {
+            onFilter(option.value);
+          }}
+        >
+          {t(option.label)}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/** The open list of flags and, when it is cut short, the "See N more flags" button. */
+function FlagItems({
+  numbers,
+  selectedFlagId,
+  notesFor,
+  dynamicLang,
+  speechLang,
+  onSelect,
+  onFind,
+  shown,
+  hidden,
+  listRef,
+  revealMore,
+}: FlagListProps & {
+  shown: readonly Flag[];
+  hidden: number;
+  listRef: RefObject<HTMLOListElement>;
+  revealMore: () => void;
+}) {
+  const t = useT();
+  return (
+    <>
+      <ol ref={listRef} className="cc-flag-list" lang={dynamicLang}>
+        {shown.map((flag) => (
+          <FlagRow
+            key={flag.id}
+            flag={flag}
+            n={numbers.get(flag.id) ?? 0}
+            open={flag.id === selectedFlagId}
+            notes={notesFor(flag)}
+            speechLang={speechLang}
+            onToggle={(trigger) => {
+              onSelect(flag.id === selectedFlagId ? null : flag.id, trigger);
+            }}
+            onFind={onFind}
+          />
+        ))}
+      </ol>
+      {hidden > 0 && (
+        <button
+          type="button"
+          className="cc-button cc-button--secondary cc-flags__more"
+          onClick={revealMore}
+        >
+          {t("results.moreFlags", { n: hidden })}
+        </button>
+      )}
+    </>
+  );
+}
+
+/** "Marked up, worst first": filter buttons and one open flag at a time. */
+export function FlagList(props: FlagListProps) {
+  const { flags, filter, selectedFlagId } = props;
+  const t = useT();
+  const all = visibleFlags(flags, filter);
+  const { shown, hidden, list, revealMore } = useSeeMore(
+    all,
+    filter,
+    selectedFlagId,
+    props.initialCount,
+  );
   return (
     <section className="cc-flags" aria-labelledby="flags-heading">
       <div className="cc-flags__head">
         <h2 id="flags-heading" className="cc-results__h2">
           {t("results.flagsHeading")}
         </h2>
-        {flags.length > 0 && (
-          <div className="cc-filter" role="group" aria-label={t("results.filterLabel")}>
-            {FILTERS.map((option) => (
-              <button
-                key={option.value}
-                type="button"
-                className="cc-filter__button"
-                aria-pressed={filter === option.value}
-                onClick={() => {
-                  onFilter(option.value);
-                }}
-              >
-                {t(option.label)}
-              </button>
-            ))}
-          </div>
-        )}
+        {flags.length > 0 && <FilterButtons filter={filter} onFilter={props.onFilter} />}
       </div>
-
       {flags.length === 0 ? (
         <p className="cc-flags__empty">{t("results.empty")}</p>
       ) : shown.length === 0 ? (
@@ -111,132 +181,14 @@ export function FlagList({
           {t("results.noFlagsAtLevel")}
         </p>
       ) : (
-        <>
-          <ol ref={list} className="cc-flag-list" lang={dynamicLang}>
-            {shown.map((flag) => (
-              <FlagRow
-                key={flag.id}
-                flag={flag}
-                n={numbers.get(flag.id) ?? 0}
-                open={flag.id === selectedFlagId}
-                notes={notesFor(flag)}
-                speechLang={speechLang}
-                onToggle={(trigger) => {
-                  onSelect(flag.id === selectedFlagId ? null : flag.id, trigger);
-                }}
-                onFind={onFind}
-              />
-            ))}
-          </ol>
-          {hidden > 0 && (
-            <button
-              type="button"
-              className="cc-button cc-button--secondary cc-flags__more"
-              onClick={() => {
-                focusNext.current = all[limit]?.id ?? null;
-                setExpandedFor(filter);
-              }}
-            >
-              {t("results.moreFlags", { n: hidden })}
-            </button>
-          )}
-        </>
+        <FlagItems
+          {...props}
+          shown={shown}
+          hidden={hidden}
+          listRef={list}
+          revealMore={revealMore}
+        />
       )}
     </section>
-  );
-}
-
-function FlagRow({
-  flag,
-  n,
-  open,
-  notes,
-  speechLang,
-  onToggle,
-  onFind,
-}: {
-  flag: Flag;
-  n: number;
-  open: boolean;
-  notes: FlagNotes;
-  speechLang: Lang;
-  onToggle: (trigger: HTMLElement) => void;
-  onFind: ((flagId: string, trigger: HTMLElement) => void) | undefined;
-}) {
-  const t = useT();
-  const bodyId = useId();
-  const tone = flag.kind === "missing" ? "missing" : flag.severity;
-
-  return (
-    <li className={`cc-flag cc-flag--${tone}`} data-flag-id={flag.id} data-open={open}>
-      <h3 className="cc-flag__heading">
-        <button
-          type="button"
-          className="cc-flag__head"
-          aria-expanded={open}
-          aria-controls={bodyId}
-          onClick={(event) => {
-            onToggle(event.currentTarget);
-          }}
-        >
-          <span className="cc-flag__number">{n}</span>
-          <span className="cc-flag__label">
-            <Stamp severity={tone} />
-            <span className={open ? "cc-flag__title cc-marker" : "cc-flag__title"}>
-              {flag.title}
-            </span>
-          </span>
-          <span className="cc-flag__sign" aria-hidden="true">
-            {open ? "–" : "+"}
-          </span>
-        </button>
-      </h3>
-      <div id={bodyId} className="cc-flag__body" hidden={!open}>
-        <GlossaryText className="cc-flag__plain" text={flag.plain} terms={notes.text} />
-        <p className="cc-flag__why-label">{t("results.whyHeading")}</p>
-        <GlossaryText className="cc-flag__why" text={flag.why} terms={notes.text} />
-        {/* Mounted only while open, so closing the flag stops its reading. */}
-        {open && (
-          <ReadAloud
-            id={`flag:${flag.id}`}
-            text={`${flag.title}. ${flag.plain} ${flag.why}`}
-            lang={speechLang}
-            label={t("results.listenFlag")}
-          />
-        )}
-        {flag.kind === "present" && flag.quote !== undefined && flag.segmentId !== undefined ? (
-          <figure className="cc-quote">
-            <figcaption className="cc-quote__caption">
-              {t("results.where", { n: segmentNumber(flag.segmentId) })}
-            </figcaption>
-            <blockquote className="cc-quote__text" lang="en">
-              <GlossaryText
-                as="span"
-                className="cc-marker"
-                text={displayText(flag.quote)}
-                terms={notes.quote}
-              />
-            </blockquote>
-            <p className="cc-found">
-              <FoundTick />
-              {t("common.foundInDoc")}
-            </p>
-          </figure>
-        ) : (
-          <p className="cc-missing-box">{t("results.docMissing", { item: flag.category })}</p>
-        )}
-        {flag.kind === "present" && onFind !== undefined && (
-          <button
-            type="button"
-            className="cc-button cc-button--primary cc-flag__find"
-            onClick={(event) => {
-              onFind(flag.id, event.currentTarget);
-            }}
-          >
-            {t("results.showInDoc")}
-          </button>
-        )}
-      </div>
-    </li>
   );
 }

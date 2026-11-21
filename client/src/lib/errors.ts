@@ -1,5 +1,4 @@
-// Every error code's friendly message and next step (SPEC section 3 F19, section 9
-// "Errors"). The message is errors.<CODE> in en.json and hi.json; paste text is
+// Every error code's friendly message and next step. The message is errors.<CODE> in en.json and hi.json; paste text is
 // always offered as the fallback, and these add the code's own next step.
 import {
   MAX_FILE_MB,
@@ -38,7 +37,7 @@ export const ERROR_NEXT_STEPS: Record<ErrorCode, ErrorNextStep> = {
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 
-/** RATE_LIMITED always carries retryAfterSec from the server; a minute is the fallback (A86). */
+/** RATE_LIMITED always carries retryAfterSec from the server; a minute is the fallback. */
 export const DEFAULT_RETRY_AFTER_SEC = 60;
 
 export function errorMessage(error: ErrorBody): { key: MessageKey; vars: MessageVars } {

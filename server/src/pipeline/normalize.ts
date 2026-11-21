@@ -1,4 +1,4 @@
-// SPEC section 6 step 3. The viewer shows this text and every later match
+// Text normalisation. The viewer shows this text and every later match
 // (quotes, numbers, glossary terms) is made against it, so the steps run in a
 // fixed order and the function is pure: the same input always gives the same
 // output.

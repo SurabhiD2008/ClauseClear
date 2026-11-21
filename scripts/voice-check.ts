@@ -1,4 +1,4 @@
-// Checks the interface copy against the voice rules in SPEC section 10:
+// Checks the interface copy against the voice rules:
 // "Avoid em dashes, 'not just X but Y', triplets of adjectives and words like
 // seamless, powerful or unlock." Every string in client/src/i18n/en.json is
 // checked; hi.json is checked for dashes only (the word lists are English).

@@ -19,7 +19,7 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * The user's document as segmented (SPEC F8, design.md section 4). Flagged
+ * The user's document as segmented. Flagged
  * clauses carry their flag-number circles; the selected flag's quote is wrapped
  * in a <mark>. Selecting a flag scrolls this panel, not the page, to its clause.
  * Everything inside is the user's own text, so it is lang="en".

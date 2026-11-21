@@ -1,4 +1,4 @@
-// The number check on every translated string (SPEC section 6 step 11): the
+// The number check on every translated string: the
 // digit sequences, currency symbols and percent signs of the output must be the
 // same as the input's, in any order. Devanagari digits do not count as digits,
 // so "१०" for "10" is a mismatch, as is a dropped "₹" or a spelled-out number.

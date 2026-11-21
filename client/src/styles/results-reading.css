@@ -1,0 +1,224 @@
+/* Results page: every clause, the questions and the document viewer. */
+
+/* --- Every clause --- */
+.cc-clauses__list {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-clause {
+  display: grid;
+  grid-template-columns: 32px 170px minmax(0, 1fr);
+  gap: 16px;
+  padding: 18px 0;
+  border-top: var(--rule-thin) solid var(--rule);
+}
+
+.cc-clause:first-child {
+  border-top: 0;
+}
+
+.cc-clause__number {
+  color: var(--pen-blue);
+}
+
+.cc-clause__number,
+.cc-clause__heading {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.cc-clause__heading {
+  overflow-wrap: anywhere;
+}
+
+.cc-clause__plain {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* --- Questions on notebook paper --- */
+.cc-questions__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cc-questions__sheet {
+  padding-right: 14px;
+}
+
+.cc-questions__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-question {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.cc-question__number {
+  position: absolute;
+  left: -44px;
+  width: 30px;
+  font-weight: 700;
+  color: var(--red-pen);
+  text-align: right;
+}
+
+.cc-question__copy {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  margin-block: -1px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-decoration: underline;
+  text-transform: uppercase;
+  color: var(--pen-blue);
+  transition:
+    background-color var(--dur-quick) var(--ease-out),
+    color var(--dur-quick) var(--ease-out);
+}
+
+.cc-question__copy:hover {
+  background: var(--highlighter);
+  color: var(--ink);
+}
+
+.cc-results__next {
+  margin-top: -32px;
+}
+
+.cc-results__disclaimer {
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* --- Document viewer: sticky sheet with its own scroll --- */
+/* Two more pages show under the sheet's lower edge: it is a document, not a panel. */
+.cc-doc {
+  border: var(--rule-thin) solid var(--rule);
+  background: var(--white);
+  box-shadow:
+    0 1px 0 var(--white),
+    0 5px 0 -1px var(--white),
+    0 5px 0 0 var(--rule),
+    0 10px 0 -2px var(--white),
+    0 10px 0 -1px var(--rule),
+    0 34px 44px -30px rgb(20 20 26 / 55%);
+}
+
+.cc-doc__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  --heading: var(--on-night);
+  background: var(--night);
+  color: var(--on-night);
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-doc__heading {
+  font: inherit;
+  font-weight: 600;
+}
+
+.cc-doc__hint {
+  color: var(--on-night-muted);
+}
+
+.cc-doc__body {
+  position: relative;
+  max-height: min(840px, calc(100vh - 80px));
+  overflow-y: auto;
+  padding: 28px 22px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+
+.cc-doc__segment {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding-block: 8px;
+}
+
+.cc-doc__circles {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+}
+
+.cc-doc__circle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: var(--rule-section) solid currentColor;
+  border-radius: 50%;
+  font-family: var(--font-hand);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cc-doc__circle {
+  background: var(--white);
+}
+
+.cc-doc__circle--high {
+  color: var(--red-text);
+}
+
+.cc-doc__circle--medium {
+  color: var(--orange-text);
+}
+
+.cc-doc__text {
+  font-family: var(--font-reading);
+  font-size: 17px;
+  line-height: 1.7;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.cc-doc__flagged {
+  transition: background-color var(--dur-open) var(--ease-out);
+  background: var(--clause-flagged);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.cc-doc__text mark {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-doc__body {
+    scroll-behavior: auto;
+  }
+}

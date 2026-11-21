@@ -1,8 +1,8 @@
 import { expect, test, type Page } from "./guard.js";
+import { DEVANAGARI } from "./helpers/data.js";
 
 // Same range as DEVANAGARI_PATTERN in /shared. Kept local so the spec does not
 // depend on a built shared package when Playwright loads it.
-const DEVANAGARI = /[ऀ-ॿ]/;
 // The lazy Hindi chunk (hindiAssets-*.js/.css) and every Devanagari font file.
 const HINDI_ASSET = /hindiAssets|devanagari/i;
 

@@ -1,4 +1,4 @@
-// The document block every prompt carries (SPEC section 6 step 6). Segments are
+// The document block every prompt carries. Segments are
 // written as "[s12] text", one per line, between two marker lines. The marker
 // carries a hash of the block itself, so a document cannot contain a marker
 // that closes its own block early: writing one would change the hash.

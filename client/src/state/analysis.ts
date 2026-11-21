@@ -1,4 +1,4 @@
-// The analysis store (SPEC section 9): one run at a time through the shared
+// The analysis store: one run at a time through the shared
 // state machine, with a run id per run, an AbortController per request, the
 // stale-response guard and double-submit prevention. Samples load through
 // /api/samples and never start a run.
@@ -28,7 +28,7 @@ export type CurrentAnalysis =
       fileName: string | null;
       /**
        * What was analysed, kept in memory only so "Not right? Change it" can run it
-       * again with another type (SPEC F3). It is never written anywhere.
+       * again with another type. It is never written anywhere.
        */
       input: AnalyzeInput;
     }
@@ -109,65 +109,71 @@ export async function validateInput(input: AnalyzeInput): Promise<ErrorBody | nu
 const toErrorBody = (error: unknown): ErrorBody =>
   error instanceof ApiError ? error.body : errorBody("ANALYSIS_FAILED");
 
-export function createAnalysisStore(deps: AnalysisDeps): AnalysisStore {
-  const newRunAnalysisId =
-    deps.newRunAnalysisId ?? ((runId: number) => `run:${Date.now().toString(36)}-${String(runId)}`);
-  let state = INITIAL;
-  const listeners = new Set<() => void>();
-  let runCounter = 0;
-  let runController: AbortController | null = null;
-  let sampleCounter = 0;
-  let sampleController: AbortController | null = null;
+/** The store's state and its one run and one sample request in flight. */
+class Store {
+  state = INITIAL;
+  readonly listeners = new Set<() => void>();
+  private runCounter = 0;
+  private runController: AbortController | null = null;
+  private sampleCounter = 0;
+  private sampleController: AbortController | null = null;
+  private readonly newRunAnalysisId: (runId: number) => string;
 
-  const set = (next: AnalysisStoreState) => {
-    if (next === state) return;
-    state = next;
-    for (const listener of listeners) listener();
-  };
+  constructor(private readonly deps: AnalysisDeps) {
+    this.newRunAnalysisId =
+      deps.newRunAnalysisId ??
+      ((runId: number) => `run:${Date.now().toString(36)}-${String(runId)}`);
+  }
+
+  set(next: AnalysisStoreState): void {
+    if (next === this.state) return;
+    this.state = next;
+    for (const listener of this.listeners) listener();
+  }
 
   /** Applies a machine event; false when the machine refused it (stale or out of order). */
-  const machine = (
+  private machine(
     event: AnalysisEvent,
     patch: Partial<Pick<AnalysisStoreState, "error" | "current">> = {},
-  ) => {
-    const next = transition(state.run.machine, event);
-    if (next === state.run.machine) return false;
+  ) {
+    const next = transition(this.state.run.machine, event);
+    if (next === this.state.run.machine) return false;
     // Progress belongs to an active run only.
-    const progress = isRunActive(next.status) ? state.run.progress : null;
-    set({ ...state, ...patch, run: { machine: next, progress } });
+    const progress = isRunActive(next.status) ? this.state.run.progress : null;
+    this.set({ ...this.state, ...patch, run: { machine: next, progress } });
     return true;
-  };
+  }
 
-  const abortSample = () => {
-    sampleController?.abort();
-    sampleController = null;
-    sampleCounter += 1;
-    if (state.loadingSample !== null) set({ ...state, loadingSample: null });
-  };
+  private abortSample(): void {
+    this.sampleController?.abort();
+    this.sampleController = null;
+    this.sampleCounter += 1;
+    if (this.state.loadingSample !== null) this.set({ ...this.state, loadingSample: null });
+  }
 
-  const start = async (input: AnalyzeInput): Promise<boolean> => {
-    if (isRunActive(state.run.machine.status)) return false;
-    abortSample();
-    const runId = ++runCounter;
+  async start(input: AnalyzeInput): Promise<boolean> {
+    if (isRunActive(this.state.run.machine.status)) return false;
+    this.abortSample();
+    const runId = ++this.runCounter;
     const controller = new AbortController();
-    runController = controller;
-    const analysisId = newRunAnalysisId(runId);
-
-    set({
-      ...state,
-      run: { machine: transition(state.run.machine, { type: "START", runId }), progress: null },
+    this.runController = controller;
+    const analysisId = this.newRunAnalysisId(runId);
+    this.set({
+      ...this.state,
+      run: {
+        machine: transition(this.state.run.machine, { type: "START", runId }),
+        progress: null,
+      },
       error: null,
       current: null,
       sampleError: null,
     });
-    deps.emit({ type: "NEW_ANALYSIS", analysisId, restoreTicks: false });
-
+    this.deps.emit({ type: "NEW_ANALYSIS", analysisId, restoreTicks: false });
     // Any event, response or failure from a run that is no longer current is dropped.
-    const stale = () => state.run.machine.runId !== runId || controller.signal.aborted;
+    const stale = () => this.state.run.machine.runId !== runId || controller.signal.aborted;
     const fail = (body: ErrorBody) => {
-      if (!stale()) machine({ type: "FAIL", runId }, { error: body });
+      if (!stale()) this.machine({ type: "FAIL", runId }, { error: body });
     };
-
     try {
       const invalid = await validateInput(input);
       if (stale()) return true;
@@ -175,99 +181,109 @@ export function createAnalysisStore(deps: AnalysisDeps): AnalysisStore {
         fail(invalid);
         return true;
       }
-      machine({ type: "VALIDATED", runId });
-
-      await deps.api.streamAnalysis(input, {
-        signal: controller.signal,
-        onEvent: (event) => {
-          if (stale()) return;
-          if (event.type === "status") {
-            machine({ type: "STEP", runId, step: event.data.step });
-            set({ ...state, run: { ...state.run, progress: event.data } });
-          } else if (event.type === "result") {
-            machine(
-              { type: "RESULT", runId },
-              {
-                current: {
-                  source: "run",
-                  analysisId,
-                  result: event.data,
-                  fileName: input.kind === "file" ? (input.name ?? null) : null,
-                  input,
-                },
-              },
-            );
-          } else {
-            fail(fromErrorEvent(event.data));
-          }
-        },
-      });
+      this.machine({ type: "VALIDATED", runId });
+      await this.stream(input, { runId, analysisId, controller, stale, fail });
       // The stream closed without a result or an error event.
-      if (!stale() && isRunActive(state.run.machine.status)) fail(errorBody("ANALYSIS_FAILED"));
+      if (!stale() && isRunActive(this.state.run.machine.status))
+        fail(errorBody("ANALYSIS_FAILED"));
     } catch (error) {
       fail(toErrorBody(error));
     } finally {
-      if (runController === controller) runController = null;
+      if (this.runController === controller) this.runController = null;
     }
     return true;
-  };
+  }
 
-  const cancel = () => {
-    if (!isRunActive(state.run.machine.status)) return;
-    runController?.abort();
-    runController = null;
-    deps.emit({ type: "RUN_CANCELLED" });
-  };
+  /** Streams one run's events into the machine, ignoring any that arrive once it is stale. */
+  private async stream(input: AnalyzeInput, run: RunHandles): Promise<void> {
+    const { runId, analysisId, stale, fail } = run;
+    await this.deps.api.streamAnalysis(input, {
+      signal: run.controller.signal,
+      onEvent: (event) => {
+        if (stale()) return;
+        if (event.type === "status") {
+          this.machine({ type: "STEP", runId, step: event.data.step });
+          this.set({ ...this.state, run: { ...this.state.run, progress: event.data } });
+        } else if (event.type === "result") {
+          const fileName = input.kind === "file" ? (input.name ?? null) : null;
+          this.machine(
+            { type: "RESULT", runId },
+            { current: { source: "run", analysisId, result: event.data, fileName, input } },
+          );
+        } else {
+          fail(fromErrorEvent(event.data));
+        }
+      },
+    });
+  }
 
-  const openSample = async (id: string, { fresh }: { fresh: boolean }): Promise<void> => {
-    const shown = state.current;
+  cancel(): void {
+    if (!isRunActive(this.state.run.machine.status)) return;
+    this.runController?.abort();
+    this.runController = null;
+    this.deps.emit({ type: "RUN_CANCELLED" });
+  }
+
+  async openSample(id: string, { fresh }: { fresh: boolean }): Promise<void> {
+    const shown = this.state.current;
     // A page load of the sample already shown, or already on its way, changes nothing.
     if (!fresh && shown?.source === "sample" && shown.sampleId === id) return;
-    if (!fresh && state.loadingSample === id) return;
-
-    if (isRunActive(state.run.machine.status)) {
-      runController?.abort();
-      runController = null;
-      set({ ...state, run: INITIAL_RUN });
+    if (!fresh && this.state.loadingSample === id) return;
+    if (isRunActive(this.state.run.machine.status)) {
+      this.runController?.abort();
+      this.runController = null;
+      this.set({ ...this.state, run: INITIAL_RUN });
     }
-    abortSample();
-    const request = sampleCounter;
+    this.abortSample();
+    const request = this.sampleCounter;
     const controller = new AbortController();
-    sampleController = controller;
-    set({ ...state, loadingSample: id, sampleError: null });
-
+    this.sampleController = controller;
+    this.set({ ...this.state, loadingSample: id, sampleError: null });
     try {
-      const sample = await deps.api.getSample(id, controller.signal);
-      if (request !== sampleCounter) return;
+      const sample = await this.deps.api.getSample(id, controller.signal);
+      if (request !== this.sampleCounter) return;
       const analysisId = `sample:${id}`;
-      set({
-        ...state,
+      this.set({
+        ...this.state,
         loadingSample: null,
         error: null,
         current: { source: "sample", analysisId, sampleId: id, result: sample.en, hi: sample.hi },
       });
-      deps.emit({ type: "NEW_ANALYSIS", analysisId, restoreTicks: !fresh });
+      this.deps.emit({ type: "NEW_ANALYSIS", analysisId, restoreTicks: !fresh });
     } catch (error) {
-      if (request !== sampleCounter) return;
-      set({ ...state, loadingSample: null, sampleError: toErrorBody(error) });
+      if (request !== this.sampleCounter) return;
+      this.set({ ...this.state, loadingSample: null, sampleError: toErrorBody(error) });
     } finally {
-      if (sampleController === controller) sampleController = null;
+      if (this.sampleController === controller) this.sampleController = null;
     }
-  };
+  }
+}
 
+interface RunHandles {
+  runId: number;
+  analysisId: string;
+  controller: AbortController;
+  stale: () => boolean;
+  fail: (body: ErrorBody) => void;
+}
+
+export function createAnalysisStore(deps: AnalysisDeps): AnalysisStore {
+  const store = new Store(deps);
   return {
-    getState: () => state,
+    getState: () => store.state,
     subscribe: (listener) => {
-      listeners.add(listener);
+      store.listeners.add(listener);
       return () => {
-        listeners.delete(listener);
+        store.listeners.delete(listener);
       };
     },
     setRun: (run) => {
-      if (run !== state.run) set({ ...state, run });
+      if (run !== store.state.run) store.set({ ...store.state, run });
     },
-    start,
-    cancel,
-    openSample,
+    start: (input) => store.start(input),
+    cancel: () => {
+      store.cancel();
+    },
+    openSample: (id, options) => store.openSample(id, options),
   };
 }

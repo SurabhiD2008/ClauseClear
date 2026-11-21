@@ -1,5 +1,4 @@
-// One analysis from intake to a checked AnalysisResult (SPEC section 6 steps 1
-// to 9). The route only adapts this to SSE or JSON: every step, the retry rule
+// One analysis from intake to a checked AnalysisResult. The route only adapts this to SSE or JSON: every step, the retry rule
 // and the score live here.
 import {
   VERIFY_RETRY_FAIL_RATIO,
@@ -12,12 +11,12 @@ import {
   type Warning,
 } from "@clauseclear/shared";
 import type { LlmRouter } from "../llm/index.js";
-import { analyzeDocument } from "./analyze.js";
+import { analyzeDocument, type AnalyzeOptions, type AnalyzeOutcome } from "./analyze.js";
 import { PipelineError } from "./errors.js";
 import { readPastedText, readPdf, type DocumentText } from "./extract.js";
 import type { DraftAnalysis } from "./merge.js";
 import { segmentDocument } from "./segment.js";
-import { verifyDraft, type FlagOutcome, type VerificationStats } from "./verify.js";
+import { verifyDraft, type FlagOutcome, type VerificationStats, type Verified } from "./verify.js";
 
 export type AnalysisInput = { kind: "pdf"; bytes: Uint8Array } | { kind: "text"; text: string };
 
@@ -97,23 +96,48 @@ export function buildResult(
   return parsed.data;
 }
 
+type Common = Omit<AnalyzeOptions, "docType" | "strict">;
+
+/**
+ * One stricter attempt, on the type already found, when more than half the
+ * flags failed verification. The first attempt's type and label are kept.
+ */
+async function retryStrict(
+  common: Common,
+  first: AnalyzeOutcome,
+  segments: Segment[],
+  progress: (event: StatusEvent) => void,
+): Promise<{ verified: Verified; calls: number }> {
+  progress({ step: "verifying", detail: "checking again with a stricter reading" });
+  const second = await analyzeDocument({
+    ...common,
+    docType: first.detection.docType,
+    strict: true,
+  });
+  const keepType = {
+    docType: first.draft.docType,
+    docTypeLabel: first.draft.docTypeLabel,
+    docTypeConfidence: first.draft.docTypeConfidence,
+  };
+  const verified = verifyDraft({ ...second.draft, ...keepType }, segments);
+  progress({ step: "verifying" });
+  return { verified, calls: second.draft.calls };
+}
+
 export async function runAnalysis(input: AnalysisInput, options: RunOptions): Promise<RunOutcome> {
   const { router, maxInputTokens, signal, deadline } = options;
   const progress = (event: StatusEvent) => {
     signal?.throwIfAborted();
     options.onProgress?.(event);
   };
-
   progress({ step: "reading" });
   const doc =
     input.kind === "pdf"
       ? await readPdf(input.bytes, signal === undefined ? {} : { signal })
       : readPastedText(input.text);
-
   progress({ step: "segmenting" });
   const segments = segmentDocument(doc.pages);
-
-  const common = {
+  const common: Common = {
     router,
     segments,
     pages: doc.pageCount,
@@ -126,51 +150,34 @@ export async function runAnalysis(input: AnalysisInput, options: RunOptions): Pr
     ...common,
     ...(options.docType === undefined ? {} : { docType: options.docType }),
   });
-
   progress({ step: "verifying" });
   let verified = verifyDraft(first.draft, segments);
   const attempts = [{ stats: verified.stats, outcomes: verified.outcomes }];
   let calls = first.draft.calls;
-  let retried = false;
+  const retried = verified.failRatio > VERIFY_RETRY_FAIL_RATIO;
   const warnings: Warning[] = [];
-  if (verified.failRatio > VERIFY_RETRY_FAIL_RATIO) {
-    // Step 8: one stricter attempt, on the type already found.
-    retried = true;
-    progress({ step: "verifying", detail: "checking again with a stricter reading" });
-    const second = await analyzeDocument({
-      ...common,
-      docType: first.detection.docType,
-      strict: true,
-    });
-    calls += second.draft.calls;
-    const keepType = {
-      docType: first.draft.docType,
-      docTypeLabel: first.draft.docTypeLabel,
-      docTypeConfidence: first.draft.docTypeConfidence,
-    };
-    verified = verifyDraft({ ...second.draft, ...keepType }, segments);
+  if (retried) {
+    const second = await retryStrict(common, first, segments, progress);
+    verified = second.verified;
+    calls += second.calls;
     attempts.push({ stats: verified.stats, outcomes: verified.outcomes });
-    progress({ step: "verifying" });
     if (verified.failRatio > VERIFY_RETRY_FAIL_RATIO) warnings.push("partial_verification");
   }
   if (verified.draft.docTypeConfidence === "low") warnings.push("low_confidence_type");
-
   progress({ step: "scoring" });
   const result = buildResult(verified.draft, doc, segments, warnings);
-  return {
-    result,
-    report: {
-      pages: doc.pageCount,
-      segments: segments.length,
-      chars: doc.text.length,
-      docType: result.docType,
-      path: verified.draft.path,
-      calls,
-      retried,
-      verification: verified.stats,
-      attempts,
-      score: result.score.value,
-      warnings,
-    },
+  const report: RunReport = {
+    pages: doc.pageCount,
+    segments: segments.length,
+    chars: doc.text.length,
+    docType: result.docType,
+    path: verified.draft.path,
+    calls,
+    retried,
+    verification: verified.stats,
+    attempts,
+    score: result.score.value,
+    warnings,
   };
+  return { result, report };
 }

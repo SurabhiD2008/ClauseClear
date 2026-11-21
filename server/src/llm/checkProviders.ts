@@ -1,8 +1,14 @@
-// npm run check:providers (SPEC section 5 rule 1). For each configured provider:
+// npm run check:providers. For each configured provider:
 // list the models the key can see, print candidates, send one tiny request, and
 // print its status and any rate-limit headers. Every line passes through
 // redact() first, so a key can never be printed even if an API echoed it.
-import { buildProvider, readLlmConfig, type Env } from "./config.js";
+import {
+  buildProvider,
+  readLlmConfig,
+  type Env,
+  type LlmConfig,
+  type ProviderConfig,
+} from "./config.js";
 import { listGeminiModels } from "./gemini.js";
 import type { FetchLike } from "./http.js";
 import { listOpenAiCompatibleModels } from "./openai-compatible.js";
@@ -39,6 +45,80 @@ function rateHeaders(headers: Headers | undefined): string[] {
   return lines.sort();
 }
 
+type Print = (line: string) => void;
+interface FetchOption {
+  fetch?: FetchLike;
+}
+
+/** Lists the models the key can see and flags a configured model that is not among them. */
+async function printModels(provider: ProviderConfig, fetchOption: FetchOption, print: Print) {
+  try {
+    const listOptions = {
+      name: provider.name,
+      apiKey: provider.apiKey,
+      model: provider.model,
+      baseUrl: provider.baseUrl,
+      ...fetchOption,
+    };
+    const models =
+      provider.kind === "gemini"
+        ? await listGeminiModels(listOptions)
+        : await listOpenAiCompatibleModels(listOptions);
+    const candidates = models.filter((id) => CANDIDATE_PATTERN.test(id)).sort();
+    print(
+      `models visible to this key: ${String(models.length)}; candidates: ${String(candidates.length)}`,
+    );
+    for (const id of candidates.slice(0, MAX_LISTED)) {
+      print(`  ${id === provider.model.replace(/^models\//, "") ? "*" : " "} ${id}`);
+    }
+    if (candidates.length > MAX_LISTED) {
+      print(`    ... and ${String(candidates.length - MAX_LISTED)} more`);
+    }
+    if (!models.includes(provider.model.replace(/^models\//, ""))) {
+      print(`  ! configured model ${provider.model} is not in the list`);
+    }
+  } catch (error) {
+    print(`model list failed: ${describe(error)}`);
+  }
+}
+
+/** Sends one tiny request and prints its status and rate-limit headers. */
+async function testRequest(
+  provider: ProviderConfig,
+  config: LlmConfig,
+  fetchOption: FetchOption,
+  print: Print,
+  now: () => number,
+): Promise<boolean> {
+  let meta: ResponseMeta | undefined;
+  const client = buildProvider(provider, config, {
+    ...fetchOption,
+    onResponse: (_name, response) => {
+      meta = response;
+    },
+  });
+  const started = now();
+  let ok = true;
+  try {
+    const result = await client.generateJson({
+      system: "You answer service health checks.",
+      user: 'Return exactly this JSON: {"ok": true}',
+      schemaName: "check",
+      maxOutputTokens: CHECK_MAX_OUTPUT_TOKENS,
+    });
+    print(
+      `test request (${provider.model}): ok, HTTP ${String(meta?.status ?? 200)}, ${String(now() - started)} ms, ${String(result.text.length)} chars back`,
+    );
+  } catch (error) {
+    ok = false;
+    print(`test request (${provider.model}): FAILED, ${describe(error)}`);
+  }
+  const headers = rateHeaders(meta?.headers);
+  print(headers.length === 0 ? "rate-limit headers: none sent" : "rate-limit headers:");
+  for (const line of headers) print(`  ${line}`);
+  return ok;
+}
+
 /** Returns true when every configured provider answered the test request. */
 export async function checkProviders(env: Env, options: CheckOptions): Promise<boolean> {
   const config = readLlmConfig(env);
@@ -54,7 +134,7 @@ export async function checkProviders(env: Env, options: CheckOptions): Promise<b
   }
   const real = config.providers.filter((p) => p.kind !== "mock");
   if (real.length === 0 && config.providers.length > 0) {
-    // LLM_PROVIDER_ORDER names only the mock: a deliberate demo setup, not an error (A182).
+    // LLM_PROVIDER_ORDER names only the mock: a deliberate demo setup, not an error.
     print(
       "Mock mode (LLM_PROVIDER_ORDER names only the mock): no real provider to check. Analyses will be made up; the samples are real. Add a key and model in .env for real analyses.",
     );
@@ -72,61 +152,8 @@ export async function checkProviders(env: Env, options: CheckOptions): Promise<b
       `== ${provider.name} (${provider.kind === "gemini" ? "Gemini" : "OpenAI-compatible"}) ==`,
     );
     print(`base URL: ${provider.baseUrl}`);
-
-    try {
-      const listOptions = {
-        name: provider.name,
-        apiKey: provider.apiKey,
-        model: provider.model,
-        baseUrl: provider.baseUrl,
-        ...fetchOption,
-      };
-      const models =
-        provider.kind === "gemini"
-          ? await listGeminiModels(listOptions)
-          : await listOpenAiCompatibleModels(listOptions);
-      const candidates = models.filter((id) => CANDIDATE_PATTERN.test(id)).sort();
-      print(
-        `models visible to this key: ${String(models.length)}; candidates: ${String(candidates.length)}`,
-      );
-      for (const id of candidates.slice(0, MAX_LISTED)) {
-        print(`  ${id === provider.model.replace(/^models\//, "") ? "*" : " "} ${id}`);
-      }
-      if (candidates.length > MAX_LISTED) {
-        print(`    ... and ${String(candidates.length - MAX_LISTED)} more`);
-      }
-      if (!models.includes(provider.model.replace(/^models\//, ""))) {
-        print(`  ! configured model ${provider.model} is not in the list`);
-      }
-    } catch (error) {
-      print(`model list failed: ${describe(error)}`);
-    }
-
-    let meta: ResponseMeta | undefined;
-    const client = buildProvider(provider, config, {
-      ...fetchOption,
-      onResponse: (_name, response) => {
-        meta = response;
-      },
-    });
-    const started = now();
-    try {
-      const result = await client.generateJson({
-        system: "You answer service health checks.",
-        user: 'Return exactly this JSON: {"ok": true}',
-        schemaName: "check",
-        maxOutputTokens: CHECK_MAX_OUTPUT_TOKENS,
-      });
-      print(
-        `test request (${provider.model}): ok, HTTP ${String(meta?.status ?? 200)}, ${String(now() - started)} ms, ${String(result.text.length)} chars back`,
-      );
-    } catch (error) {
-      allOk = false;
-      print(`test request (${provider.model}): FAILED, ${describe(error)}`);
-    }
-    const headers = rateHeaders(meta?.headers);
-    print(headers.length === 0 ? "rate-limit headers: none sent" : "rate-limit headers:");
-    for (const line of headers) print(`  ${line}`);
+    await printModels(provider, fetchOption, print);
+    if (!(await testRequest(provider, config, fetchOption, print, now))) allOk = false;
   }
   return allOk;
 }

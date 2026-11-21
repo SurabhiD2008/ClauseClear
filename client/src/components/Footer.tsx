@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useT } from "../i18n/useT";
 
-/** Below 640 px the header shows only the wordmark and toggle, so the nav links live here (SPEC section 9). */
+/** Below 640 px the header shows only the wordmark and toggle, so the nav links live here. */
 export function Footer() {
   const t = useT();
   return (

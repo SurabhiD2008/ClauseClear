@@ -1,7 +1,8 @@
-// Structured logs (SPEC section 11, ASSUMPTIONS A6). Callers log counts,
+// Structured logs. Callers log counts,
 // durations, statuses and error codes only. Redaction is a second line of
 // defence in case a key-shaped field is ever passed by mistake.
 import pino, { type DestinationStream, type Logger } from "pino";
+import { nodeEnvOf } from "./config.js";
 
 export type { Logger } from "pino";
 
@@ -25,7 +26,7 @@ export function createLogger(
   options: { level?: string; destination?: DestinationStream } = {},
 ): Logger {
   const settings = {
-    level: options.level ?? (process.env.NODE_ENV === "test" ? "silent" : "info"),
+    level: options.level ?? (nodeEnvOf(process.env) === "test" ? "silent" : "info"),
     redact: { paths: REDACT_PATHS, censor: "[redacted]" },
   };
   return options.destination === undefined ? pino(settings) : pino(settings, options.destination);

@@ -15,7 +15,7 @@ interface ReadAloudProps {
 }
 
 /**
- * A Listen button (SPEC F15, section 9). It shows Stop while speaking. With no
+ * A Listen button. It shows Stop while speaking. With no
  * speech synthesis, or no voice for the language, a one-line hint replaces it.
  * Leaving the page, closing the flag or a change of text stops the reading.
  */
@@ -32,7 +32,7 @@ export function ReadAloud({ id, text, lang, label }: ReadAloudProps) {
   );
 
   // The voice list arrives shortly after load. Until it does, an empty box the
-  // size of the button holds its place, so the rows below do not jump (A184).
+  // size of the button holds its place, so the rows below do not jump.
   if (state.availability === "checking") {
     return <div className="cc-read-pending" aria-hidden="true" />;
   }

@@ -2,12 +2,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import fontsSource from "../styles/fonts.ts?raw";
 import { FONT_WAIT_MS, LATIN_FACES, LATIN_SAMPLE, loadFaces, loadLatinFonts } from "./fonts";
 
-describe("loadLatinFonts (prompt 18)", () => {
+describe("loadLatinFonts", () => {
   afterEach(() => {
     vi.useRealTimers();
   });
 
-  it("asks for every Latin face with a plain Latin sample, so no latin-ext file is awaited (A179)", async () => {
+  it("asks for every Latin face with a plain Latin sample, so no latin-ext file is awaited", async () => {
     const asked: [string, string | undefined][] = [];
     await loadLatinFonts({
       load: (font: string, text?: string) => {

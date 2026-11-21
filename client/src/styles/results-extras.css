@@ -1,0 +1,116 @@
+/* Results page: top-row actions, the type override, the status bar and not found. */
+
+/* --- Top row actions: Save report and Check another document --- */
+.cc-results__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* --- "Not right? Change it" under the detected type --- */
+.cc-override__toggle {
+  font-size: 15px;
+  color: var(--pen-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cc-override__form {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  max-width: 460px;
+  margin: 6px 0 12px;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--pen-blue);
+  background: var(--paper);
+}
+
+.cc-override__form[hidden] {
+  display: none;
+}
+
+.cc-override__label {
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cc-override__select {
+  min-height: var(--touch);
+  max-width: 100%;
+  padding: 0 12px;
+  border: var(--rule-section) solid var(--ink);
+  background: var(--white);
+  font: inherit;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.cc-override__note {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* --- The status bar: fixed, so its notices never move the page --- */
+/* A zero-height strip pinned 16 px above the bottom of the window. Its rows are
+ * stacked bottom-up (column-reverse) and overflow upwards, so the bar itself never
+ * changes size and a notice that appears is drawn above the ones already there
+ * instead of pushing them. A bar pinned with bottom: 0 that grew moved its own
+ * top and its first notice, which counted as a layout shift. */
+.cc-statusbar {
+  position: fixed;
+  right: 0;
+  bottom: 16px;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 8px;
+  height: 0;
+  padding: 0 var(--gutter);
+  pointer-events: none;
+}
+
+.cc-statusbar > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 8px;
+  width: 100%;
+}
+
+.cc-statusbar__notice {
+  max-width: min(760px, 100%);
+  pointer-events: auto;
+  box-shadow: var(--shadow-sticky);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cc-statusbar__notice {
+    animation: cc-rise var(--dur-open) var(--ease-out);
+  }
+}
+
+/* --- Not found --- */
+.cc-notfound {
+  padding-block: 48px 96px;
+}
+
+.cc-notfound__strip {
+  max-width: 720px;
+  padding: 28px 30px 32px;
+  border: var(--rule-strong) solid var(--ink);
+  box-shadow: 10px 10px 0 var(--highlighter);
+}
+
+.cc-notfound__title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}

@@ -1,0 +1,117 @@
+/* Landing page: the paste-text dialog. */
+
+/* --- Paste dialog: the upload-box styling on a paper backdrop --- */
+.cc-dialog {
+  width: min(720px, calc(100vw - 2 * var(--gutter)));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  color: var(--ink-soft);
+}
+
+.cc-dialog {
+  box-shadow: 10px 10px 0 var(--highlighter);
+}
+
+.cc-dialog::backdrop {
+  background: rgb(12 17 48 / 78%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cc-dialog[open] {
+    animation: cc-rise var(--dur-open) var(--ease-out);
+  }
+
+  .cc-dialog[open]::backdrop {
+    animation: cc-fade var(--dur-open) var(--ease-out);
+  }
+}
+
+@keyframes cc-rise {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+
+@keyframes cc-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.cc-dialog__form {
+  display: grid;
+  gap: 12px;
+  padding: clamp(20px, 3vw, 30px) clamp(16px, 3vw, 28px);
+}
+
+.cc-dialog .cc-upload__legend {
+  position: static;
+  justify-self: start;
+}
+
+.cc-dialog__title {
+  font-size: clamp(23px, 2.1vw, 28px);
+  letter-spacing: -0.02em;
+}
+
+.cc-dialog__label {
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.cc-dialog__hint {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.cc-dialog__field {
+  width: 100%;
+  min-height: min(300px, 40dvh);
+  padding: 12px;
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  font-family: var(--font-reading);
+  font-size: 16px;
+  line-height: 1.55;
+  resize: vertical;
+  transition: box-shadow var(--dur-quick) var(--ease-out);
+}
+
+.cc-dialog__field:focus-visible {
+  box-shadow: 5px 5px 0 var(--highlighter);
+}
+
+.cc-dialog__counter {
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cc-dialog__counter[data-state="ok"] {
+  color: var(--ink);
+}
+
+.cc-dialog__counter[data-state="out"] {
+  color: var(--red-text);
+}
+
+.cc-dialog__problem {
+  font-size: 16px;
+  color: var(--red-text);
+}
+
+.cc-dialog__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}

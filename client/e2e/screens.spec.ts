@@ -1,22 +1,11 @@
 import path from "node:path";
 import { expect, test, type Page, type TestInfo } from "./guard.js";
+import { LEASE, ROOT } from "./helpers/data.js";
 
-// One full-page screenshot per page and state for each project (SPEC section
-// 12), saved as audit/screens/pages/<page>-<project>.png so a failure can be
+// One full-page screenshot per page and state for each project, saved as audit/screens/pages/<page>-<project>.png so a failure can be
 // pointed at by file name. The guard checks each of these pages as well.
-const ROOT = process.cwd();
 
 test.use({ reducedMotion: "reduce" });
-
-const LEASE = [
-  "LEAVE AND LICENSE AGREEMENT FOR A FLAT IN PUNE",
-  "",
-  "1. The licensee shall pay a monthly licence fee of Rs. 25,000 on the fifth day of each month.",
-  "",
-  "2. The licensor may enter the premises at any time without notice to inspect them.",
-  "",
-  "3. If the licensee leaves before the lock-in ends, the licensee shall forfeit the whole deposit.",
-].join("\n");
 
 async function shoot(page: Page, testInfo: TestInfo, name: string) {
   const file = path.join(ROOT, "audit", "screens", "pages", `${name}-${testInfo.project.name}.png`);

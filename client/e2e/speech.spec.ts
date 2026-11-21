@@ -2,10 +2,10 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
 import type { AnalysisResult, Flag } from "../../shared/src/schemas.js";
+import { ROOT } from "./helpers/data.js";
 
-// Prompt 14: read aloud (SPEC F15, section 9) with a stubbed speechSynthesis, so
+// Read aloud with a stubbed speechSynthesis, so
 // the tests hear exactly what would be spoken and in which locale.
-const ROOT = process.cwd();
 const sample = JSON.parse(
   readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8"),
 ) as { en: AnalysisResult; hi: Record<string, string> };

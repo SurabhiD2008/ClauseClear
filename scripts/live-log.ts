@@ -1,4 +1,4 @@
-// The live run log (prompt 8, A91): its shape, and the summary table computed
+// The live run log: its shape, and the summary table computed
 // from it. Holds ids, categories, numbers and provider names, never text.
 import type { Confidence, DocType, ScoreBand, Warning } from "@clauseclear/shared";
 import type { LlmLogEntry } from "../server/src/llm/router.js";

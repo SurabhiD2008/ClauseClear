@@ -24,7 +24,7 @@ export function bandForScore(value: number): ScoreBand {
 }
 
 /**
- * The only scoring function (SPEC section 6). The model never outputs a score;
+ * The only scoring function. The model never outputs a score;
  * server, client and the schema check all call this.
  * counts.high and counts.medium count present flags; counts.missing counts every missing item.
  */

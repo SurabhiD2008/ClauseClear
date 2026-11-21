@@ -28,7 +28,7 @@ function snapshot(status: "analyzing" | "done" = "analyzing"): AppSnapshot {
   };
 }
 
-// SPEC section 9, "State rules": one test per row.
+// The reset-and-keep table in ui.ts: one test per row.
 describe("the reset and keep table", () => {
   it("toggle language: resets nothing; keeps selected flag, filter, ticks, sheet and the rest", () => {
     const before = snapshot();

@@ -1,4 +1,4 @@
-// The UI store and the reset-and-keep table (SPEC section 9, "State rules").
+// The UI store and the reset-and-keep table.
 // applyStateRule is the one function that owns the table: every row is an
 // event, and it decides what each event resets across the run, the UI and the
 // language. The stores only write what it returns (state/index.ts).
@@ -58,7 +58,7 @@ export const INITIAL_UI: UiState = {
 
 export const INITIAL_RUN: RunSnapshot = { machine: INITIAL_ANALYSIS_STATE, progress: null };
 
-/** One event per row of the SPEC section 9 table. */
+/** One event per row of the reset-and-keep table. */
 export type StateRuleEvent =
   | { type: "LANGUAGE_TOGGLED"; lang: Lang }
   /** A new upload or sample. ticks are the ones stored for that analysis id ([] for a new run). */
@@ -109,7 +109,7 @@ export function applyStateRule(snapshot: AppSnapshot, event: StateRuleEvent): Ap
   }
 }
 
-// --- Checklist ticks in sessionStorage, keyed by analysis id (SPEC section 9) ---
+// --- Checklist ticks in sessionStorage, keyed by analysis id ---
 
 export type TickStorage = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 

@@ -1,5 +1,5 @@
 // Original text written for ClauseClear tests. Names, addresses and figures are fictional.
-// Every rental category in SPEC section 8 is present, and several are written to be flagged.
+// Every rental checklist category is present, and several are written to be flagged.
 // Stamp duty and registration is left out on purpose (a "missing" category).
 import { h, i, p, title, type DocumentSpec } from "./layout.js";
 

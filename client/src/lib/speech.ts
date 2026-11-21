@@ -1,4 +1,4 @@
-// Read aloud (SPEC F15, section 9): browser speech synthesis in en-IN or hi-IN.
+// Read aloud: browser speech synthesis in en-IN or hi-IN.
 // One shared player, so starting one reading stops any other. Nothing here is
 // sent anywhere: the browser speaks the text on the device.
 import type { Lang } from "@clauseclear/shared";
@@ -41,6 +41,25 @@ export interface SpeechPlayer {
   stop: () => void;
 }
 
+/** Loads the voice list now and whenever it changes; gives up waiting after VOICE_WAIT_MS. */
+function watchVoices(
+  synth: SpeechSynthesis,
+  win: Window | undefined,
+  get: () => SpeechSnapshot,
+  set: (next: Partial<SpeechSnapshot>) => void,
+): void {
+  const load = () => {
+    const voices = synth.getVoices();
+    set({ voices, availability: voices.length > 0 ? "ready" : get().availability });
+  };
+  load();
+  synth.addEventListener("voiceschanged", load);
+  // A browser with no voices installed may never fire voiceschanged.
+  win?.setTimeout(() => {
+    if (get().availability === "checking") set({ availability: "ready" });
+  }, VOICE_WAIT_MS);
+}
+
 export function createSpeechPlayer(win: Window | undefined): SpeechPlayer {
   // Missing in some browsers (and in an embedded webview), whatever the DOM types say.
   const synth = (win as Partial<Window> | undefined)?.speechSynthesis ?? null;
@@ -62,16 +81,7 @@ export function createSpeechPlayer(win: Window | undefined): SpeechPlayer {
   const start = () => {
     if (started || synth === null) return;
     started = true;
-    const load = () => {
-      const voices = synth.getVoices();
-      set({ voices, availability: voices.length > 0 ? "ready" : state.availability });
-    };
-    load();
-    synth.addEventListener("voiceschanged", load);
-    // A browser with no voices installed may never fire voiceschanged.
-    win?.setTimeout(() => {
-      if (state.availability === "checking") set({ availability: "ready" });
-    }, VOICE_WAIT_MS);
+    watchVoices(synth, win, () => state, set);
   };
 
   return {

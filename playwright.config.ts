@@ -1,6 +1,8 @@
 import { defineConfig } from "@playwright/test";
 
 const port = 4173;
+/** Specs that run only on the phone projects. */
+const PHONE_ONLY = /results-mobile\.spec\.ts/;
 
 // Mock-only env every test server shares. The abuse limits are raised because
 // every project shares one client IP.
@@ -14,7 +16,7 @@ const MOCK_ENV = {
 };
 
 /**
- * Extra servers for the provider-failure and limit flows (prompt 17, A158). Each
+ * Extra servers for the provider-failure and limit flows. Each
  * has its own router, so a 429, an open circuit breaker or a spent IP allowance
  * there can never reach a test on the main server. They start after the main
  * server, which builds first (Playwright sets web servers up one at a time).
@@ -38,7 +40,7 @@ const scenarioServer = (serverPort: number, env: Record<string, string>) => ({
   timeout: 60_000,
 });
 
-// The five viewport projects from SPEC section 12. E2E runs against the
+// The five viewport projects. E2E runs against the
 // production build, so it also proves the server serves client/dist.
 export default defineConfig({
   testDir: "client/e2e",
@@ -51,17 +53,37 @@ export default defineConfig({
     baseURL: `http://127.0.0.1:${String(port)}`,
     browserName: "chromium",
   },
+  // Tags pick where a test runs instead of skipping it elsewhere: @once runs on
+  // desktop only, @mouse where there is a mouse, @sheet below 1024 px, and the
+  // phone-only bottom-sheet file on the two phone projects.
   projects: [
-    { name: "desktop", use: { viewport: { width: 1360, height: 900 } } },
-    { name: "laptop", use: { viewport: { width: 1024, height: 768 } } },
-    { name: "tablet", use: { viewport: { width: 768, height: 1024 } } },
+    {
+      name: "desktop",
+      use: { viewport: { width: 1360, height: 900 } },
+      grepInvert: /@sheet/,
+      testIgnore: PHONE_ONLY,
+    },
+    {
+      name: "laptop",
+      use: { viewport: { width: 1024, height: 768 } },
+      grepInvert: /@once|@sheet/,
+      testIgnore: PHONE_ONLY,
+    },
+    {
+      name: "tablet",
+      use: { viewport: { width: 768, height: 1024 } },
+      grepInvert: /@once/,
+      testIgnore: PHONE_ONLY,
+    },
     {
       name: "mobile",
       use: { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true },
+      grepInvert: /@once|@mouse/,
     },
     {
       name: "small-phone",
       use: { viewport: { width: 320, height: 568 }, isMobile: true, hasTouch: true },
+      grepInvert: /@once|@mouse/,
     },
   ],
   webServer: [

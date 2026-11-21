@@ -1,5 +1,5 @@
 // OpenAI-compatible chat completions: NVIDIA NIM and any extra endpoint named in
-// LLM_PROVIDER_ORDER (base URL, key and model from env; ASSUMPTIONS A50, A55).
+// LLM_PROVIDER_ORDER (base URL, key and model from env).
 // NVIDIA documents no response_format field, so JSON is asked for in the prompt
 // and the router strips code fences and validates with zod.
 import { asArray, asNumber, asRecord, requestJson, trimSlash, type FetchLike } from "./http.js";

@@ -1,0 +1,212 @@
+/* Results page: the verdict, the score and the counts. */
+
+/* --- Verdict --- */
+/* The verdict is the cover sheet of the report: the one highlighted object on
+   the page, like the upload form on the landing page. */
+.cc-verdict {
+  padding: clamp(20px, 2.6vw, 34px) clamp(16px, 2.6vw, 34px) clamp(24px, 2.8vw, 36px);
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  box-shadow: 10px 10px 0 var(--highlighter);
+}
+
+.cc-verdict__detected {
+  margin-bottom: 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-verdict__title {
+  margin-bottom: 18px;
+  /* Inside the cover sheet the line is shorter, so the title steps down to stay on one line. */
+  font-size: min(var(--h1-size), max(40px, 4.4vw));
+}
+
+.cc-score {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+/* The pen circles the score as the result arrives, then the note is written. */
+@media (prefers-reduced-motion: no-preference) {
+  .cc-score .cc-redpen__svg path {
+    animation: cc-draw 700ms var(--ease-pen) 200ms backwards;
+  }
+
+  .cc-score__note {
+    animation: cc-write 380ms var(--ease-out) 900ms backwards;
+  }
+
+  .cc-ruler__mark path {
+    animation: cc-draw 420ms var(--ease-pen) 1100ms backwards;
+  }
+}
+
+.cc-score__figure {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 6px 4px 6px 14px;
+}
+
+.cc-score__value {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 8vw, 112px);
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 0.95;
+}
+
+.cc-score .cc-redpen__svg {
+  inset: -14% -22% -16% -18%;
+  width: 140%;
+  height: 130%;
+}
+
+.cc-score__max {
+  margin: 0 0 8px 22px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cc-score__note {
+  font-family: var(--font-hand);
+  font-size: clamp(24px, 2.4vw, 30px);
+  font-weight: 700;
+  color: var(--red-pen);
+  transform: rotate(var(--tilt-note));
+}
+
+.cc-verdict__summary {
+  max-width: 640px;
+  margin-bottom: 16px;
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.6;
+}
+
+.cc-tallies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-bottom: 26px;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Each count is a stamp: a word in a ruled box, never colour alone. */
+.cc-tally {
+  padding: 2px 10px;
+  border: var(--rule-strong) solid currentColor;
+  line-height: 1.6;
+}
+
+.cc-tally--high {
+  color: var(--red-text);
+}
+
+.cc-tally--medium {
+  color: var(--orange-text);
+}
+
+.cc-tally--missing {
+  color: var(--pen-blue);
+}
+
+/* Ruler scale: a 1.5 px baseline with ticks every 10 percent and a red circle at the score. */
+.cc-ruler {
+  max-width: 640px;
+  margin: 0;
+}
+
+.cc-ruler {
+  margin-top: 30px;
+}
+
+/* Under the ticks, a strip shaded by band: plain, marker, red pencil. The band
+   edges come from the shared scoring constants (set as variables by Verdict). */
+.cc-ruler__line {
+  position: relative;
+  height: 22px;
+  border-bottom: var(--rule-section) solid var(--ink);
+  background: linear-gradient(
+      90deg,
+      var(--rule-soft) var(--band-medium, 25%),
+      var(--highlighter) var(--band-medium, 25%),
+      var(--highlighter) var(--band-high, 55%),
+      var(--band-high-fill) var(--band-high, 55%)
+    )
+    no-repeat left bottom / 100% 8px;
+  --band-high-fill: #f0a59e;
+}
+
+.cc-ruler__tick {
+  position: absolute;
+  bottom: 0;
+  width: 1.5px;
+  height: 14px;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.cc-ruler__tick:first-child,
+.cc-ruler__tick:nth-child(6),
+.cc-ruler__tick:nth-child(11) {
+  height: 22px;
+}
+
+.cc-ruler__mark {
+  position: absolute;
+  bottom: -8px;
+  width: 32px;
+  height: 32px;
+  overflow: visible;
+  transform: translateX(-50%);
+}
+
+.cc-ruler__mark path {
+  fill: none;
+  stroke: var(--red-pen);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.cc-ruler__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --- The numbers: dotted-leader rows, two columns --- */
+.cc-facts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 36px;
+  margin: 20px 0 0;
+}
+
+.cc-facts__grid .cc-leader {
+  flex-wrap: wrap;
+}
+
+.cc-facts__grid .cc-leader__value {
+  margin-left: auto;
+  overflow-wrap: anywhere;
+}

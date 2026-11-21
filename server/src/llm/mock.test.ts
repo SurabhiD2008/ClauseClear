@@ -34,7 +34,7 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-describe("mock provider scenarios (SPEC section 12)", () => {
+describe("mock provider scenarios", () => {
   it("normal replays the fixture as JSON", async () => {
     const result = await createMockProvider({ scenario: "normal" }).generateJson(request);
     const parsed = JSON.parse(result.text) as { flags: unknown[]; docType: string };
@@ -68,6 +68,35 @@ describe("mock provider scenarios (SPEC section 12)", () => {
       .catch((error: unknown) => error);
     await vi.advanceTimersByTimeAsync(1_500);
     expect(((await pending) as LlmRouterError).code).toBe("PROVIDER_UNAVAILABLE");
+  });
+
+  it("wrong_schema parses as JSON but fails the schema with a repair hint", async () => {
+    const { text } = await createMockProvider({ scenario: "wrong_schema" }).generateJson(request);
+    expect(() => JSON.parse(text) as unknown).not.toThrow();
+    const strict = zodOutput(z.strictObject({ flags: z.array(z.unknown()) }));
+    const error = (() => {
+      try {
+        strict.parse("mock", text);
+        return undefined;
+      } catch (caught) {
+        return caught;
+      }
+    })();
+    expect(error).toBeInstanceOf(BadOutputError);
+    expect((error as BadOutputError).reason).toBe("schema");
+  });
+
+  it("refusal is prose with no JSON, so it is malformed output", async () => {
+    const { text } = await createMockProvider({ scenario: "refusal" }).generateJson(request);
+    expect(text).not.toMatch(/[[{]/);
+    expect(() => anyJson.parse("mock", text)).toThrow(BadOutputError);
+  });
+
+  it("prose_wrapped JSON is still read: the fence and sentences are stripped", async () => {
+    const { text } = await createMockProvider({ scenario: "prose_wrapped" }).generateJson(request);
+    expect(text.startsWith("Here is")).toBe(true);
+    const parsed = anyJson.parse("mock", text) as { docType: string };
+    expect(parsed.docType).toBe("rental");
   });
 
   it("malformed_json and truncated_json do not parse", async () => {

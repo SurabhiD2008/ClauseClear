@@ -1,4 +1,4 @@
-// Secret scan for npm run audit (SPEC section 12): the repository's files and
+// Secret scan for npm run audit: the repository's files and
 // the built client, searched for key-shaped strings and for the actual values
 // of the keys in .env. Matches are reported by file and pattern only; a value
 // is never printed.
@@ -25,11 +25,11 @@ export const SECRET_PATTERNS: { name: string; regex: RegExp }[] = [
 
 /**
  * Test canaries that are fake by construction and must stay where they are.
- * Each is explained in AUDIT.md ("Secret scan exemptions").
+ * Each carries its reason below; the README lists them too.
  */
 export const ALLOWED_CANARIES: { file: string; value: string; reason: string }[] = [
   {
-    file: "server/src/routes/analyze.test.ts",
+    file: "server/src/routes/analyze.limits.test.ts",
     // Built from parts so this file does not itself match the pattern.
     value: ["AIza", "FAKE-canary-key-0123456789abcdef"].join(""),
     reason: "fake key the API tests set to prove it never reaches a log line or a response",

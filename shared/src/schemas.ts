@@ -1,4 +1,4 @@
-// Data contracts from SPEC section 7, written once and imported by the server,
+// Data contracts, written once and imported by the server,
 // the client, the fixtures and the tests. Nothing redefines them.
 import { z } from "zod";
 import {
@@ -9,8 +9,8 @@ import {
   SCORE_MAX,
   TITLE_MAX_CHARS,
 } from "./constants.js";
+import { checkInvariants } from "./invariants.js";
 import { ERROR_CODES } from "./errors.js";
-import { computeScore } from "./scoring.js";
 
 // --- Enums ---
 export const DOC_TYPES = ["rental", "employment", "loan", "terms", "other"] as const;
@@ -46,7 +46,7 @@ export type Warning = z.infer<typeof warningSchema>;
 export type PipelineStep = z.infer<typeof pipelineStepSchema>;
 
 // --- Building blocks ---
-/** Segments are s1, s2, ... and flags are f1, f2, ... (SPEC section 6 step 4, section 7). */
+/** Segments are s1, s2, ... and flags are f1, f2, and so on. */
 const segmentIdSchema = z.string().regex(/^s[1-9]\d*$/);
 const flagIdSchema = z.string().regex(/^f[1-9]\d*$/);
 /** Other ids: a lowercase letter prefix and a number, e.g. k1, c3, q2, b1, a1, g4. */
@@ -135,108 +135,7 @@ const analysisResultShape = z.strictObject({
   warnings: z.array(warningSchema),
 });
 
-type ResultShape = z.infer<typeof analysisResultShape>;
-
-/** Cross-field rules from SPEC section 7. */
-function checkInvariants(r: ResultShape, ctx: z.RefinementCtx): void {
-  const issue = (message: string, path: (string | number)[]) => {
-    ctx.addIssue({ code: "custom", message, path });
-  };
-
-  // Ids are unique across every collection, so a key like "flags.f1" or a
-  // checklist tick keyed by item id can never point at two things.
-  const seen = new Set<string>();
-  const collections: [string, { id: string }[]][] = [
-    ["segments", r.segments],
-    ["keyFacts", r.keyFacts],
-    ["flags", r.flags],
-    ["clauses", r.clauses],
-    ["questions", r.questions],
-    ["checklist.before", r.checklist.before],
-    ["checklist.after", r.checklist.after],
-    ["glossary", r.glossary],
-  ];
-  for (const [name, items] of collections) {
-    items.forEach((item, i) => {
-      if (seen.has(item.id)) issue(`duplicate id "${item.id}"`, [...name.split("."), i, "id"]);
-      seen.add(item.id);
-    });
-  }
-
-  const segments = new Map(r.segments.map((s) => [s.id, s]));
-  const flagIds = new Set(r.flags.map((f) => f.id));
-  const termIds = new Set(r.glossary.map((g) => g.id));
-  const checkSegment = (id: string | undefined, path: (string | number)[]) => {
-    if (id !== undefined && !segments.has(id)) issue(`unknown segmentId "${id}"`, path);
-  };
-  const checkFlag = (id: string | undefined, path: (string | number)[]) => {
-    if (id !== undefined && !flagIds.has(id)) issue(`unknown flagId "${id}"`, path);
-  };
-
-  if (r.stats.segments !== r.segments.length) {
-    issue("stats.segments must equal the number of segments", ["stats", "segments"]);
-  }
-
-  r.keyFacts.forEach((k, i) => {
-    checkSegment(k.segmentId, ["keyFacts", i, "segmentId"]);
-  });
-
-  r.flags.forEach((f, i) => {
-    if (f.kind === "present") {
-      if (f.segmentId === undefined || f.quote === undefined) {
-        issue(`present flag ${f.id} needs segmentId and quote`, ["flags", i]);
-      } else {
-        checkSegment(f.segmentId, ["flags", i, "segmentId"]);
-        // Verification (SPEC section 6 step 8) repairs every surviving quote to
-        // the real text, so a valid result's quote is an exact substring.
-        const segment = segments.get(f.segmentId);
-        if (segment !== undefined && !segment.text.includes(f.quote)) {
-          issue(`quote of ${f.id} not found in segment ${f.segmentId}`, ["flags", i, "quote"]);
-        }
-      }
-    } else if (f.segmentId !== undefined || f.quote !== undefined) {
-      issue(`missing flag ${f.id} must not have segmentId or quote`, ["flags", i]);
-    }
-    f.termIds.forEach((t, j) => {
-      if (!termIds.has(t)) issue(`unknown termId "${t}"`, ["flags", i, "termIds", j]);
-    });
-  });
-
-  r.clauses.forEach((c, i) => {
-    checkSegment(c.segmentId, ["clauses", i, "segmentId"]);
-    checkFlag(c.flagId, ["clauses", i, "flagId"]);
-  });
-  r.questions.forEach((q, i) => {
-    q.flagIds.forEach((id, j) => {
-      checkFlag(id, ["questions", i, "flagIds", j]);
-    });
-  });
-  for (const list of ["before", "after"] as const) {
-    r.checklist[list].forEach((item, i) => {
-      item.flagIds.forEach((id, j) => {
-        checkFlag(id, ["checklist", list, i, "flagIds", j]);
-      });
-    });
-  }
-
-  const expected = computeScore(r.flags);
-  const actual = r.score;
-  if (
-    actual.value !== expected.value ||
-    actual.band !== expected.band ||
-    actual.counts.high !== expected.counts.high ||
-    actual.counts.medium !== expected.counts.medium ||
-    actual.counts.missing !== expected.counts.missing
-  ) {
-    issue(`score does not match the flags (expected ${JSON.stringify(expected)})`, ["score"]);
-  }
-
-  const warnings = new Set<string>();
-  r.warnings.forEach((w, i) => {
-    if (warnings.has(w)) issue(`duplicate warning "${w}"`, ["warnings", i]);
-    warnings.add(w);
-  });
-}
+export type ResultShape = z.infer<typeof analysisResultShape>;
 
 export const analysisResultSchema = analysisResultShape.superRefine(checkInvariants);
 
@@ -249,7 +148,7 @@ export type Question = z.infer<typeof questionSchema>;
 export type ChecklistItem = z.infer<typeof checklistItemSchema>;
 export type GlossaryEntry = z.infer<typeof glossaryEntrySchema>;
 
-// --- Translation (SPEC section 6 step 11, ASSUMPTIONS A18) ---
+// --- Translation ---
 /** Dotted path into AnalysisResult (e.g. "flags.f1.plain") to text. */
 export const translationMapSchema = z.record(z.string(), z.string());
 export type TranslationMap = z.infer<typeof translationMapSchema>;
@@ -271,7 +170,7 @@ export const errorEventSchema = z.strictObject({
 export type StatusEvent = z.infer<typeof statusEventSchema>;
 export type ErrorEvent = z.infer<typeof errorEventSchema>;
 
-// --- Endpoint bodies (SPEC section 7) ---
+// --- Endpoint bodies ---
 export const healthResponseSchema = z.strictObject({ ok: z.literal(true) });
 
 /** JSON body for POST /api/analyze. Length limits are checked by the server so each maps to its own error code. */

@@ -1,5 +1,4 @@
-// The built client, compressed once at startup (prompt 19 performance probe,
-// A179). express.static sent the 410 KB script and 54 KB stylesheet raw; on
+// The built client, compressed once at startup. express.static sent the 410 KB script and 54 KB stylesheet raw; on
 // Lighthouse's mobile throttling that alone cost about two seconds before first
 // paint. No compression package is approved, so node:zlib does it: each text
 // asset is kept in memory as brotli and gzip, chosen by Accept-Encoding. Fonts

@@ -1,4 +1,4 @@
-// Pure helpers for the checklist page (SPEC F17): progress counts and the
+// Pure helpers for the checklist page: progress counts and the
 // "Copy as text" export. Ticks are item ids; ids no longer on the list are ignored.
 import type { AnalysisResult, ChecklistItem, Flag } from "@clauseclear/shared";
 

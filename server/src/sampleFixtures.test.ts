@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
-// Prompt 18, audit item 7: the bundled samples' Hindi must never fuse a Latin
+// The bundled samples' Hindi must never fuse a Latin
 // word to a Devanagari one ("रखनाallowed"), which the oddity guard reports as
 // mixed script on screen. Same pattern as the guard (client/e2e/guard.ts).
 const MIXED = /[A-Za-z][ऀ-ॣ०-ॿ]|[ऀ-ॣ०-ॿ][A-Za-z]/;

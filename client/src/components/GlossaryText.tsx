@@ -7,6 +7,7 @@ import {
   useState,
   type ElementType,
   type ReactNode,
+  type RefObject,
 } from "react";
 import { glossaryParts } from "../lib/document";
 import { canHover } from "../lib/hover";
@@ -41,36 +42,25 @@ function boundsOf(el: HTMLElement): {
   return { top, bottom, scroller: null };
 }
 
-/**
- * The open-and-close rules for the glossary notes of one text block (SPEC F18,
- * section 9). A term is a button with aria-describedby; its sticky note opens on
- * hover, focus and tap, closes on Esc, on a tap outside or when focus moves on
- * (unless it was pinned by a click or tap), and never traps focus. The note sits
- * under the block, not the word, and flips above it when there is no room below
- * inside the window or the scrolling panel. One note is open per block.
- */
-export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
-  const baseId = useId();
-  const root = useRef<E>(null);
-  const [openId, setOpenId] = useState<string | null>(null);
-  const [pinned, setPinned] = useState(false);
-  const [above, setAbove] = useState(false);
-
+/** While a note is open, Esc (before any sheet around it) or a press outside the block closes it. */
+function useNoteDismiss(
+  root: RefObject<HTMLElement | null>,
+  openId: string | null,
+  close: () => void,
+): void {
+  const closeRef = useRef(close);
+  closeRef.current = close;
   useEffect(() => {
     if (openId === null) return;
-    const close = () => {
-      setOpenId(null);
-      setPinned(false);
-    };
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       // Esc closes the note first; a bottom sheet around it stays open.
       event.preventDefault();
       event.stopPropagation();
-      close();
+      closeRef.current();
     };
     const onPointer = (event: PointerEvent) => {
-      if (root.current !== null && !root.current.contains(event.target as Node)) close();
+      if (root.current !== null && !root.current.contains(event.target as Node)) closeRef.current();
     };
     document.addEventListener("keydown", onKey, true);
     document.addEventListener("pointerdown", onPointer);
@@ -79,7 +69,15 @@ export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
       document.removeEventListener("pointerdown", onPointer);
     };
   }, [openId]);
+}
 
+/** Puts the open note below its block, or above when there is more room there. */
+function useNotePlacement(
+  root: RefObject<HTMLElement | null>,
+  openId: string | null,
+  above: boolean,
+  setAbove: (above: boolean) => void,
+): void {
   // Measured before paint, so a flipped note never flashes below first. Once the
   // side is settled, a note that fits on neither side (a small phone's short sheet)
   // scrolls its panel just enough to show the whole note.
@@ -99,7 +97,7 @@ export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
     // Scrolled by the measured overflow, rounded up, with the same 4 px margin
     // as above. scrollIntoView({ block: "nearest" }) left the note up to a pixel
     // outside on the 320 x 568 sheet, since scrollTop is whole pixels and the
-    // note's edge is not (prompt 18).
+    // note's edge is not.
     const placed = tip.getBoundingClientRect();
     const delta =
       placed.bottom > bounds.bottom
@@ -111,6 +109,27 @@ export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
     if (bounds.scroller === null) window.scrollBy(0, delta);
     else bounds.scroller.scrollTop += delta;
   }, [openId, above]);
+}
+
+/**
+ * The open-and-close rules for the glossary notes of one text block. A term is a button with aria-describedby; its sticky note opens on
+ * hover, focus and tap, closes on Esc, on a tap outside or when focus moves on
+ * (unless it was pinned by a click or tap), and never traps focus. The note sits
+ * under the block, not the word, and flips above it when there is no room below
+ * inside the window or the scrolling panel. One note is open per block.
+ */
+export function useGlossary<E extends HTMLElement = HTMLDivElement>() {
+  const baseId = useId();
+  const root = useRef<E>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [pinned, setPinned] = useState(false);
+  const [above, setAbove] = useState(false);
+
+  useNoteDismiss(root, openId, () => {
+    setOpenId(null);
+    setPinned(false);
+  });
+  useNotePlacement(root, openId, above, setAbove);
 
   const term = (note: GlossaryNote, text: string, key: string | number): ReactNode => {
     const isOpen = openId === note.id;

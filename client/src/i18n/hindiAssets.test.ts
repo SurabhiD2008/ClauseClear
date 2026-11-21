@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { DEVANAGARI_FACES, DEVANAGARI_FONT_WAIT_MS, loadDevanagariFonts } from "./hindiAssets";
 
-describe("loadDevanagariFonts (prompt 18, audit item 2)", () => {
+describe("loadDevanagariFonts", () => {
   afterEach(() => {
     vi.useRealTimers();
   });

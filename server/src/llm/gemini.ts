@@ -1,5 +1,5 @@
-// Gemini over REST generateContent (field names confirmed Nov 2, 2026; see
-// ASSUMPTIONS A49 and A51). The key travels in the x-goog-api-key header, never
+// Gemini over REST generateContent (field names confirmed against
+// Google's API reference on Nov 2, 2026). The key travels in the x-goog-api-key header, never
 // in the URL. JSON mode is requested with generationConfig.responseMimeType. No
 // response schema is sent: the docs mark responseSchema deprecated in favour of
 // a new responseFormat object, so the zod check in the router is the contract.
@@ -18,7 +18,7 @@ export interface GeminiOptions {
   apiKey: string;
   model: string;
   baseUrl: string;
-  /** generationConfig.thinkingConfig.thinkingLevel; Gemini 3 and later only (A92). */
+  /** generationConfig.thinkingConfig.thinkingLevel; Gemini 3 and later only. */
   thinkingLevel?: GeminiThinkingLevel;
   fetch?: FetchLike;
   onResponse?: (meta: ResponseMeta) => void;

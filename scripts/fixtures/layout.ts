@@ -79,19 +79,13 @@ export async function newDocument(title: string): Promise<PDFDocument> {
   return doc;
 }
 
-export async function renderDocument(spec: DocumentSpec): Promise<PDFDocument> {
-  const doc = await newDocument(spec.title);
-  const regular = await doc.embedFont(StandardFonts.TimesRoman);
-  const bold = await doc.embedFont(StandardFonts.TimesRomanBold);
-  const columns = spec.columns ?? 1;
-  const columnWidth = (PAGE_WIDTH - 2 * MARGIN - (columns - 1) * COLUMN_GAP) / columns;
+/** Writes lines down the page, moving to the next column or page when one is full. */
+function cursor(doc: PDFDocument, columns: number, columnWidth: number) {
   const top = PAGE_HEIGHT - MARGIN;
   const bottom = MARGIN + 10;
-
   let page: PDFPage = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
   let column = 0;
-  let y = top;
-
+  const state = { y: top, top, bottom };
   const nextColumn = () => {
     if (column + 1 < columns) {
       column += 1;
@@ -99,29 +93,54 @@ export async function renderDocument(spec: DocumentSpec): Promise<PDFDocument> {
       page = doc.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
       column = 0;
     }
-    y = top;
+    state.y = top;
   };
   const left = () => MARGIN + column * (columnWidth + COLUMN_GAP);
   const drawLine = (text: string, font: PDFFont, size: number, indent = 0, centre = false) => {
-    if (y - LEADING < bottom) nextColumn();
+    if (state.y - LEADING < bottom) nextColumn();
     const x = centre ? (PAGE_WIDTH - font.widthOfTextAtSize(text, size)) / 2 : left() + indent;
-    page.drawText(text, { x, y: y - size, size, font, color: rgb(0, 0, 0) });
-    y -= LEADING;
+    page.drawText(text, { x, y: state.y - size, size, font, color: rgb(0, 0, 0) });
+    state.y -= LEADING;
   };
+  return { state, nextColumn, drawLine };
+}
 
+/** The running header and "Page n of m" on every page. */
+function drawPageFurniture(doc: PDFDocument, spec: DocumentSpec, font: PDFFont): void {
+  const pages = doc.getPages();
+  pages.forEach((p, index) => {
+    if (spec.header !== undefined) {
+      const width = font.widthOfTextAtSize(spec.header, 9);
+      p.drawText(spec.header, { x: (PAGE_WIDTH - width) / 2, y: PAGE_HEIGHT - 40, size: 9, font });
+    }
+    if (spec.pageNumbers === true) {
+      const label = `Page ${String(index + 1)} of ${String(pages.length)}`;
+      const width = font.widthOfTextAtSize(label, 9);
+      p.drawText(label, { x: (PAGE_WIDTH - width) / 2, y: 36, size: 9, font });
+    }
+  });
+}
+
+export async function renderDocument(spec: DocumentSpec): Promise<PDFDocument> {
+  const doc = await newDocument(spec.title);
+  const regular = await doc.embedFont(StandardFonts.TimesRoman);
+  const bold = await doc.embedFont(StandardFonts.TimesRomanBold);
+  const columns = spec.columns ?? 1;
+  const columnWidth = (PAGE_WIDTH - 2 * MARGIN - (columns - 1) * COLUMN_GAP) / columns;
+  const { state, nextColumn, drawLine } = cursor(doc, columns, columnWidth);
   for (const block of spec.blocks) {
     // No gap above the first block of a page or column.
-    if (y < top) y -= PARAGRAPH_GAP;
+    if (state.y < state.top) state.y -= PARAGRAPH_GAP;
     switch (block.kind) {
       case "title":
         for (const line of wrap(block.text, bold, TITLE_SIZE, columnWidth)) {
           drawLine(line, bold, TITLE_SIZE, 0, columns === 1);
         }
-        y -= 6;
+        state.y -= 6;
         break;
       case "heading":
         // Keep a heading with at least two lines of what follows.
-        if (y - 3 * LEADING < bottom) nextColumn();
+        if (state.y - 3 * LEADING < state.bottom) nextColumn();
         for (const line of wrap(block.text, bold, SIZE, columnWidth)) drawLine(line, bold, SIZE);
         break;
       case "para":
@@ -138,24 +157,7 @@ export async function renderDocument(spec: DocumentSpec): Promise<PDFDocument> {
         break;
     }
   }
-
-  const pages = doc.getPages();
-  pages.forEach((p, index) => {
-    if (spec.header !== undefined) {
-      const width = regular.widthOfTextAtSize(spec.header, 9);
-      p.drawText(spec.header, {
-        x: (PAGE_WIDTH - width) / 2,
-        y: PAGE_HEIGHT - 40,
-        size: 9,
-        font: regular,
-      });
-    }
-    if (spec.pageNumbers === true) {
-      const label = `Page ${String(index + 1)} of ${String(pages.length)}`;
-      const width = regular.widthOfTextAtSize(label, 9);
-      p.drawText(label, { x: (PAGE_WIDTH - width) / 2, y: 36, size: 9, font: regular });
-    }
-  });
+  drawPageFurniture(doc, spec, regular);
   return doc;
 }
 

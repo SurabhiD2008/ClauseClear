@@ -1,4 +1,4 @@
-// npm run test:live (SPEC section 12, prompt 8, A91). Sends the rental,
+// npm run test:live. Sends the rental,
 // employment and loan fixtures through the real pipeline with the real
 // providers from .env, one at a time, with a hard cap of LIVE_TEST_MAX_CALLS
 // model calls for the whole run. Writes docs/evidence/live-run-<timestamp>.json
@@ -10,7 +10,7 @@
 //   --order <a,b>        use only these providers, in this order
 //   --model <name=id>    use another model for one provider (repeatable)
 //   --max-calls <n>      another cap for this run; above LIVE_TEST_MAX_CALLS only
-//                        when the user has approved that many calls (A96)
+//                        when the user has approved that many calls
 import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -74,7 +74,7 @@ const onLog = (entry: LlmLogEntry) => {
 };
 
 // The server's own builder, so per-provider settings such as the output cap
-// (A95) are never left out here.
+// are never left out here.
 const router = createRouterFromConfig({ ...config, providers }, onLog, budget.wrap);
 
 const log: LiveLog = {

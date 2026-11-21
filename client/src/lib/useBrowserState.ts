@@ -1,5 +1,5 @@
-// Two browser states the pages react to: being offline (SPEC section 9, the
-// offline notice) and printing (F16, so every flag is in the printed report).
+// Two browser states the pages react to: being offline (the
+// offline notice) and printing (so every flag is in the printed report).
 import { useSyncExternalStore } from "react";
 import { flushSync } from "react-dom";
 

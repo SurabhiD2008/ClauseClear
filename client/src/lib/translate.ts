@@ -1,4 +1,4 @@
-// Hindi for dynamic results (SPEC section 9, "Language toggle"). Samples use
+// Hindi for dynamic results. Samples use
 // their precomputed Hindi; any other result is sent to /api/translate once and
 // cached in the UI store. English stays on screen, with a "Translating…" line,
 // until the Hindi arrives; on failure English stays and a notice says so.

@@ -1,4 +1,4 @@
-/* Header, wordmark and language toggle (SPEC section 9, design.md section 4). */
+/* Header, wordmark and language toggle. */
 .cc-header {
   position: relative;
   /* Above the hero's lamp light, so the toggle's failure note is never under it. */

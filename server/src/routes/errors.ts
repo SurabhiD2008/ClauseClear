@@ -1,4 +1,4 @@
-// Maps any failure to the one ErrorCode enum (SPEC section 7) and sends it as
+// Maps any failure to the one ErrorCode enum and sends it as
 // an HTTP error. After an SSE stream has started, the analyze route sends the
 // same body as an `error` event instead.
 import { ERROR_DEFINITIONS, errorBody, type ErrorBody } from "@clauseclear/shared";
@@ -6,7 +6,7 @@ import type { Response } from "express";
 import { LlmRouterError } from "../llm/index.js";
 import { PipelineError } from "../pipeline/errors.js";
 
-/** RATE_LIMITED always carries retryAfterSec; this is the wait when nothing better is known (A86). */
+/** RATE_LIMITED always carries retryAfterSec; this is the wait when nothing better is known. */
 export const DEFAULT_RETRY_AFTER_SEC = 60;
 
 export function toErrorBody(error: unknown, signal?: AbortSignal): ErrorBody {

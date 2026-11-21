@@ -1,4 +1,4 @@
-// The analysis flow from SPEC section 9: idle -> validating -> reading -> analyzing
+// The analysis flow: idle -> validating -> reading -> analyzing
 // -> verifying -> done, with error and cancelled reachable from any active step.
 // Pure and framework-free so every transition is tested row by row.
 import type { PipelineStep } from "./schemas.js";
@@ -37,7 +37,7 @@ export const INITIAL_ANALYSIS_STATE: AnalysisState = { status: "idle", runId: nu
 
 type StreamPhase = "reading" | "analyzing" | "verifying";
 
-/** Server status steps grouped into client phases (ASSUMPTIONS A17). */
+/** Server status steps grouped into client phases. */
 const STEP_PHASE: Record<PipelineStep, StreamPhase> = {
   reading: "reading",
   segmenting: "reading",

@@ -10,7 +10,7 @@
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.build.json --noEmit"
   },
   "dependencies": {
-    "@clauseclear/shared": "*",
+    "@clauseclear/shared": "0.0.0",
     "express": "5.3.0",
     "express-rate-limit": "8.7.1",
     "helmet": "8.3.0",

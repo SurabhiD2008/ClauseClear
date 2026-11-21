@@ -1,5 +1,5 @@
 // Original text written for ClauseClear tests. Names, addresses and figures are fictional.
-// Every loan category in SPEC section 8 is present, and several are written to be flagged.
+// Every loan checklist category is present, and several are written to be flagged.
 // No repayment schedule or key facts page is included on purpose (part of "Missing basics").
 import { h, i, p, title, type DocumentSpec } from "./layout.js";
 

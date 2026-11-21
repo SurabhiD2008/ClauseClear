@@ -1,11 +1,10 @@
-// Smoke check of a running ClauseClear (prompt 20; A15, A181). Works against a
+// Smoke check of a running ClauseClear. Works against a
 // local server and a deployed URL alike:
-//   npm run smoke -- http://localhost:3000
-//   npm run smoke -- https://clauseclear.onrender.com
-//   npm run smoke -- <url> --analyze      also runs ONE real analysis
-// Without a URL it uses SMOKE_URL, then http://localhost:3000.
-// Without --analyze it makes no AI call: health, the landing page and one of its
-// hashed scripts, a sample page, and GET /api/samples/rental. --analyze sends a
+//   npm run smoke -- <url>
+//   npm run smoke -- <url> --full      also runs ONE real analysis (--analyze works too)
+// Without a URL it uses SMOKE_URL, then its default from the configuration schema.
+// Without --full it makes no AI call: health, the landing page and one of its
+// hashed scripts, a sample page, and GET /api/samples/rental. --full sends a
 // short English lease (about 1 to 2 provider calls on a real deployment; free on
 // the mock) and checks the result's quotes against its own segments.
 // The first request gets 120 s, so a free host waking from sleep is not a failure;
@@ -15,13 +14,14 @@ import {
   healthResponseSchema,
   sampleResponseSchema,
 } from "@clauseclear/shared";
+import { configDefault } from "../server/src/configSchema.js";
 
 const args = process.argv.slice(2);
-const analyze = args.includes("--analyze");
+const analyze = args.includes("--full") || args.includes("--analyze");
 const base = (
   args.find((a) => !a.startsWith("--")) ??
   process.env.SMOKE_URL ??
-  "http://localhost:3000"
+  configDefault("SMOKE_URL")
 ).replace(/\/+$/, "");
 const LEASE =
   "LEAVE AND LICENSE AGREEMENT FOR A FLAT IN PUNE\n\n" +
@@ -72,14 +72,17 @@ await check("GET / (landing page)", async () => {
   const { response, body, ms } = await get("/", { headers: { "accept-encoding": "br, gzip" } });
   script = /<script[^>]+src="(\/assets\/[^"]+\.js)"/.exec(body)?.[1];
   const csp = response.headers.get("content-security-policy") ?? "";
+  // Same-origin only: a wildcard CORS header would let any site read the page.
+  const cors = response.headers.get("access-control-allow-origin");
   const ok =
     response.status === 200 &&
     body.includes('id="root"') &&
     script !== undefined &&
-    csp.includes("default-src 'self'");
+    csp.includes("default-src 'self'") &&
+    cors !== "*";
   return [
     ok,
-    `${String(response.status)} in ${String(ms)} ms, ${String(body.length)} chars, script ${String(script)}, CSP ${csp === "" ? "missing" : "set"}, encoding ${String(response.headers.get("content-encoding"))}`,
+    `${String(response.status)} in ${String(ms)} ms, ${String(body.length)} chars, script ${String(script)}, CSP ${csp === "" ? "missing" : "set"}, CORS ${cors ?? "none"}, encoding ${String(response.headers.get("content-encoding"))}`,
   ];
 });
 

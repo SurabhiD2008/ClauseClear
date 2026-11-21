@@ -2,27 +2,17 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
 import type { AnalysisResult } from "../../shared/src/schemas.js";
+import { LEASE, ROOT } from "./helpers/data.js";
 
-// Prompt 15: the remaining states (SPEC F16, F19, section 9): not found, the
+// The remaining states: not found, the
 // redirect note, translation failure, offline, error copy in Hindi, print,
 // loading and translating without layout shift, and the type override.
-const ROOT = process.cwd();
 const read = (file: string) => JSON.parse(readFileSync(path.join(ROOT, file), "utf8")) as unknown;
 const en = read("client/src/i18n/en.json") as Record<string, Record<string, string>>;
 const hi = read("client/src/i18n/hi.json") as Record<string, Record<string, string>>;
 const rental = (read("fixtures/samples/rental.json") as { en: AnalysisResult }).en;
 
 test.use({ reducedMotion: "reduce" });
-
-const LEASE = [
-  "LEAVE AND LICENSE AGREEMENT FOR A FLAT IN PUNE",
-  "",
-  "1. The licensee shall pay a monthly licence fee of Rs. 25,000 on the fifth day of each month.",
-  "",
-  "2. The licensor may enter the premises at any time without notice to inspect them.",
-  "",
-  "3. If the licensee leaves before the lock-in ends, the licensee shall forfeit the whole deposit.",
-].join("\n");
 
 async function pasteText(page: Page, text: string) {
   await page.getByRole("button", { name: "Paste text", exact: true }).click();

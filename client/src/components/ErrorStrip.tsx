@@ -8,12 +8,12 @@ interface ErrorStripProps {
   error: ErrorBody;
   /** Runs the same input again; the button shows only when the code allows a retry. */
   onRetry?: () => void;
-  /** Opens the paste dialog. Paste text is always offered (SPEC F19). */
+  /** Opens the paste dialog. Paste text is always offered. */
   onPaste?: () => void;
-  /** Opens the file picker; offered where the error replaces the upload box (prompt 18). */
+  /** Opens the file picker; offered where the error replaces the upload box. */
   onChoose?: () => void;
   /**
-   * A hidden copy that only reserves space in the upload box (prompt 18): no
+   * A hidden copy that only reserves space in the upload box: no
    * role, so it is never announced, and no countdown timer.
    */
   sizer?: boolean;
@@ -21,7 +21,7 @@ interface ErrorStripProps {
 
 /**
  * One error: a red stamp, the friendly message for its code, and its next step.
- * Built from the dashed strip pattern (design.md section 8).
+ * Built from the dashed strip pattern.
  */
 export function ErrorStrip({ error, onRetry, onPaste, onChoose, sizer = false }: ErrorStripProps) {
   const t = useT();

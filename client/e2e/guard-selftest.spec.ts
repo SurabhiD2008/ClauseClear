@@ -1,6 +1,6 @@
 import { expect, GUARD_CHECKS, test, type GuardCheck, type Violation } from "./guard.js";
 
-// Proves each oddity-guard check can fail (prompt 16). Every check has a page in
+// Proves each oddity-guard check can fail. Every check has a page in
 // client/e2e/guard-pages/ that breaks that rule on purpose, served at /__guard/
 // only when E2E_GUARD_PAGES=1. Each test collects the findings, asserts the
 // check caught its page, prints what it caught, then returns to the clean
@@ -90,7 +90,7 @@ test("a finding fails the test it happens in", async ({ page }) => {
   await page.waitForTimeout(300);
 });
 
-// The language exemption (AUDIT.md, "Guard exemptions"), from both sides.
+// The language exemption, from both sides.
 test.describe("layout shift after a language change", () => {
   const shifts = (found: Violation[]) =>
     found.filter((f) => f.check === "layout-shift").map((f) => f.detail);

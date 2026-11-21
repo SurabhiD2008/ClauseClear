@@ -1,22 +1,18 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
+import { closeSheet, expandAll, flagButton, sheet, viewer, width } from "./helpers/results.js";
 import type { AnalysisResult, Flag } from "../../shared/src/schemas.js";
 import { computeScore } from "../../shared/src/scoring.js";
+import { ROOT, rental } from "./helpers/data.js";
 
-// Prompt 12: the results page on the mock provider and the sample route. The
+// The results page on the mock provider and the sample route. The
 // rental sample is the fixture the server serves at /results/sample/rental.
-const ROOT = process.cwd();
-const rental = (
-  JSON.parse(readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8")) as {
-    en: AnalysisResult;
-  }
-).en;
 const en = JSON.parse(readFileSync(path.join(ROOT, "client/src/i18n/en.json"), "utf8")) as {
   results: Record<string, string>;
 };
 
-/** Ranked as the page ranks them (SPEC F7): high, then medium, then missing. */
+/** Ranked as the page ranks them: high, then medium, then missing. */
 function ranked(flags: readonly Flag[]): Flag[] {
   const rank = (f: Flag) => (f.kind === "missing" ? 2 : f.severity === "high" ? 0 : 1);
   return flags
@@ -112,28 +108,6 @@ test.describe("motion", () => {
     });
   }
 });
-
-const flagButton = (page: Page, flag: Flag) =>
-  page.locator(`[data-flag-id="${flag.id}"] .cc-flag__head`);
-const viewer = (page: Page) => page.getByTestId("document-viewer");
-const width = (page: Page) => page.viewportSize()?.width ?? 0;
-const sheet = (page: Page) => page.locator("dialog.cc-sheet-dialog[open]");
-
-/** Below 640 px the list starts with three flags; this shows the rest. */
-async function expandAll(page: Page) {
-  const more = page.getByRole("button", { name: /^See \d+ more flags$/ });
-  if (await more.isVisible()) await more.click();
-}
-
-/** Below 1024 px selecting a flag with a clause opens the sheet; Esc closes it again. */
-async function closeSheet(page: Page) {
-  if ((await sheet(page).count()) === 0) return;
-  // The pointer is still where the flag was clicked, which can now be over a
-  // glossary term in the sheet; its hover note would take the first Esc (A136).
-  await page.mouse.move(0, 0);
-  await page.keyboard.press("Escape");
-  await expect(sheet(page)).toHaveCount(0);
-}
 
 test("selecting every flag highlights its own clause and nothing else", async ({ page }) => {
   await page.goto("/results/sample/rental");
@@ -274,7 +248,7 @@ test("filter with no matching flags says so", async ({ page }) => {
   await expect(viewer(page).locator("mark")).toHaveCount(0);
 });
 
-test("an empty result shows the SPEC copy and still shows the clause readings", async ({
+test("an empty result shows the empty-result copy and still shows the clause readings", async ({
   page,
 }) => {
   await showResult(
@@ -298,158 +272,4 @@ test("result warnings show a visible notice", async ({ page }) => {
   await expect(page.locator('[data-warning="low_confidence_type"]')).toHaveText(
     (en.results.warningLowType ?? "").replace("{type}", rental.docTypeLabel),
   );
-});
-
-test("Copy and Copy all put the questions on the clipboard and announce it", async ({
-  page,
-  context,
-}) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-  await page.goto("/results/sample/rental");
-  const status = page.getByTestId("copy-status");
-  await expect(status).toHaveAttribute("aria-live", "polite");
-
-  await page.getByRole("button", { name: "Copy question 2" }).click();
-  await expect(status).toHaveText("Copied");
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(rental.questions[1]?.text);
-
-  await page.getByRole("button", { name: "Copy all" }).click();
-  await expect(page.getByRole("button", { name: "Copied" })).toBeVisible();
-  // The Windows clipboard stores line breaks as CRLF.
-  const all = await page.evaluate(() => navigator.clipboard.readText());
-  expect(all.replace(/\r\n/g, "\n")).toBe(
-    rental.questions.map((q, i) => `${String(i + 1)}. ${q.text}`).join("\n"),
-  );
-});
-
-test("Copy falls back to a textarea when the Clipboard API refuses", async ({ page }) => {
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "clipboard", {
-      value: { writeText: () => Promise.reject(new Error("denied")) },
-    });
-    const copied: string[] = [];
-    (window as unknown as { __copied: string[] }).__copied = copied;
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- stubbing the fallback the page uses
-    document.execCommand = (command: string) => {
-      const active = document.activeElement;
-      if (command === "copy" && active instanceof HTMLTextAreaElement) copied.push(active.value);
-      return command === "copy";
-    };
-  });
-  await page.goto("/results/sample/rental");
-  const copyButton = page.getByRole("button", { name: "Copy question 1" });
-  await copyButton.click();
-  await expect(page.getByTestId("copy-status")).toHaveText("Copied");
-  expect(await page.evaluate(() => (window as unknown as { __copied: string[] }).__copied)).toEqual(
-    [rental.questions[0]?.text],
-  );
-  // Focus goes back to the button, and the textarea is gone.
-  await expect(copyButton).toBeFocused();
-  await expect(page.locator("body > textarea")).toHaveCount(0);
-});
-
-test("keyboard only: filter, open flags with Enter and Space, copy", async ({ page, context }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
-  await page.goto("/results/sample/rental");
-  const order = ranked(rental.flags);
-
-  const tabTo = async (selector: string) => {
-    for (let i = 0; i < 80; i += 1) {
-      await page.keyboard.press("Tab");
-      if (await page.evaluate((sel) => document.activeElement?.matches(sel) === true, selector))
-        return;
-    }
-    throw new Error(`never reached ${selector}`);
-  };
-
-  await tabTo(".cc-filter__button:nth-child(2)");
-  await page.keyboard.press("Enter");
-  const highs = order.filter((f) => f.severity === "high");
-  await expect(page.locator(".cc-flag")).toHaveCount(highs.length);
-
-  await tabTo(".cc-filter__button:nth-child(1)");
-  await page.keyboard.press("Space");
-  // Below 640 px the list starts with three flags (results-mobile.png).
-  await expect(page.locator(".cc-flag")).toHaveCount(width(page) < 640 ? 3 : order.length);
-
-  // Tab into the list: the first flag is open (the filter selected it); Space on the second opens it.
-  const [first, second] = order;
-  if (first === undefined || second === undefined) throw new Error("need two flags");
-  await tabTo(`[data-flag-id="${first.id}"] .cc-flag__head`);
-  await page.keyboard.press("Enter");
-  await expect(flagButton(page, first)).toHaveAttribute("aria-expanded", "false");
-  await page.keyboard.press("Enter");
-  await expect(flagButton(page, first)).toHaveAttribute("aria-expanded", "true");
-  if (width(page) < 1024) {
-    // The sheet opened at the clause; Esc closes it and focus is back on the flag.
-    await expect(sheet(page)).toHaveCount(1);
-    await closeSheet(page);
-    await expect(flagButton(page, first)).toBeFocused();
-  }
-  await tabTo(`[data-flag-id="${second.id}"] .cc-flag__head`);
-  await page.keyboard.press("Space");
-  await expect(flagButton(page, second)).toHaveAttribute("aria-expanded", "true");
-  await expect(viewer(page).locator(`mark[data-flag-id="${second.id}"]`)).toHaveCount(1);
-  if (width(page) < 1024) {
-    await closeSheet(page);
-    await expect(flagButton(page, second)).toBeFocused();
-  }
-
-  await tabTo('[aria-label="Copy question 1"]');
-  await page.keyboard.press("Enter");
-  await expect(page.getByTestId("copy-status")).toHaveText("Copied");
-
-  await tabTo(".cc-results__next a");
-  await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/\/checklist$/);
-});
-
-test("refresh on /results goes home with the not-stored note", async ({ page }) => {
-  await showResult(
-    page,
-    withFlags(rental, () => true),
-  );
-  await page.reload();
-  await expect(page).toHaveURL(/\/$/);
-  await expect(
-    page.getByText(
-      "Your result isn’t stored, so it can’t be reopened. Upload again or try a sample.",
-    ),
-  ).toBeVisible();
-});
-
-test("reload on a sample route shows the sample again", async ({ page }) => {
-  await page.goto("/results/sample/rental");
-  const first = ranked(rental.flags)[0];
-  if (first === undefined) throw new Error("no flags");
-  await flagButton(page, first).click();
-  await page.reload();
-  await expect(page).toHaveURL(/\/results\/sample\/rental$/);
-  await expect(page.getByRole("heading", { level: 1, name: "What this says" })).toBeVisible();
-  await expandAll(page);
-  await expect(page.locator(".cc-flag")).toHaveCount(rental.flags.length);
-  await expect(page.locator(".cc-score")).toHaveAttribute(
-    "data-score",
-    String(computeScore(rental.flags).value),
-  );
-});
-
-test("glossary terms in a flag open their note on focus and close on Esc", async ({ page }) => {
-  await page.goto("/results/sample/rental");
-  const first = ranked(rental.flags)[0];
-  if (first === undefined) throw new Error("no flags");
-  await flagButton(page, first).click();
-  await closeSheet(page);
-  const term = page.locator(`[data-flag-id="${first.id}"] .cc-term`).first();
-  await term.focus();
-  const tipId = await term.getAttribute("aria-describedby");
-  const tip = page.locator(`[id="${tipId ?? ""}"]`);
-  await expect(tip).toBeVisible();
-  await expect(tip).toHaveAttribute("role", "tooltip");
-  await page.keyboard.press("Escape");
-  await expect(tip).toBeHidden();
-  // The note never traps focus: Tab moves on.
-  await term.focus();
-  await page.keyboard.press("Tab");
-  await expect(term).not.toBeFocused();
 });

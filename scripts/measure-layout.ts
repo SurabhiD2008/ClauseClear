@@ -1,17 +1,18 @@
 /// <reference lib="dom" />
 // The in-page half of this script uses the DOM; the scripts tsconfig is Node-only.
-// Measures the results and checklist pages for layout offenders (prompts 13 and 14, SPEC section 9
-// "Responsive rules" and F21, F22) and prints each one by selector:
+// Measures the results and checklist pages for layout offenders and prints each
+// one by selector:
 //   overflow  an element reaches past the viewport's left or right edge
 //   clipped   an element cuts off its own text (overflow hidden or clip, content wider or taller)
 //   target    a control smaller than 44 x 44 px
 //   tilt      a rotation of 1 degree or more below 640 px
 // It needs a running server (npm run build && npm run start) and makes no AI
 // calls: it opens the bundled rental sample.
-//   MEASURE_URL=http://127.0.0.1:4173 npm run measure:layout
+//   MEASURE_URL=<url> npm run measure:layout   (default from the configuration schema)
 import { chromium, type Page } from "@playwright/test";
+import { configDefault } from "../server/src/configSchema.js";
 
-const BASE = process.env.MEASURE_URL ?? "http://127.0.0.1:4173";
+const BASE = process.env.MEASURE_URL ?? configDefault("MEASURE_URL");
 const WIDTHS = [320, 360, 390, 768, 1024];
 const ROUTE = "/results/sample/rental";
 
@@ -22,6 +23,7 @@ interface Offender {
 }
 
 /** Runs in the page: finds every offender in the current state. */
+// eslint-disable-next-line max-lines-per-function -- page.evaluate sends this function to the browser on its own, so its helpers must live inside it
 function findOffenders(): Offender[] {
   const out: Offender[] = [];
   const width = document.documentElement.clientWidth;
@@ -189,7 +191,7 @@ for (const width of WIDTHS) {
   // The mockups show the first flag open, with its quote strip and glossary term.
   await page.locator(".cc-flag__head").first().click();
 
-  // Below 1024 px selecting a flag opens the document as a bottom sheet (prompt 13):
+  // Below 1024 px selecting a flag opens the document as a bottom sheet:
   // measure the sheet, close it, measure the page, then reopen it from the button.
   const sheet = page.locator("dialog.cc-sheet-dialog[open]");
   if (width < 1024 && (await sheet.count()) > 0) {
@@ -214,7 +216,7 @@ for (const width of WIDTHS) {
     await sheet.waitFor({ state: "detached" });
   }
 
-  // The checklist (prompt 14), reached the way a reader reaches it, with one item ticked.
+  // The checklist, reached the way a reader reaches it, with one item ticked.
   await page.getByRole("link", { name: /before-and-after checklist/ }).click();
   await page.getByRole("checkbox").first().check();
   total += await measure(page, `${String(width)} px, checklist, one item ticked`);

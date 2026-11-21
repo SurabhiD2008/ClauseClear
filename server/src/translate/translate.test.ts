@@ -89,7 +89,7 @@ describe("translateStrings with the mock provider", () => {
     expect(requests.map((r) => r.schemaName)).toEqual(["translation"]);
   });
 
-  it("the prompt carries the SPEC term list and the number rule", async () => {
+  it("the prompt carries the fixed term list and the number rule", async () => {
     const { router, requests } = recordingRouter();
     await translateStrings(strings, { router });
     const system = requests[0]?.system ?? "";

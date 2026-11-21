@@ -100,7 +100,7 @@ describe("check:providers", () => {
     expect(lines.join("\n")).toContain("gemini: skipped, missing GEMINI_API_KEY, GEMINI_MODEL");
   });
 
-  it("in mock mode, says there is nothing real to check and passes (A182)", async () => {
+  it("in mock mode, says there is nothing real to check and passes", async () => {
     const lines: string[] = [];
     const ok = await checkProviders(
       { LLM_PROVIDER_ORDER: "mock" },

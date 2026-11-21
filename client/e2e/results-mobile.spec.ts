@@ -1,17 +1,9 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
-import type { AnalysisResult, Flag } from "../../shared/src/schemas.js";
+import type { Flag } from "../../shared/src/schemas.js";
+import { DEVANAGARI, rental } from "./helpers/data.js";
 
-// Prompt 13: results below 1024 px on the mobile (390) and small-phone (320)
-// projects. The document is a bottom sheet (SPEC section 9, "Responsive rules").
-const ROOT = process.cwd();
-const rental = (
-  JSON.parse(readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8")) as {
-    en: AnalysisResult;
-  }
-).en;
-const DEVANAGARI = /[ऀ-ॿ]/;
+// Results below 1024 px on the mobile (390) and small-phone (320)
+// projects. The document is a bottom sheet.
 
 function ranked(flags: readonly Flag[]): Flag[] {
   const rank = (f: Flag) => (f.kind === "missing" ? 2 : f.severity === "high" ? 0 : 1);
@@ -30,13 +22,8 @@ if (firstFlag === undefined) throw new Error("the rental sample has flags");
 // See results.spec.ts: smooth page scrolling moves buttons mid-click.
 test.use({ reducedMotion: "reduce" });
 
-// Playwright requires the fixtures argument to be a destructuring pattern.
-test.beforeEach(({}, testInfo) => {
-  test.skip(
-    !["mobile", "small-phone"].includes(testInfo.project.name),
-    "bottom-sheet behaviour is checked on the phone projects",
-  );
-});
+// Bottom-sheet behaviour on phones: playwright.config.ts runs this file on the
+// mobile and small-phone projects only.
 
 const sheet = (page: Page) => page.locator("dialog.cc-sheet-dialog[open]");
 const head = (page: Page, flag: Flag) => page.locator(`[data-flag-id="${flag.id}"] .cc-flag__head`);

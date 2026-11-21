@@ -1,6 +1,6 @@
 import type { PipelineStep } from "@clauseclear/shared";
 
-/** The four F4 labels, in order. Server steps map onto them as in ASSUMPTIONS A17. */
+/** The four progress labels, in order. Server steps map onto them as in shared/src/analysisMachine.ts. */
 export const PROGRESS_LABELS = [
   "landing.stepReading",
   "landing.stepFinding",

@@ -1,4 +1,4 @@
-// `npm start` (prompts 20 and 21, A181, A182): the production entry.
+// `npm start`: the production entry.
 // - Loads the repository's .env when there is one, as check:providers does, so a
 //   clean clone runs with `cp .env.example .env` and `npm start`. Variables already
 //   in the environment win (Node's loadEnvFile never overwrites them), so a host's

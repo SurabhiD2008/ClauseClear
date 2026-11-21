@@ -1,6 +1,5 @@
-// SPEC section 8, "General reading (all other documents)". SPEC lists the
-// topics without a table, so the flag-when text and default severities here are
-// ClauseClear's choice (ASSUMPTIONS A72).
+// Checklist: the general reading used for every other kind of document. The
+// topics, flag-when text and default severities here are ClauseClear's choice.
 import type { Checklist } from "@clauseclear/shared";
 
 export const generalChecklist: Checklist = {

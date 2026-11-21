@@ -1,0 +1,227 @@
+/* Landing page: the hero art, the annotated sheet that is marked up on arrival. */
+
+/* --- Hero art: the annotated sheet and the flag slip --- */
+.cc-hero__art {
+  position: sticky;
+  top: 28px;
+  padding-top: 8px;
+}
+
+.cc-hero__stack {
+  position: relative;
+}
+
+/* The page underneath: the rest of the offer, squared up a little differently. */
+.cc-hero-sheet__under {
+  position: absolute;
+  inset: 10px -4px 18px 8px;
+  border: var(--rule-thin) solid var(--rule);
+  background: var(--desk);
+  box-shadow: var(--shadow-night);
+  transform: rotate(calc(var(--tilt-sheet) * -1.6));
+}
+
+.cc-hero-sheet {
+  position: relative;
+  padding: 26px 26px 34px;
+  border: var(--rule-thin) solid var(--rule);
+  background: var(--white);
+  box-shadow: var(--shadow-night);
+  transform: rotate(var(--tilt-sheet));
+}
+
+/* The paperclip holding the two pages. */
+.cc-hero-sheet__clip {
+  position: absolute;
+  top: -20px;
+  left: 56%;
+  width: 22px;
+  height: 58px;
+  overflow: visible;
+}
+
+.cc-hero-sheet__clip path {
+  fill: none;
+  stroke: #8f96b4;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.cc-hero-sheet__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-hero-sheet__clause {
+  margin-bottom: 14px;
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.cc-hero-sheet__clause--faded,
+.cc-hero-sheet__clause:first-of-type {
+  color: var(--muted);
+}
+
+.cc-hero-sheet__note {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: -6px 4px 10px 0;
+  font-family: var(--font-hand);
+  font-size: clamp(24px, 2.3vw, 32px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--red-pen);
+  transform: rotate(var(--tilt-note));
+}
+
+.cc-hero-sheet__arrow {
+  width: 40px;
+  height: 24px;
+  margin-bottom: 8px;
+  overflow: visible;
+}
+
+.cc-hero-sheet__arrow path {
+  fill: none;
+  stroke: var(--red-pen);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cc-slip {
+  position: relative;
+  margin: -30px -6px 0 34px;
+  padding: 16px 20px 18px;
+  border: var(--rule-section) solid var(--ink);
+  background: var(--white);
+  box-shadow: 7px 7px 0 var(--highlighter);
+  transform: rotate(var(--tilt-slip));
+}
+
+/* The one orchestrated moment: the page gets marked up while you watch. The
+   marker crosses the clause, the note is written, the slip lands and is stamped.
+   Each step only fills backwards, so the finished state is the plain CSS above. */
+@media (prefers-reduced-motion: no-preference) {
+  .cc-hero-sheet .cc-marker {
+    background-repeat: no-repeat;
+    animation: cc-mark 900ms var(--ease-pen) 450ms backwards;
+  }
+
+  .cc-hero-sheet__note {
+    animation: cc-write 420ms var(--ease-out) 1450ms backwards;
+  }
+
+  .cc-slip {
+    animation: cc-land 460ms var(--ease-out) 1900ms backwards;
+  }
+
+  .cc-slip .cc-stamp {
+    animation: cc-stamp 320ms var(--ease-out) 2300ms backwards;
+  }
+
+  .cc-hero__title .cc-redpen__svg path {
+    animation: cc-draw 800ms var(--ease-pen) 250ms backwards;
+  }
+}
+
+@keyframes cc-mark {
+  from {
+    background-size: 0% 100%;
+  }
+
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes cc-write {
+  from {
+    opacity: 0;
+    translate: -10px 4px;
+  }
+}
+
+@keyframes cc-land {
+  from {
+    opacity: 0;
+    translate: 0 26px;
+  }
+}
+
+@keyframes cc-stamp {
+  from {
+    opacity: 0;
+    scale: 1.9;
+  }
+}
+
+/* pathLength="1" on the path makes one dash the whole stroke. */
+@keyframes cc-draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+.cc-slip__meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-slip__title {
+  margin: 8px 0 6px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.cc-slip__text {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.cc-found {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--pen-blue);
+}
+
+.cc-found__tick path {
+  fill: none;
+  stroke: var(--pen-blue);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

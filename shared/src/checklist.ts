@@ -1,4 +1,4 @@
-// The shape of a risk checklist (SPEC section 8). The lists themselves are data
+// The shape of a risk checklist. The lists themselves are data
 // in server/src/checklists/, one file per document type; this schema is the
 // contract each file is tested against.
 import { z } from "zod";
@@ -10,7 +10,7 @@ const checklistIdSchema = z.string().regex(/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/);
 
 export const checklistCategorySchema = z.strictObject({
   id: checklistIdSchema,
-  /** The category name from SPEC section 8; it becomes `flag.category` in the result. */
+  /** The category name; it becomes `flag.category` in the result. */
   name: z.string().min(1).max(TITLE_MAX_CHARS),
   /** When the model should raise a flag in this category. */
   flagWhen: z.string().min(1).max(EXPLANATION_MAX_CHARS),

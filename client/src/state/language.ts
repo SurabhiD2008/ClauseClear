@@ -1,4 +1,4 @@
-// The language store (SPEC section 9): English by default, the choice persisted
+// The language store: English by default, the choice persisted
 // in localStorage under cc.lang, <html lang> kept in sync, and Hindi strings plus
 // Devanagari fonts loaded on first use. Separate from the analysis and UI stores.
 import { DEFAULT_LANG, LANG_STORAGE_KEY, type Lang } from "@clauseclear/shared";
@@ -26,7 +26,7 @@ export interface LanguageStore {
   /**
    * Restores a saved choice. Never reads the browser language. Resolves once a
    * saved Hindi choice is applied (or has failed), so the first render can wait
-   * for it instead of painting English and then swapping (prompt 18).
+   * for it instead of painting English and then swapping.
    */
   init: () => Promise<void>;
 }
@@ -114,7 +114,7 @@ export const languageStore = createLanguageStore({
   storage: typeof window === "undefined" ? null : browserStorage(),
   root: typeof document === "undefined" ? null : document.documentElement,
   // The strings and the font faces arrive together, so Hindi never re-lays out
-  // when its fonts swap in (prompt 18).
+  // when its fonts swap in.
   loadHindi: () =>
     import("../i18n/hindiAssets").then(async (module) => {
       await module.loadDevanagariFonts();

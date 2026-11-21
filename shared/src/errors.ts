@@ -1,4 +1,4 @@
-// One error enum for server and client (SPEC section 7). Each code has its HTTP
+// One error enum for server and client. Each code has its HTTP
 // status, the i18n key the UI uses for its friendly message, and a short English
 // message the server sends in the error body.
 

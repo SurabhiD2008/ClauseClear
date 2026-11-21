@@ -1,7 +1,7 @@
-// GET /api/samples and GET /api/samples/:id (SPEC section 7, F14). Served from
+// GET /api/samples and GET /api/samples/:id. Served from
 // fixture files with zero API calls. Every file is checked against the shared
 // schema when the app is built, so the server refuses to start on a broken
-// sample instead of serving it (A98).
+// sample instead of serving it.
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { brotliCompressSync, gzipSync } from "node:zlib";
@@ -58,7 +58,7 @@ export function samplesRouter(dir: string): express.Router {
   router.get("/samples", (_req, res) => {
     res.json(store.list);
   });
-  // Each sample body (about 42 KB) is serialised and compressed once (prompt 19, A179).
+  // Each sample body (about 42 KB) is serialised and compressed once.
   const bodies = new Map(
     [...store.byId].map(([id, sample]) => {
       const raw = Buffer.from(JSON.stringify(sample));

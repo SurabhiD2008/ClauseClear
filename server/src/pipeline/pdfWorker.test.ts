@@ -1,4 +1,4 @@
-// The PDF worker (prompt 19, A175): a decompression bomb is stopped by the time
+// The PDF worker: a decompression bomb is stopped by the time
 // cap without blocking the server, at most PDF_PARSE_CONCURRENCY parse at once,
 // and an abort while waiting gives up the place in line.
 import { deflateSync } from "node:zlib";
@@ -49,7 +49,7 @@ describe("parsePdfInWorker", () => {
   it("stops a decompression bomb at the time cap while the event loop keeps running", async () => {
     const bomb = await bombPdf(400);
     expect(bomb.byteLength).toBeLessThan(5 * 1024 * 1024);
-    // Event-loop lag: in the main thread pdfjs held the loop for seconds (prompt 19 probe).
+    // Event-loop lag: in the main thread pdfjs held the loop for seconds.
     let worstLag = 0;
     let last = performance.now();
     const ticker = setInterval(() => {
@@ -64,7 +64,7 @@ describe("parsePdfInWorker", () => {
     expect(error).toBeInstanceOf(PipelineError);
     expect((error as PipelineError).code).toBe("ANALYSIS_FAILED");
     // Loose bounds for a loaded test machine; in the main thread a 400 MB bomb
-    // held the loop for seconds (3.5 s at 200 MB, 39 s at 1 GB in the probe).
+    // held the loop for seconds (3.5 s at 200 MB, 39 s at 1 GB when measured).
     expect(elapsed).toBeLessThan(5_000);
     expect(worstLag).toBeLessThan(1_000);
     expect(pdfParseLoad()).toEqual({ running: 0, waiting: 0 });

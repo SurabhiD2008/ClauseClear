@@ -200,7 +200,7 @@ describe("chunked path", () => {
   });
 });
 
-describe("small parts for a capped provider (A95)", () => {
+describe("small parts for a capped provider", () => {
   const CAP = 3_072;
 
   it("reads again in parts whose calls all fit the cap when the uncapped provider fails", async () => {

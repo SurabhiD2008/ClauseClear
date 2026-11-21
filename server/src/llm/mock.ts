@@ -1,7 +1,7 @@
-// The mock provider (SPEC section 12): replays fixtures and injected failures so
+// The mock provider: replays fixtures and injected failures so
 // tests never need a key or the network. The scenario comes from MOCK_SCENARIO,
 // or, only when NODE_ENV is "test", from the x-mock-scenario request header,
-// carried to the provider through AsyncLocalStorage (ASSUMPTIONS A58).
+// carried to the provider through AsyncLocalStorage.
 import { AsyncLocalStorage } from "node:async_hooks";
 import { ENV_DEFAULTS, validResult } from "@clauseclear/shared";
 import {
@@ -22,6 +22,9 @@ export const MOCK_SCENARIOS = [
   "timeout",
   "malformed_json",
   "truncated_json",
+  "wrong_schema",
+  "refusal",
+  "prose_wrapped",
   "hallucinated_quotes",
   "half_wrong_quotes",
   "empty_result",
@@ -117,6 +120,13 @@ export function scenarioOutput(
       return JSON.stringify({ notLegal: true });
     case "malformed_json":
       return "{ this is not JSON";
+    case "wrong_schema":
+      // Valid JSON in the wrong shape: the schema check must catch it.
+      return JSON.stringify({ result: { issues: [{ text: "Clause 4 is risky." }] }, score: 42 });
+    case "refusal":
+      return "I'm sorry, but I can't help with reviewing this document.";
+    case "prose_wrapped":
+      return `Here is the analysis you asked for:\n\`\`\`json\n${JSON.stringify(fixture)}\n\`\`\`\nLet me know if you need more.`;
     case "truncated_json": {
       const full = JSON.stringify(fixture);
       return full.slice(0, Math.floor(full.length / 2));
@@ -129,7 +139,7 @@ export function scenarioOutput(
 export interface MockOptions {
   scenario: MockScenario;
   slowMs?: number;
-  /** "mock" by default; a second mock ("mock2") lets e2e prove fallback (A158). */
+  /** "mock" by default; a second mock ("mock2") lets e2e prove fallback. */
   name?: string;
 }
 

@@ -1,5 +1,5 @@
 // Everything the tool writes can be translated; quotes, segments, the document
-// title and glossary terms stay in the original English (SPEC section 2 language rule).
+// title and glossary terms stay in the original English (the language rule).
 import type { AnalysisResult, ChecklistItem, TranslationMap } from "./schemas.js";
 
 type Visit = (key: string, value: string) => string;
@@ -70,7 +70,7 @@ export function applyTranslations(result: AnalysisResult, map: TranslationMap): 
 
 /**
  * Every key extractTranslatable can produce, and nothing else: quotes, segments,
- * the title and glossary terms are never keys (A18), so /api/translate refuses them.
+ * the title and glossary terms are never keys, so /api/translate refuses them.
  */
 const TRANSLATABLE_KEY =
   /^(?:docTypeLabel|summary|keyFacts.[^.]+.(?:label|value)|flags.[^.]+.(?:category|title|plain|why)|clauses.[^.]+.(?:heading|plain)|questions.[^.]+.text|checklist.(?:before|after).[^.]+.text|glossary.[^.]+.definition)$/;

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useT } from "../i18n/useT";
 
 /**
- * Any unknown address (design.md section 8): the dashed error strip with a red
+ * Any unknown address: the dashed error strip with a red
  * stamp, a heading and the two ways on. The heading takes focus, so a screen
  * reader hears where it landed.
  */

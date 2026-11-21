@@ -1,4 +1,4 @@
-// The client side of the API contract (SPEC section 7). Every response is parsed
+// The client side of the API contract. Every response is parsed
 // with the shared zod schemas; any failure becomes an ApiError carrying the one
 // error body shape, so the UI has a single kind of error to show.
 import {
@@ -79,64 +79,71 @@ async function json<T>(
   return parsed.data;
 }
 
+/** The request for one analysis: JSON for pasted text, multipart for a PDF. */
+function analyzeInit(input: AnalyzeInput): RequestInit {
+  if (input.kind === "text") {
+    return {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
+      body: JSON.stringify(
+        input.docType === undefined
+          ? { text: input.text }
+          : { text: input.text, docType: input.docType },
+      ),
+    };
+  }
+  const form = new FormData();
+  // docType goes first: the server reads at most one field and one file.
+  if (input.docType !== undefined) form.append("docType", input.docType);
+  form.append("file", input.file, input.name ?? "document.pdf");
+  return { method: "POST", headers: { Accept: "text/event-stream" }, body: form };
+}
+
+/** Reads the event stream to its end, handing each valid event on; stops at the first invalid one. */
+async function readEvents(
+  body: NonNullable<Response["body"]>,
+  onEvent: StreamOptions["onEvent"],
+): Promise<void> {
+  // A holder, not a let: the parser callback sets it, which narrowing cannot see.
+  const stream: { failure: ApiError | null } = { failure: null };
+  const parser = createSseParser((raw) => {
+    if (stream.failure !== null) return;
+    const decoded = decodeAnalyzeEvent(raw);
+    if (decoded.type === "unknown") return;
+    if (decoded.type === "invalid") {
+      stream.failure = new ApiError(errorBody("ANALYSIS_FAILED"));
+      return;
+    }
+    onEvent(decoded);
+  });
+  const reader = body.pipeThrough(new TextDecoderStream()).getReader();
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      parser.push(value);
+      if (stream.failure !== null) break;
+    }
+  } finally {
+    parser.end();
+  }
+  if (stream.failure !== null) {
+    // Stop reading an off-contract stream; the server sees a disconnect and aborts.
+    await reader.cancel().catch(() => undefined);
+    throw stream.failure;
+  }
+}
+
 export function createApi(fetchImpl: Fetch = (input, init) => fetch(input, init)): Api {
   return {
     streamAnalysis: async (input, { signal, onEvent }) => {
-      let init: RequestInit;
-      if (input.kind === "text") {
-        init = {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
-          body: JSON.stringify(
-            input.docType === undefined
-              ? { text: input.text }
-              : { text: input.text, docType: input.docType },
-          ),
-        };
-      } else {
-        const form = new FormData();
-        // docType goes first: the server reads at most one field and one file.
-        if (input.docType !== undefined) form.append("docType", input.docType);
-        form.append("file", input.file, input.name ?? "document.pdf");
-        init = { method: "POST", headers: { Accept: "text/event-stream" }, body: form };
-      }
-
-      const response = await fetchImpl("/api/analyze", { ...init, signal });
+      const response = await fetchImpl("/api/analyze", { ...analyzeInit(input), signal });
       if (!response.ok) throw await errorFrom(response);
       const type = response.headers.get("Content-Type") ?? "";
       if (!type.startsWith("text/event-stream") || response.body === null) {
         throw new ApiError(errorBody("ANALYSIS_FAILED"));
       }
-
-      // A holder, not a let: the parser callback sets it, which narrowing cannot see.
-      const stream: { failure: ApiError | null } = { failure: null };
-      const parser = createSseParser((raw) => {
-        if (stream.failure !== null) return;
-        const decoded = decodeAnalyzeEvent(raw);
-        if (decoded.type === "unknown") return;
-        if (decoded.type === "invalid") {
-          stream.failure = new ApiError(errorBody("ANALYSIS_FAILED"));
-          return;
-        }
-        onEvent(decoded);
-      });
-
-      const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
-      try {
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          parser.push(value);
-          if (stream.failure !== null) break;
-        }
-      } finally {
-        parser.end();
-      }
-      if (stream.failure !== null) {
-        // Stop reading an off-contract stream; the server sees a disconnect and aborts.
-        await reader.cancel().catch(() => undefined);
-        throw stream.failure;
-      }
+      await readEvents(response.body, onEvent);
     },
 
     listSamples: async (signal) =>

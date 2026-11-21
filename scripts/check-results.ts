@@ -1,13 +1,13 @@
-// Correctness check over every fixture (prompt 19): the three bundled samples
+// Correctness check over every fixture: the three bundled samples
 // (English result and Hindi map) and every PDF in fixtures/docs run through the
 // real pipeline with the mock provider, in four mock scenarios and both the
 // single-call and chunked paths. No network, no key.
 //   npm run results:check
-// The checks are written here from SPEC sections 6 and 7, not imported from the
+// The checks are written here from the documented contract, not imported from the
 // schema's own invariant check, so they are a second, independent reading:
 //   1. every present flag's quote is an exact substring of its segment
 //   2. every id reference (segment, flag, term) resolves, and ids are unique
-//   3. the score recomputes from the flags with SPEC's formula, and its band
+//   3. the score recomputes from the flags with the documented formula, and its band
 //   4. counts match: stats.segments, score.counts, stats.chars, page numbers
 //   5. a sample's Hindi map has only known, translatable keys and the same numbers
 // Exits 1 if any check fails.
@@ -29,7 +29,7 @@ function expectThat(ok: boolean, what: string): void {
   if (!ok) failures.push(what);
 }
 
-/** SPEC section 6 "Scoring", written out again on purpose. */
+/** The README's scoring formula, written out again on purpose. */
 function specScore(flags: AnalysisResult["flags"]) {
   const n = (kind: string, severity: string) =>
     flags.filter((f) => f.kind === kind && f.severity === severity).length;
@@ -43,14 +43,12 @@ function specScore(flags: AnalysisResult["flags"]) {
   return { value, band, high: n("present", "high"), medium: n("present", "medium") };
 }
 
-/** Returns a one-line summary; records failures. */
-function checkResult(label: string, r: AnalysisResult): string {
-  const segments = new Map(r.segments.map((s) => [s.id, s]));
-  const flagIds = new Set(r.flags.map((f) => f.id));
-  const termIds = new Set(r.glossary.map((g) => g.id));
-  const at = (what: string) => `${label}: ${what}`;
+type At = (what: string) => string;
 
-  // 2. Unique ids across every collection.
+/** 1 and 2: unique ids, present flags quote their segment exactly, missing flags quote nothing. */
+function checkFlags(r: AnalysisResult, at: At): number {
+  const segments = new Map(r.segments.map((s) => [s.id, s]));
+  const termIds = new Set(r.glossary.map((g) => g.id));
   const all = [
     ...r.segments,
     ...r.flags,
@@ -62,8 +60,6 @@ function checkResult(label: string, r: AnalysisResult): string {
     ...r.glossary,
   ].map((x) => x.id);
   expectThat(new Set(all).size === all.length, at("duplicate ids"));
-
-  // 1 and 2. Flags.
   let quotes = 0;
   for (const f of r.flags) {
     if (f.kind === "present") {
@@ -82,6 +78,13 @@ function checkResult(label: string, r: AnalysisResult): string {
     }
     for (const t of f.termIds) expectThat(termIds.has(t), at(`flag ${f.id} term ${t} unknown`));
   }
+  return quotes;
+}
+
+/** 2: every segment and flag reference resolves. Returns how many references were checked. */
+function checkRefs(r: AnalysisResult, at: At): number {
+  const segments = new Set(r.segments.map((s) => s.id));
+  const flagIds = new Set(r.flags.map((f) => f.id));
   let refs = 0;
   const seg = (id: string | undefined, where: string) => {
     if (id === undefined) return;
@@ -110,16 +113,17 @@ function checkResult(label: string, r: AnalysisResult): string {
       flag(id, `checklist ${item.id}`);
     });
   });
+  return refs;
+}
 
-  // 3. Score.
+/** 3 and 4: the score recomputed from the flags, and the counts and stats. */
+function checkScore(r: AnalysisResult, at: At): void {
   const expected = specScore(r.flags);
   expectThat(
     r.score.value === expected.value,
     at(`score ${String(r.score.value)} != ${String(expected.value)}`),
   );
   expectThat(r.score.band === expected.band, at(`band ${r.score.band} != ${expected.band}`));
-
-  // 4. Counts.
   const missing = r.flags.filter((f) => f.kind === "missing").length;
   expectThat(r.score.counts.high === expected.high, at("counts.high"));
   expectThat(r.score.counts.medium === expected.medium, at("counts.medium"));
@@ -131,7 +135,14 @@ function checkResult(label: string, r: AnalysisResult): string {
     r.stats.chars >= r.segments.reduce((n, s) => n + s.text.length, 0) * 0.9,
     at("stats.chars"),
   );
+}
 
+/** Returns a one-line summary; records failures. */
+function checkResult(label: string, r: AnalysisResult): string {
+  const at = (what: string) => `${label}: ${what}`;
+  const quotes = checkFlags(r, at);
+  const refs = checkRefs(r, at);
+  checkScore(r, at);
   return `${String(r.flags.length).padStart(2)} flags (${String(quotes)} quoted), ${String(refs).padStart(2)} refs, ${String(r.segments.length).padStart(3)} segments, score ${String(r.score.value).padStart(3)} ${r.score.band}`;
 }
 

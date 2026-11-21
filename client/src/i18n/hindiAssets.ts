@@ -1,5 +1,5 @@
 // Loaded only by a dynamic import on the first toggle to Hindi, so Vite puts the
-// Hindi strings and the Devanagari font faces in their own chunk (SPEC section 9).
+// Hindi strings and the Devanagari font faces in their own chunk.
 import "@fontsource/noto-sans-devanagari/devanagari-400.css";
 import "@fontsource/noto-sans-devanagari/devanagari-600.css";
 import "@fontsource/noto-sans-devanagari/devanagari-700.css";
@@ -32,7 +32,7 @@ export const DEVANAGARI_FONT_WAIT_MS = FONT_WAIT_MS;
 
 /**
  * Loads the Devanagari faces before the Hindi strings go on screen, so Hindi
- * never moves when its fonts swap in (prompt 18, audit item 2). English stays on
+ * never moves when its fonts swap in. English stays on
  * screen with "Loading Hindi…" meanwhile.
  */
 export function loadDevanagariFonts(

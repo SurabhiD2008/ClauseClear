@@ -1,4 +1,4 @@
-// Rate and concurrency controls from SPEC section 5 rules 3 to 5. Every piece
+// Rate and concurrency controls. Every piece
 // takes a Clock so tests can drive time; the default clock is Date.now and
 // setTimeout, which Vitest's fake timers also control.
 import {

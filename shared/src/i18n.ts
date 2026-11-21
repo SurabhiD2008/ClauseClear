@@ -1,15 +1,15 @@
-// Language contracts shared by client and server (SPEC section 9, section 13 rule 2).
+// Language contracts shared by client and server.
 
 export const LANGS = ["en", "hi"] as const;
 export type Lang = (typeof LANGS)[number];
 
-/** First visit is always English, whatever the browser language (SPEC section 9). */
+/** First visit is always English, whatever the browser language. */
 export const DEFAULT_LANG: Lang = "en";
 
-/** localStorage key for the user's language choice (SPEC section 9). */
+/** localStorage key for the user's language choice. */
 export const LANG_STORAGE_KEY = "cc.lang";
 
-/** Any Devanagari character. Used by the language rule tests and the NOT_ENGLISH check (A11). */
+/** Any Devanagari character. Used by the language rule tests and the NOT_ENGLISH check. */
 export const DEVANAGARI_PATTERN = /[ऀ-ॿ]/;
 
 export function isLang(value: unknown): value is Lang {

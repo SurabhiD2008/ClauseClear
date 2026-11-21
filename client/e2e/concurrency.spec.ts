@@ -1,28 +1,10 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
 import { expect, test, type Page } from "./guard.js";
-import type { AnalysisResult } from "../../shared/src/schemas.js";
 import { SCENARIO_SERVERS } from "../../playwright.config.js";
+import { LEASE, rental } from "./helpers/data.js";
 
-// Prompt 17: concurrency through the browser and the API (SPEC section 13 rule 5,
-// Builds_skills.md section 9). The unit tests in client/src/state/analysis.test.ts
+// Concurrency through the browser and the API: a newer run supersedes an older
+// one, and a stale response is never shown. The unit tests in client/src/state/analysis.test.ts
 // cover the same guards on the store; these prove them on the real page and server.
-const ROOT = process.cwd();
-const rental = (
-  JSON.parse(readFileSync(path.join(ROOT, "fixtures/samples/rental.json"), "utf8")) as {
-    en: AnalysisResult;
-  }
-).en;
-
-const LEASE = [
-  "LEAVE AND LICENSE AGREEMENT FOR A FLAT IN PUNE",
-  "",
-  "1. The licensee shall pay a monthly licence fee of Rs. 25,000 on the fifth day of each month.",
-  "",
-  "2. The licensor may enter the premises at any time without notice to inspect them.",
-  "",
-  "3. If the licensee leaves before the lock-in ends, the licensee shall forfeit the whole deposit.",
-].join("\n");
 
 const LATE_TITLE = "LATE ANSWER FROM THE FIRST RUN";
 const lateBody = `event: status\ndata: {"step":"reading"}\n\nevent: result\ndata: ${JSON.stringify({ ...rental, title: LATE_TITLE })}\n\n`;
@@ -136,39 +118,41 @@ test("a second run after Cancel wins; the first run's late answer is ignored", a
   expect(calls).toHaveLength(2);
 });
 
-test("10 parallel API analyses respect the IP limit and the call queue", async ({
-  request,
-}, testInfo) => {
-  // One client IP for every project, so the limit can be spent only once.
-  test.skip(testInfo.project.name !== "desktop", "an API test, run once");
-  test.setTimeout(60_000);
-  const url = `http://127.0.0.1:${String(SCENARIO_SERVERS.limits)}/api/analyze?stream=0`;
-  const started = Date.now();
-  const responses = await Promise.all(
-    Array.from({ length: 10 }, () => request.post(url, { data: { text: LEASE } })),
-  );
-  const elapsed = Date.now() - started;
-  const statuses = responses.map((r) => r.status());
-  const bodies = (await Promise.all(responses.map((r) => r.json()))) as Record<string, unknown>[];
+// One client IP for every project, so the limit can be spent only once: the
+// @once tag runs this API test on the desktop project only (playwright.config.ts).
+test(
+  "10 parallel API analyses respect the IP limit and the call queue",
+  { tag: "@once" },
+  async ({ request }) => {
+    test.setTimeout(60_000);
+    const url = `http://127.0.0.1:${String(SCENARIO_SERVERS.limits)}/api/analyze?stream=0`;
+    const started = Date.now();
+    const responses = await Promise.all(
+      Array.from({ length: 10 }, () => request.post(url, { data: { text: LEASE } })),
+    );
+    const elapsed = Date.now() - started;
+    const statuses = responses.map((r) => r.status());
+    const bodies = (await Promise.all(responses.map((r) => r.json()))) as Record<string, unknown>[];
 
-  // IP_ANALYSES_PER_10_MIN=6 on that server: exactly 6 run, 4 are refused.
-  expect(statuses.filter((s) => s === 200)).toHaveLength(6);
-  expect(statuses.filter((s) => s === 429)).toHaveLength(4);
-  for (const [i, body] of bodies.entries()) {
-    if (statuses[i] === 429) {
-      expect(body.code).toBe("RATE_LIMITED");
-      expect(body.retryAfterSec).toBeGreaterThan(0);
-    } else {
-      expect(body.version).toBe(1);
-      expect(body.title).toMatch(/^LEAVE AND LICENSE AGREEMENT/);
+    // IP_ANALYSES_PER_10_MIN=6 on that server: exactly 6 run, 4 are refused.
+    expect(statuses.filter((s) => s === 200)).toHaveLength(6);
+    expect(statuses.filter((s) => s === 429)).toHaveLength(4);
+    for (const [i, body] of bodies.entries()) {
+      if (statuses[i] === 429) {
+        expect(body.code).toBe("RATE_LIMITED");
+        expect(body.retryAfterSec).toBeGreaterThan(0);
+      } else {
+        expect(body.version).toBe(1);
+        expect(body.title).toMatch(/^LEAVE AND LICENSE AGREEMENT/);
+      }
     }
-  }
-  // LLM_CONCURRENCY=2 with 1 s per mock call: 6 analyses need at least 3 rounds.
-  // Without the queue they would all finish in about 1 s.
-  expect(elapsed).toBeGreaterThanOrEqual(2_900);
-});
+    // LLM_CONCURRENCY=2 with 1 s per mock call: 6 analyses need at least 3 rounds.
+    // Without the queue they would all finish in about 1 s.
+    expect(elapsed).toBeGreaterThanOrEqual(2_900);
+  },
+);
 
-test("a doubled Space on Check this text starts one run and does not cancel it (A178)", async ({
+test("a doubled Space on Check this text starts one run and does not cancel it", async ({
   page,
 }) => {
   const { calls } = analyzeRequests(page);
@@ -182,7 +166,7 @@ test("a doubled Space on Check this text starts one run and does not cancel it (
   expect(calls).toHaveLength(1);
 });
 
-test("a double-click on a sample link opens it once: one fetch, one history entry (A178)", async ({
+test("a double-click on a sample link opens it once: one fetch, one history entry", async ({
   page,
 }) => {
   const samples: string[] = [];

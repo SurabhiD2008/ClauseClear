@@ -1,10 +1,10 @@
-// npm run screenshots (prompt 21): five fixed screenshots from the bundled
+// npm run screenshots: five fixed screenshots from the bundled
 // sample data, for the README. No AI calls, no keys.
-//   docs/screenshots/landing.png          landing page, desktop
-//   docs/screenshots/results-desktop.png  rental sample results, desktop
-//   docs/screenshots/results-mobile.png   rental sample results, phone
-//   docs/screenshots/checklist.png        the sample checklist, desktop
-//   docs/screenshots/results-hindi.png    rental sample results in Hindi, desktop
+//   media/landing.png          landing page, desktop
+//   media/results-desktop.png  rental sample results, desktop
+//   media/results-mobile.png   rental sample results, phone
+//   media/checklist.png        the sample checklist, desktop
+//   media/results-hindi.png    rental sample results in Hindi, desktop
 // Needs `npm run build` first. It starts the built server itself with the mock
 // provider on a spare port and stops it at the end; set SCREENSHOT_URL to use a
 // server that is already running instead.
@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { chromium, type Page } from "@playwright/test";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const outDir = join(root, "docs/screenshots");
+const outDir = join(root, "media");
 // Not 4190: fetch refuses it (a blocked port in the Fetch standard).
 const PORT = 4187;
 const DESKTOP = { width: 1440, height: 900 };
@@ -56,7 +56,7 @@ if (base === undefined) {
 async function settle(page: Page): Promise<void> {
   await page.evaluate(() => document.fonts.ready);
   await page.waitForLoadState("networkidle");
-  // The hero and the score are marked up as the page arrives (A184); wait for
+  // The hero and the score are marked up as the page arrives; wait for
   // every animation that ends, so the shot shows the finished mark-up.
   await page.evaluate(() =>
     Promise.all(
@@ -144,7 +144,7 @@ try {
     const { size } = await stat(path);
     const vp = page.viewportSize();
     console.log(
-      `  docs/screenshots/${file.padEnd(20)} ${String(vp?.width)}x${String(vp?.height)}  ${String(Math.round(size / 1024))} KB`,
+      `  media/${file.padEnd(20)} ${String(vp?.width)}x${String(vp?.height)}  ${String(Math.round(size / 1024))} KB`,
     );
     await page.context().close();
   }

@@ -1,6 +1,6 @@
 // The part of multer 2.5.0 this server uses, typed from its own JSDoc
 // (node_modules/multer/index.js). A local declaration instead of @types/multer,
-// which would be an unapproved dev dependency (ASSUMPTIONS A87).
+// which would be an unapproved dev dependency.
 declare module "multer" {
   import type { RequestHandler } from "express";
 

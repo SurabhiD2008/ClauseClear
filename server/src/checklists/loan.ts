@@ -1,4 +1,4 @@
-// SPEC section 8, "Loan or credit agreement".
+// Checklist: loan or credit agreement.
 import type { Checklist } from "@clauseclear/shared";
 
 export const loanChecklist: Checklist = {

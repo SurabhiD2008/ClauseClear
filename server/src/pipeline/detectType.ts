@@ -1,4 +1,4 @@
-// SPEC section 6 step 5: keyword scoring per type. Confident when the top score
+// Keyword scoring per type. Confident when the top score
 // is at least TYPE_CONFIDENT_MIN_SCORE and at least TYPE_CONFIDENT_RATIO times
 // the runner-up; otherwise one small model call on the first
 // TYPE_DETECT_SAMPLE_TOKENS of the document. The user can override later.
@@ -127,7 +127,7 @@ export function keywordScores(text: string): Record<KnownType, number> {
   return scores;
 }
 
-/** The confident type, or undefined when the scores do not meet the SPEC rule. */
+/** The confident type, or undefined when the scores do not meet the confidence rule above. */
 export function confidentType(scores: Record<KnownType, number>): KnownType | undefined {
   const ranked = (Object.entries(scores) as [KnownType, number][]).sort((a, b) => b[1] - a[1]);
   const [top, runnerUp] = ranked;
@@ -217,7 +217,7 @@ export async function detectType(
   } catch (error) {
     // The detection call is a convenience: if no provider can answer it, keep
     // the keyword leader at low confidence and let the analysis call decide
-    // whether providers are really down (ASSUMPTIONS A75).
+    // whether providers are really down.
     if (!(error instanceof LlmRouterError)) throw error;
     const ranked = (Object.entries(scores) as [KnownType, number][]).sort((a, b) => b[1] - a[1]);
     const leader = ranked[0];

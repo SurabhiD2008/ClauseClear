@@ -5,5 +5,7 @@ export default defineConfig({
     name: "shared",
     environment: "node",
     include: ["src/**/*.test.ts"],
+    // A test that asserts nothing fails, so every test proves something.
+    expect: { requireAssertions: true },
   },
 });

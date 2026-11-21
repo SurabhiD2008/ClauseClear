@@ -1,4 +1,4 @@
-// SPEC section 6 step 4: split the normalised text into clause segments.
+// Split the normalised text into clause segments.
 // Boundaries: blank lines, numbered headings ("4.", "4.2", "Clause 7"), "(a)"
 // items and ALL-CAPS headings. Anything over SEGMENT_MAX_CHARS is split at
 // sentence ends. Ids are s1, s2, ... in reading order, so the same text always

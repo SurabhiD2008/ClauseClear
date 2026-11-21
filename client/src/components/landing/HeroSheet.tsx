@@ -4,7 +4,7 @@ import { Stamp } from "../motifs/Stamp";
 import { FoundTick } from "./FoundTick";
 
 /**
- * The annotated sheet beside the hero (design.md section 5.1): a job-offer page
+ * The annotated sheet beside the hero: a job-offer page
  * with the non-compete marked up, a handwritten note, and a flag slip over its
  * lower edge. It illustrates a result, so it is hidden from assistive tech; the
  * excerpt is document text and stays English.

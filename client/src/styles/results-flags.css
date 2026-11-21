@@ -1,0 +1,278 @@
+/* Results page: the flag list, flag slips, glossary notes and quote strips. */
+
+/* --- Flags --- */
+.cc-flags__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.cc-filter {
+  display: flex;
+  gap: 4px;
+}
+
+.cc-filter__button {
+  background: linear-gradient(var(--highlighter), var(--highlighter)) no-repeat center bottom / 0%
+    5px;
+  transition:
+    color var(--dur-quick) var(--ease-out),
+    background-size var(--dur-open) var(--ease-out);
+}
+
+.cc-filter__button:hover {
+  color: var(--ink);
+}
+
+.cc-filter__button {
+  min-width: var(--touch);
+  min-height: var(--touch);
+  padding: 4px 10px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-filter__button[aria-pressed="true"] {
+  color: var(--ink);
+  background-size: 100% 5px;
+}
+
+.cc-flags__empty {
+  padding: 18px 0;
+  border-top: var(--rule-thin) solid var(--rule);
+  font-size: 18px;
+}
+
+.cc-flag-list {
+  margin: 0 -14px;
+  padding: 0;
+  list-style: none;
+}
+
+/* A flag is a slip in a stack: it lifts under the pointer, and the open one is
+   a white sheet with the heavy rule on top. */
+.cc-flag {
+  border-top: var(--rule-thin) solid var(--rule);
+  transition:
+    background-color var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-quick) var(--ease-out);
+}
+
+.cc-flag:hover {
+  background: var(--white);
+}
+
+.cc-flag[data-open="true"] {
+  border-top: var(--rule-block) solid var(--ink);
+  background: var(--white);
+  box-shadow: var(--shadow-sheet);
+}
+
+.cc-flag[data-open="true"] + .cc-flag {
+  border-top-color: transparent;
+}
+
+.cc-flag__heading {
+  font: inherit;
+}
+
+.cc-flag__head {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) 32px;
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+  min-height: var(--touch);
+  padding: 18px 14px;
+  text-align: left;
+}
+
+.cc-flag__head:focus-visible {
+  outline-offset: -3px;
+}
+
+.cc-flag__number {
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cc-flag--high .cc-flag__number {
+  color: var(--red-text);
+}
+
+.cc-flag--medium .cc-flag__number {
+  color: var(--orange-text);
+}
+
+.cc-flag--missing .cc-flag__number {
+  color: var(--pen-blue);
+}
+
+.cc-flag__label {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.cc-flag__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.cc-flag__sign {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: var(--rule-section) solid var(--ink);
+  background: var(--white);
+  font-family: var(--font-label);
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  color: var(--ink);
+  transition: background-color var(--dur-quick) var(--ease-out);
+}
+
+.cc-flag__head:hover .cc-flag__sign,
+.cc-flag[data-open="true"] .cc-flag__sign {
+  background: var(--highlighter);
+}
+
+.cc-flag__body {
+  display: grid;
+  gap: 10px;
+  padding: 0 14px 28px 82px;
+}
+
+/* Opening a flag unfolds its reading. */
+@media (prefers-reduced-motion: no-preference) {
+  .cc-flag__body:not([hidden]) {
+    animation: cc-unfold var(--dur-open) var(--ease-out);
+  }
+}
+
+@keyframes cc-unfold {
+  from {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+
+.cc-flag__plain {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.cc-flag__why-label {
+  margin-top: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-flag__why {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* The note floats under its text block instead of pushing the rows below it:
+   hover opens and closes it, and a layout jump would move the next button
+   away from the pointer. It is anchored to the block, so it stays on screen. */
+.cc-gloss-text {
+  position: relative;
+}
+
+.cc-gloss-text .cc-gloss__tip {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 12px;
+  z-index: 5;
+  width: min(290px, calc(100% - 12px));
+}
+
+/* No room below inside the window or the scrolling panel: the note sits above. */
+.cc-gloss-text .cc-gloss__tip--above {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
+/* In the document viewer the note lines up with the clause text, past the circles. */
+.cc-doc__segment.cc-gloss-text .cc-gloss__tip {
+  left: 44px;
+  width: min(290px, calc(100% - 44px));
+}
+
+/* A clause reading with glossary terms is wrapped; the wrapper takes its grid cell. */
+.cc-clause > .cc-gloss-text {
+  min-width: 0;
+}
+
+/* Read aloud: a secondary button, or a one-line hint without a voice. */
+.cc-read {
+  margin-top: 14px;
+}
+
+.cc-read-pending {
+  height: 52px;
+  margin-top: 14px;
+}
+
+.cc-read-hint {
+  min-height: 52px;
+  margin-top: 14px;
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Quote strip: dashed border, caption, the quote over a marker, "Found in your document". */
+.cc-quote {
+  margin: 10px 0 0;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--quote-border);
+  background: var(--paper);
+  transform: rotate(var(--tilt-quote));
+}
+
+.cc-quote__caption {
+  margin-bottom: 8px;
+  font-family: var(--font-label);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-quote__text {
+  margin: 0;
+  font-family: var(--font-reading);
+  font-size: 17px;
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.cc-missing-box {
+  margin-top: 10px;
+  padding: 16px 18px;
+  border: var(--rule-thin) dashed var(--pen-blue);
+  background: var(--paper);
+  color: var(--pen-blue-dark);
+  font-size: 17px;
+}

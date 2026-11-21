@@ -1,4 +1,4 @@
-// Turns raw model text into a validated value (SPEC section 5 rule 6). Provider
+// Turns raw model text into a validated value. Provider
 // JSON mode is never trusted on its own: text is fence-stripped, parsed and
 // checked with zod. Malformed or truncated JSON is a plain BadOutputError (the
 // router moves to the next provider). JSON that parses but fails the schema

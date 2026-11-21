@@ -136,7 +136,7 @@ describe("GET /api/samples", () => {
       expect(Object.keys(sample.hi).sort()).toEqual(
         Object.keys(extractTranslatable(sample.en)).sort(),
       );
-      // The response is { en, hi } only (SPEC section 7).
+      // The response is { en, hi } only.
       expect(Object.keys(res.body as object).sort()).toEqual(["en", "hi"]);
     }
     expect(generate).not.toHaveBeenCalled();
@@ -153,7 +153,7 @@ describe("GET /api/samples", () => {
   });
 });
 
-describe("GET /api/samples/:id compression (prompt 19, A179)", () => {
+describe("GET /api/samples/:id compression", () => {
   it("answers brotli when asked, plain JSON otherwise, with the same body", async () => {
     const app = createApp();
     const plain = await request(app).get("/api/samples/rental").set("Accept-Encoding", "identity");

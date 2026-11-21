@@ -3,7 +3,7 @@
 import type { Flag, GlossaryEntry, Segment } from "@clauseclear/shared";
 import { orderFlags } from "./flags";
 
-/** A flag's number is its place in the ranked list (SPEC F7), the same in the list and the viewer. */
+/** A flag's number is its place in the ranked list, the same in the list and the viewer. */
 export function flagNumbers(flags: readonly Flag[]): Map<string, number> {
   return new Map(orderFlags(flags).map((flag, i) => [flag.id, i + 1]));
 }
@@ -71,7 +71,7 @@ export interface TermHit<T> {
 }
 
 /**
- * Finds the first whole-word occurrence of each term in one paragraph (SPEC F18,
+ * Finds the first whole-word occurrence of each term in one paragraph (
  * "underlined where they appear"). Matching ignores case; the text keeps its own
  * casing. A letter, digit or combining mark (Devanagari vowel signs) next to the
  * match means it is part of a longer word. Overlapping hits keep the earlier term.

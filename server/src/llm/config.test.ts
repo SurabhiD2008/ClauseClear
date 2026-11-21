@@ -20,7 +20,7 @@ describe("readLlmConfig", () => {
     expect(config.skipped).toEqual([]);
   });
 
-  it("uses the SPEC section 5 defaults", () => {
+  it("uses the documented defaults", () => {
     const config = readLlmConfig(full);
     expect(config.providers.map((p) => [p.rpm, p.rpdBudget])).toEqual([
       [ENV_DEFAULTS.GEMINI_RPM, ENV_DEFAULTS.GEMINI_RPD_BUDGET],
@@ -44,7 +44,7 @@ describe("readLlmConfig", () => {
     );
   });
 
-  it("reads <NAME>_MAX_OUTPUT_TOKENS as a per-provider output cap (A95)", () => {
+  it("reads <NAME>_MAX_OUTPUT_TOKENS as a per-provider output cap", () => {
     expect(readLlmConfig(full).providers.map((p) => p.maxOutputTokens)).toEqual([
       undefined,
       undefined,
@@ -113,7 +113,7 @@ describe("readLlmConfig", () => {
     expect(router.providerNames).toEqual(["nvidia", "gemini", "mock"]);
   });
 
-  it("a second mock has its own scenario and delay; the first keeps MOCK_SCENARIO (A158)", () => {
+  it("a second mock has its own scenario and delay; the first keeps MOCK_SCENARIO", () => {
     const config = readLlmConfig({
       LLM_PROVIDER_ORDER: "mock,mock2",
       MOCK_SCENARIO: "rate_limit",
@@ -129,7 +129,7 @@ describe("readLlmConfig", () => {
     ).toThrow("MOCK2_SCENARIO");
   });
 
-  it("a 429 from the first mock falls back to the second, which answers (A158)", async () => {
+  it("a 429 from the first mock falls back to the second, which answers", async () => {
     const router = createRouterFromConfig(
       readLlmConfig({
         LLM_PROVIDER_ORDER: "mock,mock2",

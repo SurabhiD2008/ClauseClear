@@ -4,7 +4,7 @@ import { checkProviders } from "./startup.js";
 
 const FAKE = "not-a-real-key-startup-test-0123456789";
 
-describe("checkProviders (prompt 20, A181)", () => {
+describe("checkProviders", () => {
   it("refuses when no provider is configured and the mode is not mock", () => {
     const check = checkProviders(readLlmConfig({ LLM_PROVIDER_ORDER: "gemini,nvidia" }));
     expect(check.ok).toBe(false);

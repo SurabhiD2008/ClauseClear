@@ -1,0 +1,258 @@
+/* Landing page: the numbered sections below the hero. */
+
+/* --- Sections: a rule above, a 220 px label column, then the content --- */
+.cc-band {
+  position: relative;
+  padding-block: clamp(56px, 7vw, 104px);
+}
+
+.cc-band__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  column-gap: 64px;
+  row-gap: 24px;
+  align-items: start;
+}
+
+/* §2 is written on the legal pad: yellow paper, a perforated top edge, and the
+   red margin line between the label and the steps. */
+.cc-band--pad {
+  background: var(--legal-pad);
+  border-block: var(--rule-thin) solid var(--legal-pad-border);
+}
+
+.cc-band--pad::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  border-top: 2px dotted var(--legal-pad-rule);
+}
+
+.cc-band--pad > .cc-band__grid::after {
+  content: "";
+  position: absolute;
+  top: calc(clamp(56px, 7vw, 104px) * -1 + 17px);
+  bottom: calc(clamp(56px, 7vw, 104px) * -1);
+  left: calc(var(--gutter) + 220px + 31px);
+  width: 1.5px;
+  background: var(--margin-line);
+}
+
+.cc-band--pad .cc-ledger__row {
+  border-top-color: var(--legal-pad-rule);
+}
+
+.cc-band--pad .cc-ledger__row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.cc-band__note {
+  max-width: 540px;
+  margin-top: 26px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+/* §1 */
+.cc-feed li {
+  padding-block: 8px 10px;
+  border-bottom: var(--rule-thin) solid var(--rule);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4.6vw, 64px);
+  font-weight: 800;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+/* Run the pointer down the list and the marker follows it. */
+.cc-feed__text {
+  padding-inline: 0.12em;
+  margin-inline: -0.12em;
+  background: linear-gradient(var(--highlighter), var(--highlighter)) no-repeat 0 62% / 0% 58%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size var(--dur-open) var(--ease-out);
+}
+
+.cc-feed li:hover .cc-feed__text {
+  background-size: 100% 58%;
+}
+
+.cc-feed li:last-child {
+  border-bottom: 0;
+}
+
+/* The quotes hug the highlight, as in landing.png; the marker's padding stays inside them. */
+.cc-feed .cc-marker {
+  margin-inline: -0.1em;
+}
+
+/* §2 */
+.cc-ledger__row {
+  display: grid;
+  grid-template-columns: clamp(64px, 12vw, 176px) minmax(0, 1fr);
+  gap: 8px 12px;
+  align-items: start;
+  padding-block: 30px 34px;
+  border-top: var(--rule-thin) solid var(--rule);
+}
+
+.cc-ledger__n {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7.4vw, 104px);
+  font-weight: 900;
+  letter-spacing: var(--tracking-display);
+  line-height: 0.86;
+  color: var(--pen-blue);
+}
+
+.cc-ledger__title {
+  margin-bottom: 8px;
+  font-size: clamp(24px, 2.8vw, 38px);
+  line-height: 1.12;
+}
+
+.cc-ledger__text {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+/* §3 */
+.cc-extras {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 48px 64px;
+}
+
+.cc-extras__title {
+  font-size: clamp(23px, 2vw, 27px);
+  line-height: 1.15;
+}
+
+.cc-extras__text {
+  max-width: 460px;
+  margin: 12px 0 22px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.cc-extras__sheet {
+  margin-bottom: 18px;
+}
+
+.cc-teaser-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* The box sits on the first ruled line, so a wrapped item reads as one entry. */
+.cc-teaser-item__box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 12px;
+}
+
+.cc-teaser-item__box path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.cc-gloss {
+  padding: 18px 22px 24px;
+  border: var(--rule-thin) solid var(--rule);
+  background: var(--white);
+  box-shadow: var(--shadow-sheet);
+}
+
+.cc-extras__sheet {
+  box-shadow: var(--shadow-sheet);
+}
+
+.cc-gloss__label {
+  margin-bottom: 8px;
+  font-family: var(--font-label);
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cc-gloss__text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* The term is a button set as text. Its padding makes a 44 px target, and the
+   equal negative margin keeps the line height unchanged. */
+.cc-term {
+  display: inline-block;
+  padding-block: 10px;
+  margin-block: -10px;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline dotted var(--pen-blue) 2px;
+  text-underline-offset: 5px;
+  transition: background-color var(--dur-quick) var(--ease-out);
+}
+
+.cc-term:hover,
+.cc-term[aria-expanded="true"] {
+  background: linear-gradient(
+    transparent 22%,
+    var(--highlighter) 22%,
+    var(--highlighter) 78%,
+    transparent 78%
+  );
+}
+
+/* A term and the punctuation after it stay on one line. */
+.cc-term-keep {
+  white-space: nowrap;
+}
+
+.cc-gloss__tip {
+  margin: 10px 0 0 12px;
+}
+
+.cc-gloss__tip .cc-sticky {
+  display: block;
+}
+
+/* §4 */
+.cc-contract {
+  max-width: 820px;
+  padding: clamp(20px, 2.4vw, 28px) clamp(18px, 2.6vw, 32px);
+  border: var(--rule-strong) solid var(--ink);
+  background: var(--white);
+  font-family: var(--font-label);
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.85;
+  color: var(--ink);
+  box-shadow: 10px 10px 0 var(--highlighter);
+}
+
+.cc-contract__clause {
+  display: grid;
+  grid-template-columns: 3.2em minmax(0, 1fr);
+  gap: 8px;
+}
+
+.cc-contract__clause + .cc-contract__clause {
+  margin-top: 14px;
+}
+
+.cc-contract__n {
+  font-weight: 700;
+}

@@ -1,5 +1,5 @@
 // Original text written for ClauseClear tests. The service and company are fictional.
-// Every terms-of-service category in SPEC section 8 is present, and several are written
+// Every terms-of-service checklist category is present, and several are written
 // to be flagged. No data deletion route or complaint contact is given (part of "Missing basics").
 import { h, p, title, type DocumentSpec } from "./layout.js";
 

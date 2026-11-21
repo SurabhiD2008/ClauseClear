@@ -1,4 +1,4 @@
-// Translate on demand (SPEC section 6 step 11, section 5 call budget). Strings
+// Translate on demand, within the call budget. Strings
 // are packed into batches of about TRANSLATE_BATCH_TOKENS, one call each. Every
 // output is checked against its input's numbers; mismatched or missing keys get
 // one more call, and anything still wrong stays English and is reported.

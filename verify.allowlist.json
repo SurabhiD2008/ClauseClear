@@ -1,0 +1,236 @@
+[
+  {
+    "rule": "duplicate-file",
+    "file": ".nvmrc",
+    "line": null,
+    "reason": "Node version managers read .nvmrc and hosts such as Railway read .node-version; both must hold the same pinned version."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/checklist.spec.ts",
+    "line": "(window as unknown as { printed: number }).printed = 0;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/checklist.spec.ts",
+    "line": "(window as unknown as { printed: number }).printed += 1;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/checklist.spec.ts",
+    "line": "expect(await page.evaluate(() => (window as unknown as { printed: number }).printed)).toBe(1);",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/guard/layoutShift.ts",
+    "line": "window as unknown as {",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/helpers/flows.ts",
+    "line": "const w = window as unknown as { __ccAnalyzeBody?: Promise<string>; __ccTee?: boolean };",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/helpers/flows.ts",
+    "line": "() => (window as unknown as { __ccAnalyzeBody?: Promise<string> }).__ccAnalyzeBody,",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/helpers/flows.ts",
+    "line": "() => (window as unknown as { __ccAnalyzeBody: Promise<string> }).__ccAnalyzeBody,",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/results-actions.spec.ts",
+    "line": "(window as unknown as { __copied: string[] }).__copied = copied;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "suppression",
+    "file": "client/e2e/results-actions.spec.ts",
+    "line": "// eslint-disable-next-line @typescript-eslint/no-deprecated -- stubbing the fallback the page uses",
+    "reason": "A test stub of a browser API; the reason is on the line."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/results-actions.spec.ts",
+    "line": "expect(await page.evaluate(() => (window as unknown as { __copied: string[] }).__copied)).toEqual(",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/results.spec.ts",
+    "line": "(window as unknown as { __scrolls: string[] }).__scrolls = calls;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "suppression",
+    "file": "client/e2e/results.spec.ts",
+    "line": "// eslint-disable-next-line @typescript-eslint/unbound-method -- called with Reflect.apply and the right this",
+    "reason": "A test stub of a browser API; the reason is on the line."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/results.spec.ts",
+    "line": ".poll(() => page.evaluate(() => (window as unknown as { __scrolls: string[] }).__scrolls))",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/speech.spec.ts",
+    "line": "const w = window as unknown as {",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/speech.spec.ts",
+    "line": "(window as unknown as { SpeechSynthesisUtterance: unknown }).SpeechSynthesisUtterance =",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/speech.spec.ts",
+    "line": "page.evaluate(() => (window as unknown as { spoken: Spoken[] }).spoken);",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/speech.spec.ts",
+    "line": "page.evaluate(() => (window as unknown as { cancels: number }).cancels);",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/speech.spec.ts",
+    "line": "const w = window as unknown as { utterances: EventTarget[] };",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/states.spec.ts",
+    "line": "(window as unknown as { printed: number }).printed = 0;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/states.spec.ts",
+    "line": "(window as unknown as { printed: number }).printed += 1;",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/e2e/states.spec.ts",
+    "line": "expect(await page.evaluate(() => (window as unknown as { printed: number }).printed)).toBe(1);",
+    "reason": "Reads or stubs a test-only property on window inside page.evaluate, where the page's own types are not available."
+  },
+  {
+    "rule": "planning-reference",
+    "file": "client/e2e/states.spec.ts",
+    "line": "// The @page rule makes the printed paper A4 (595 x 842 points).",
+    "reason": "A4 is the paper size of the printed report, not an assumption id."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/src/lib/clicks.test.ts",
+    "line": "doc.addEventListener(\"click\", (e) => seen.push((e as unknown as { detail: number }).detail));",
+    "reason": "A partial fake of a browser object in a unit test; the code under test uses only the members provided."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/src/lib/clipboard.test.ts",
+    "line": "return { doc: doc as unknown as ClipboardEnv[\"document\"], area, focus, raw: doc };",
+    "reason": "A partial fake of a browser object in a unit test; the code under test uses only the members provided."
+  },
+  {
+    "rule": "suppression",
+    "file": "client/src/lib/clipboard.ts",
+    "line": "// eslint-disable-next-line @typescript-eslint/no-deprecated -- execCommand is the only copy route when the Clipboard API is missing or refused",
+    "reason": "execCommand is deprecated but is the only way to copy when the Clipboard API is missing or refused; the reason is on the line."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/src/lib/speech.test.ts",
+    "line": "return { win: { speechSynthesis: synth, setTimeout } as unknown as Window, synth };",
+    "reason": "A partial fake of a browser object in a unit test; the code under test uses only the members provided."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "client/src/lib/speech.test.ts",
+    "line": "const player = createSpeechPlayer({ setTimeout } as unknown as Window);",
+    "reason": "A partial fake of a browser object in a unit test; the code under test uses only the members provided."
+  },
+  {
+    "rule": "planning-reference",
+    "file": "client/src/styles/print.css",
+    "line": "/* The printed report: A4, black on white, no",
+    "reason": "A4 is the paper size of the printed report, not an assumption id."
+  },
+  {
+    "rule": "hardcoded-host-or-path",
+    "file": "client/vite.config.ts",
+    "line": "\"/api\": `http://localhost:${apiPort}`,",
+    "reason": "The Vite dev server proxies /api to the local API on the configured port; development only, never in a build."
+  },
+  {
+    "rule": "version-range",
+    "file": "package.json",
+    "line": "\"node\": \">=24 <25\"",
+    "reason": "engines is how Vercel and npm choose the Node major version, which needs a range; the exact version is pinned in .nvmrc and .node-version."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "scripts/build-fixtures.ts",
+    "line": "const shaper = (devanagari as unknown as { embedder: { font: FontkitFont } }).embedder.font;",
+    "reason": "Reaches pdf-lib's font embedder, which the library does not type, to shape Devanagari for a test PDF."
+  },
+  {
+    "rule": "planning-reference",
+    "file": "scripts/eval.ts",
+    "line": "// hard cap on calls, saving the run to .planning/evidence/ (never committed).",
+    "reason": "The verify report and live evaluation evidence are written to the git-ignored local folder by design; nothing in the repository reads them."
+  },
+  {
+    "rule": "suppression",
+    "file": "scripts/measure-layout.ts",
+    "line": "// eslint-disable-next-line max-lines-per-function -- page.evaluate sends this function to the browser on its own, so its helpers must live inside it",
+    "reason": "page.evaluate sends this function to the browser on its own, so its helpers must live inside it; the reason is on the line."
+  },
+  {
+    "rule": "hardcoded-host-or-path",
+    "file": "scripts/screenshots.ts",
+    "line": "base = `http://127.0.0.1:${String(PORT)}`;",
+    "reason": "The screenshot script starts its own local server and points the browser at it."
+  },
+  {
+    "rule": "planning-reference",
+    "file": "scripts/verify/index.ts",
+    "line": "// .planning/VERIFY.md, full logs to audit/logs/, and the exit code is 1 if",
+    "reason": "The verify report and live evaluation evidence are written to the git-ignored local folder by design; nothing in the repository reads them."
+  },
+  {
+    "rule": "hardcoded-host-or-path",
+    "file": "server/src/app.ts",
+    "line": "\"connect-src 'self' http://localhost:* http://127.0.0.1:*\",",
+    "reason": "Only the end-to-end guard's self-test pages get this CSP, so they can show the guard catching requests to other local origins; never mounted in production."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "shared/src/schemas.test.ts",
+    "line": "r.version = 2 as unknown as 1;",
+    "reason": "Feeds the schema a value its type forbids, to prove the schema rejects it."
+  },
+  {
+    "rule": "unchecked-cast",
+    "file": "shared/src/schemas.test.ts",
+    "line": "r.docType = \"insurance\" as unknown as \"other\";",
+    "reason": "Feeds the schema a value its type forbids, to prove the schema rejects it."
+  }
+]

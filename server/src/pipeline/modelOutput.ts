@@ -1,8 +1,8 @@
-// What the model is asked to return (SPEC section 6 steps 5 to 7). These are
+// What the model is asked to return. These are
 // the server's internal contracts with the model, not the public API: the
 // public AnalysisResult in /shared is assembled from them in code. Objects
 // strip unknown keys, because models add fields; every length limit matches the
-// public schema so nothing has to be cut later (ASSUMPTIONS A73).
+// public schema so nothing has to be cut later.
 import {
   CONFIDENCES,
   DOC_TYPES,
@@ -31,7 +31,7 @@ export const modelFlagSchema = z.object({
   id: z.string().regex(/^f[1-9]\d*$/),
   categoryId,
   severity: z.enum(SEVERITIES),
-  /** Required when severity differs from the category default (SPEC section 8). */
+  /** Required when severity differs from the category default. */
   severityReason: z.string().trim().max(EXPLANATION_MAX_CHARS).optional(),
   segmentId,
   quote: z.string().trim().min(1).max(EXPLANATION_MAX_CHARS),
@@ -66,7 +66,7 @@ export const modelQuestionSchema = z.object({ text: explanation, refs });
 export const modelChecklistItemSchema = z.object({ text: explanation, refs });
 export const modelGlossarySchema = z.object({ term: title, definition: explanation });
 
-/** The model's answer when the text is not a legal document (SPEC section 6 step 8). */
+/** The model's answer when the text is not a legal document. */
 export const notLegalSchema = z.object({ notLegal: z.literal(true) });
 
 const synthesisFields = {

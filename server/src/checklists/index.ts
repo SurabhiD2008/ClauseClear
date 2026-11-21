@@ -1,4 +1,4 @@
-// One checklist per document type (SPEC section 8). "other" gets the general reading.
+// One checklist per document type. "other" gets the general reading.
 import type { Checklist, DocType } from "@clauseclear/shared";
 import { employmentChecklist } from "./employment.js";
 import { generalChecklist } from "./general.js";

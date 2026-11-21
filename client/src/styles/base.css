@@ -1,4 +1,4 @@
-/* Reset, base typography, focus and motion rules (SPEC sections 10 and 11). */
+/* Reset, base typography, focus and motion rules. */
 *,
 *::before,
 *::after {
@@ -95,7 +95,7 @@ a:hover {
   color: var(--ink);
 }
 
-/* A visible 3 px focus ring on every interactive element (SPEC section 11). */
+/* A visible 3 px focus ring on every interactive element. */
 :focus-visible {
   outline: var(--focus-ring) solid var(--focus-color);
   outline-offset: 2px;
@@ -165,7 +165,7 @@ a:hover {
   top: 8px;
 }
 
-/* Hindi mode (SPEC section 9, design.md section 6): Devanagari faces first, so
+/* Hindi mode: Devanagari faces first, so
    Latin characters still fall through to the English faces; taller line-height
    and smaller headlines. */
 html:lang(hi) {
@@ -190,7 +190,7 @@ html:lang(hi) [lang="en"] {
 }
 
 /* Motion is limited to a short scroll to the clause, and stops entirely under
-   reduced motion (SPEC sections 10 and 11). */
+   reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;

@@ -1,5 +1,5 @@
-// SPEC section 8, "Rental or leave-and-license". Names and defaults are the
-// SPEC table; ids are stable keys for prompts and merges.
+// Checklist: rental or leave-and-license agreement. Ids are stable keys for
+// prompts and merges.
 import type { Checklist } from "@clauseclear/shared";
 
 export const rentalChecklist: Checklist = {

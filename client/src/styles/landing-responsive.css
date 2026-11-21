@@ -1,0 +1,68 @@
+/* Landing page: responsive rules. */
+
+/* --- Responsive --- */
+@media (max-width: 1023.98px) {
+  /* Stacked, the sheet is at the foot of the band, so the lamp moves there. */
+  .cc-hero-band::before {
+    background: radial-gradient(90% 34% at 50% 82%, var(--lamp), transparent 75%);
+  }
+
+  .cc-hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+  }
+
+  .cc-hero__art {
+    position: static;
+    max-width: 560px;
+  }
+
+  .cc-extras {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .cc-band__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cc-band--pad > .cc-band__grid::after {
+    display: none;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .cc-upload {
+    padding: 26px 12px 12px;
+    box-shadow: 6px 6px 0 var(--highlighter);
+  }
+
+  .cc-upload__glyph {
+    width: 40px;
+    height: 50px;
+  }
+
+  .cc-contract,
+  .cc-dialog {
+    box-shadow: 6px 6px 0 var(--highlighter);
+  }
+
+  .cc-upload__actions,
+  .cc-upload__actions .cc-button {
+    width: 100%;
+  }
+
+  .cc-slip {
+    margin: -18px 0 0 10px;
+    box-shadow: 5px 5px 0 var(--highlighter);
+  }
+
+  .cc-hero-sheet {
+    padding: 22px 16px 24px;
+  }
+
+  .cc-hero-sheet__under {
+    inset: 8px 0 14px 4px;
+  }
+}
